@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DontMailMe — Stop the noise.</title>
+    <meta property="og:title" content="DontMailMe — Stop the noise.">
+    <meta property="og:description" content="Auto-unsubscribe from newsletters. Runs locally. Zero data access. Plants trees.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dontmailme.org">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <a href="/" class="brand">DontMailMe.org</a>
+    <nav class="nav-links">
+        <a href="/gmail">Gmail Tool</a>
+        <a href="/outlook">Outlook</a>
+        <a href="/impact">Impact</a>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <h1>We just stop the noise and plant trees.</h1>
+        <p>DontMailMe auto-unsubscribes you from newsletters you never read. It runs locally inside your own cloud — we never see your data. Every cleanup prevents CO₂, every donation plants a tree.</p>
+        <a href="/gmail" class="btn">Start your cleanup — free</a>
+        <p style="margin-top: 24px; font-size: 0.9rem; color: var(--text-muted);">
+            Open source &middot; RFC 8058 secure &middot; Zero data access
+        </p>
+    </section>
+
+    <section id="calculator">
+        <div class="calculator-box">
+            <h2>Your Impact Calculator</h2>
+            <p style="color: var(--text-muted); margin-top: 8px; margin-bottom: 32px;">See what your donation and unsubscriptions achieve.</p>
+            
+            <div class="slider-container">
+                <label style="display:block; margin-bottom: 8px; font-size: 1.1rem; font-weight: 500;">
+                    Newsletters unsubscribed: <span id="unsub-val">20</span>
+                </label>
+                <input type="range" id="unsub-slider" min="1" max="100" value="20" step="1">
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric">
+                    <strong id="out-co2">20</strong> kg CO₂
+                    prevented per year
+                </div>
+                <div class="metric">
+                    <strong id="out-car">119</strong> km
+                    driven in a car
+                </div>
+                <div class="metric">
+                    <strong id="out-led">114</strong> days
+                    of an LED bulb
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border); margin: 48px 0 32px;">
+
+            <div class="slider-container">
+                <label style="display:block; margin-bottom: 8px; font-size: 1.1rem; font-weight: 500;">
+                    Donation: €<span id="price-val">5</span>
+                </label>
+                <input type="range" id="price-slider" min="1" max="50" value="5" step="1">
+            </div>
+
+            <p style="font-size: 1.1rem; margin-bottom: 24px;">
+                Funds the project and plants <strong id="tree-count">2</strong> <span id="tree-label">trees</span>.
+            </p>
+
+            <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn" style="width: 100%; max-width: 300px;">Donate & Support</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>A Green IT Suite initiative. Built for personal productivity and planetary health.</p>
+    <div style="margin-top: 16px; display: flex; justify-content: center; gap: 16px;">
+        <a href="https://github.com/sein-io">GitHub</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="imprint.html">Imprint</a>
+    </div>
+</footer>
+
+<script src="calculator.js"></script>
+</body>
+</html>
