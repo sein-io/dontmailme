@@ -48,10 +48,7 @@
                 <button id="copy-btn-win" class="btn copy-btn">Copy Code</button>
             </div>
             
-            <pre><code id="script-win"># DontMailMe - RFC 8058 Auto-Unsubscriber for Outlook Desktop (Windows)
-# Select emails in Outlook, then paste and run this in PowerShell.
-
-$ErrorActionPreference = "Stop"
+            <pre><code id="script-win">$ErrorActionPreference = "Stop"
 
 try {
     $Outlook = [Runtime.Interopservices.Marshal]::GetActiveObject("Outlook.Application")
@@ -68,8 +65,6 @@ if ($Selection.Count -eq 0) {
 
 $processed = 0
 $PR_TRANSPORT_MESSAGE_HEADERS = "http://schemas.microsoft.com/mapi/proptag/0x007D001F"
-
-# Copy items to array to avoid modifying COM collection during deletion
 $items = @()
 foreach ($msg in $Selection) { $items += $msg }
 
@@ -77,15 +72,12 @@ for ($i = $items.Count - 1; $i -ge 0; $i--) {
     $msg = $items[$i]
     try {
         $headers = $msg.PropertyAccessor.GetProperty($PR_TRANSPORT_MESSAGE_HEADERS)
-
         if ($headers -match 'List-Unsubscribe-Post:\s*List-Unsubscribe=One-Click') {
             if ($headers -match 'List-Unsubscribe:\s*.*?<(https://[^>]+)>') {
                 $url = $Matches[1]
                 Write-Host "Unsubscribing from: $url" -ForegroundColor Cyan
-
                 try {
                     $response = Invoke-WebRequest -Uri $url -Method Post -Body "List-Unsubscribe=One-Click" -ContentType "application/x-www-form-urlencoded" -UseBasicParsing
-                    
                     if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 400) {
                         $msg.Delete()
                         $processed++
@@ -104,10 +96,7 @@ for ($i = $items.Count - 1; $i -ge 0; $i--) {
 }
 
 [System.Runtime.Interopservices.Marshal]::ReleaseComObject($Outlook) | Out-Null
-Write-Host "Done! Processed $processed newsletters." -ForegroundColor Green
-Write-Host "Please empty your 'Deleted Items' folder manually for full CO2 savings." -ForegroundColor Yellow
-</code></pre>
-            <p style="margin-top: 16px; color: var(--text-muted); font-size: 0.95rem;"><strong>How to run:</strong> Press the Windows key, type "PowerShell", open it, paste the code, and press Enter.<br><br><em>Note: Because Outlook moves deleted emails to the trash, please empty your <strong>Deleted Items</strong> folder afterwards to permanently save CO₂.</em></p>
+Write-Host "Done! Processed $processed newsletters." -ForegroundColor Green</code></pre>
         </div>
 
         <div class="step">
@@ -120,10 +109,7 @@ Write-Host "Please empty your 'Deleted Items' folder manually for full CO2 savin
                 <button id="copy-btn-mac" class="btn copy-btn">Copy Code</button>
             </div>
             
-            <pre><code id="script-mac">-- DontMailMe - RFC 8058 Auto-Unsubscriber for Apple Mail (macOS)
--- Select emails in Apple Mail, paste this into Script Editor, and click Run.
-
-tell application "Mail"
+            <pre><code id="script-mac">tell application "Mail"
     set selectedMsgs to selection
     if (count of selectedMsgs) is 0 then
         display dialog "Please select at least one email." buttons {"OK"} default button 1
@@ -132,20 +118,16 @@ tell application "Mail"
 
     set successCount to 0
 
-    -- Reverse loop to prevent off-by-one errors when deleting items from a collection
     repeat with i from (count of selectedMsgs) to 1 by -1
         set msg to item i of selectedMsgs
         set tmpPath to ""
         try
             set rawSource to source of msg
-            
-            -- Write to temp file natively (bypasses shell ARG_MAX limits for large emails)
             set tmpPath to (do shell script "mktemp /tmp/dontmailme.XXXXXX")
             set fref to open for access (POSIX file tmpPath) with write permission
             write rawSource to fref as «class utf8»
             close access fref
             
-            -- Read headers only and pipe to awk
             set awkScript to "awk 'BEGIN{IGNORECASE=1; url=\"\"; isOneClick=0} /^List-Unsubscribe-Post:.*One-Click/{isOneClick=1} /^List-Unsubscribe:/{if(match($0, /<(https:\\/\\/[^>]+)>/)){url=substr($0, RSTART+1, RLENGTH-2)}} END{if(isOneClick && url) print url}'"
             set shellCmd to "cat " & tmpPath & " | sed '/^$/q' | " & awkScript
             set postUrl to do shell script shellCmd
@@ -171,8 +153,7 @@ tell application "Mail"
     end repeat
 
     display notification "Unsubscribed and deleted " & successCount & " newsletters." with title "DontMailMe"
-end tell
-</code></pre>
+end tell</code></pre>
         </div>
     </section>
 </main>
@@ -180,9 +161,9 @@ end tell
 <footer>
     <p>A Green IT Suite initiative. Built for personal productivity and planetary health.</p>
     <div style="margin-top: 16px; display: flex; justify-content: center; gap: 16px;">
-        <a href="https://github.com/sein-io">GitHub</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="imprint.html">Imprint</a>
+        <a href="https://github.com/sein-io/dontmailme">GitHub</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/imprint">Imprint</a>
     </div>
 </footer>
 
@@ -190,14 +171,8 @@ end tell
     function setupCopyBtn(btnId, scriptId) {
         const btn = document.getElementById(btnId);
         const code = document.getElementById(scriptId);
-        
         btn.addEventListener('click', () => {
-            if (!navigator.clipboard) {
-                btn.textContent = 'Copy failed — select manually';
-                setTimeout(() => { btn.textContent = 'Copy Code'; }, 3000);
-                return;
-            }
-            
+            if (!navigator.clipboard) return;
             navigator.clipboard.writeText(code.textContent).then(() => {
                 const originalText = btn.textContent;
                 btn.textContent = 'Copied!';
@@ -206,13 +181,9 @@ end tell
                     btn.textContent = originalText;
                     btn.style.backgroundColor = '';
                 }, 2000);
-            }).catch(() => {
-                btn.textContent = 'Copy failed — select manually';
-                setTimeout(() => { btn.textContent = 'Copy Code'; }, 3000);
             });
         });
     }
-
     setupCopyBtn('copy-btn-win', 'script-win');
     setupCopyBtn('copy-btn-mac', 'script-mac');
 </script>

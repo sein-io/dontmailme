@@ -7,7 +7,7 @@
     <meta property="og:title" content="DontMailMe — Stop the noise.">
     <meta property="og:description" content="Auto-unsubscribe from newsletters. Runs locally. Zero data access. Plants trees.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dontmailme.org">
+    <meta property="og:url" content="https://dontmailme.org/gmail">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
@@ -135,9 +135,9 @@
 <footer>
     <p>A Green IT Suite initiative. Built for personal productivity and planetary health.</p>
     <div style="margin-top: 16px; display: flex; justify-content: center; gap: 16px;">
-        <a href="https://github.com/sein-io">GitHub</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="imprint.html">Imprint</a>
+        <a href="https://github.com/sein-io/dontmailme">GitHub</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/imprint">Imprint</a>
     </div>
 </footer>
 
@@ -152,10 +152,7 @@
 
     function updateScript() {
         const emailsFormatted = whitelist.map(e => "'" + e + "'").join(', ');
-        
-        // Using strict string concatenation to completely avoid template literal parser issues
-        const code = "/**\n * DontMailMe - RFC 8058 Auto-Unsubscriber\n * GitHub: https://github.com/sein-io/dontmailme\n * License: MIT\n */\n\n'use strict';\n\nconst ALLOWED_SENDERS = [" + emailsFormatted + "];\n\nfunction testDryRun() {\n    Logger.log('--- START DRY RUN ---');\n    processEmails(true);\n    Logger.log('--- END DRY RUN ---');\n}\n\nfunction installTrigger() {\n    ScriptApp.getProjectTriggers().forEach(function(t) {\n        ScriptApp.deleteTrigger(t);\n    });\n    ScriptApp.newTrigger('runJob').timeBased().everyMinutes(15).create();\n    Logger.log('Automation active.');\n}\n\nfunction runJob() {\n    processEmails(false);\n}\n\nfunction processEmails(isDryRun) {\n    const query = 'is:unread (category:promotions OR list:unsubscribe)';\n    const threads = GmailApp.search(query, 0, 50); \n    let processedCount = 0;\n\n    for (let i = 0; i < threads.length; i++) {\n        const messages = threads[i].getMessages();\n        for (let j = 0; j < messages.length; j++) {\n            const message = messages[j];\n            if (!message.isUnread()) continue;\n            const id = message.getId();\n            const sender = message.getFrom();\n            const emailMatch = sender.match(/<([^>]+)>/);\n            const email = emailMatch ? emailMatch[1].toLowerCase() : sender.toLowerCase();\n            const isWhitelisted = ALLOWED_SENDERS.some(function(s) { return email === s.toLowerCase(); });\n            if (isWhitelisted) continue;\n            try {\n                const metadata = Gmail.Users.Messages.get('me', id, { \n                    format: 'metadata', \n                    metadataHeaders: ['List-Unsubscribe', 'List-Unsubscribe-Post'] \n                });\n                let listUnsub = '';\n                let listUnsubPost = '';\n                if (metadata.payload && metadata.payload.headers) {\n                    metadata.payload.headers.forEach(function(header) {\n                        if (header.name.toLowerCase() === 'list-unsubscribe') listUnsub = header.value;\n                        if (header.name.toLowerCase() === 'list-unsubscribe-post') listUnsubPost = header.value;\n                    });\n                }\n                if (listUnsubPost.indexOf('List-Unsubscribe=One-Click') !== -1) {\n                    const urlMatch = listUnsub.match(/<(https:\\/\\/[^>]+)>/i);\n                    if (urlMatch && urlMatch[1]) {\n                        const postUrl = urlMatch[1];\n                        if (!isDryRun) {\n                            const response = UrlFetchApp.fetch(postUrl, {\n                                method: 'post',\n                                contentType: 'application/x-www-form-urlencoded',\n                                payload: 'List-Unsubscribe=One-Click',\n                                muteHttpExceptions: true,\n                                followRedirects: true\n                            });\n                            const code = response.getResponseCode();\n                            if (code >= 200 && code < 400) {\n                                Gmail.Users.Messages.remove('me', id);\n                            }\n                        }\n                        processedCount++;\n                    }\n                }\n            } catch (e) {}\n        }\n    }\n    Logger.log('Processed ' + processedCount);\n}";
-        
+        const code = "'use strict';\n\nconst ALLOWED_SENDERS = [" + emailsFormatted + "];\n\nfunction testDryRun() {\n    Logger.log('START');\n    processEmails(true);\n    Logger.log('END');\n}\n\nfunction installTrigger() {\n    ScriptApp.getProjectTriggers().forEach(function(t) {\n        ScriptApp.deleteTrigger(t);\n    });\n    ScriptApp.newTrigger('runJob').timeBased().everyMinutes(15).create();\n}\n\nfunction runJob() {\n    processEmails(false);\n}\n\nfunction processEmails(isDryRun) {\n    const query = 'is:unread (category:promotions OR list:unsubscribe)';\n    const threads = GmailApp.search(query, 0, 50);\n    let processedCount = 0;\n\n    for (let i = 0; i < threads.length; i++) {\n        const messages = threads[i].getMessages();\n        for (let j = 0; j < messages.length; j++) {\n            const message = messages[j];\n            if (!message.isUnread()) continue;\n            const id = message.getId();\n            const sender = message.getFrom();\n            const emailMatch = sender.match(/<([^>]+)>/);\n            const email = emailMatch ? emailMatch[1].toLowerCase() : sender.toLowerCase();\n            const isWhitelisted = ALLOWED_SENDERS.some(function(s) { return email === s.toLowerCase(); });\n            if (isWhitelisted) continue;\n            try {\n                const metadata = Gmail.Users.Messages.get('me', id, { \n                    format: 'metadata', \n                    metadataHeaders: ['List-Unsubscribe', 'List-Unsubscribe-Post'] \n                });\n                let listUnsub = '';\n                let listUnsubPost = '';\n                if (metadata.payload && metadata.payload.headers) {\n                    metadata.payload.headers.forEach(function(header) {\n                        if (header.name.toLowerCase() === 'list-unsubscribe') listUnsub = header.value;\n                        if (header.name.toLowerCase() === 'list-unsubscribe-post') listUnsubPost = header.value;\n                    });\n                }\n                if (listUnsubPost.indexOf('List-Unsubscribe=One-Click') !== -1) {\n                    const urlMatch = listUnsub.match(/<(https:\\/\\/[^>]+)>/i);\n                    if (urlMatch && urlMatch[1]) {\n                        const postUrl = urlMatch[1];\n                        if (!isDryRun) {\n                            const response = UrlFetchApp.fetch(postUrl, {\n                                method: 'post',\n                                contentType: 'application/x-www-form-urlencoded',\n                                payload: 'List-Unsubscribe=One-Click',\n                                muteHttpExceptions: true,\n                                followRedirects: true\n                            });\n                            const code = response.getResponseCode();\n                            if (code >= 200 && code < 400) {\n                                Gmail.Users.Messages.remove('me', id);\n                            }\n                        }\n                        processedCount++;\n                    }\n                }\n            } catch (e) {}\n        }\n    }\n    Logger.log('Processed: ' + processedCount);\n}";
         scriptBlock.textContent = code;
     }
 
@@ -164,14 +161,11 @@
         whitelist.forEach((email, index) => {
             const chip = document.createElement('div');
             chip.className = 'chip';
-            
             const emailSpan = document.createElement('span');
             emailSpan.textContent = email;
-            
             const removeBtn = document.createElement('button');
             removeBtn.textContent = '×';
             removeBtn.addEventListener('click', () => removeEmail(index));
-            
             chip.appendChild(emailSpan);
             chip.appendChild(removeBtn);
             chipContainer.appendChild(chip);
@@ -187,17 +181,13 @@
     addBtn.addEventListener('click', () => {
         const email = emailInput.value.trim().toLowerCase();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        
         if (!email) return;
-        
         if (!emailRegex.test(email)) {
             emailInput.setCustomValidity('Invalid email address');
             emailInput.reportValidity();
             return;
         }
-        
         emailInput.setCustomValidity('');
-        
         if (!whitelist.includes(email)) {
             whitelist.push(email);
             emailInput.value = '';
@@ -205,21 +195,14 @@
         }
     });
 
-    emailInput.addEventListener('input', () => {
-        emailInput.setCustomValidity('');
-    });
-
-    emailInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') addBtn.click();
-    });
+    emailInput.addEventListener('input', () => { emailInput.setCustomValidity(''); });
+    emailInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') addBtn.click(); });
 
     copyBtn.addEventListener('click', () => {
         if (!navigator.clipboard) {
-            copyBtn.textContent = 'Copy failed — select manually';
-            setTimeout(() => { copyBtn.textContent = 'Copy Code'; }, 3000);
+            copyBtn.textContent = 'Copy failed';
             return;
         }
-        
         navigator.clipboard.writeText(scriptBlock.textContent).then(() => {
             const originalText = copyBtn.textContent;
             copyBtn.textContent = 'Copied!';
@@ -228,9 +211,6 @@
                 copyBtn.textContent = originalText;
                 copyBtn.style.backgroundColor = '';
             }, 2000);
-        }).catch(() => {
-            copyBtn.textContent = 'Copy failed — select manually';
-            setTimeout(() => { copyBtn.textContent = 'Copy Code'; }, 3000);
         });
     });
 

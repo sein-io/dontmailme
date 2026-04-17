@@ -1,41 +1,25 @@
-(function() {
-    'use strict';
+const slider = document.getElementById('price-slider');
+const priceVal = document.getElementById('price-val');
+const treeCount = document.getElementById('tree-count');
+const treeLabel = document.getElementById('tree-label');
 
-    const unsubSlider = document.getElementById('unsub-slider');
-    const priceSlider = document.getElementById('price-slider');
-    if (!unsubSlider || !priceSlider) return;
+const co2Saved = document.getElementById('out-co2');
+const carKm = document.getElementById('out-car');
+const ledDays = document.getElementById('out-led');
 
-    const unsubVal = document.getElementById('unsub-val');
-    const priceVal = document.getElementById('price-val');
-    const outCo2 = document.getElementById('out-co2');
-    const outCar = document.getElementById('out-car');
-    const outLed = document.getElementById('out-led');
-    const treeCount = document.getElementById('tree-count');
-    const treeLabel = document.getElementById('tree-label');
+function updateCalculator() {
+    const val = parseInt(slider.value);
+    const trees = Math.floor(val / 2.5);
+    
+    priceVal.textContent = val;
+    treeCount.textContent = trees;
+    treeLabel.textContent = trees === 1 ? 'tree' : 'trees';
 
-    function updateCalculator() {
-        const unsubs = parseInt(unsubSlider.value, 10);
-        unsubVal.textContent = unsubs;
+    const co2 = val * 0.5;
+    co2Saved.textContent = co2.toFixed(1);
+    carKm.textContent = (co2 * 5).toFixed(1);
+    ledDays.textContent = Math.floor(co2 * 20);
+}
 
-        const co2Kg = unsubs * 1.0; 
-        const carKm = co2Kg * 5.95; 
-        const ledDays = co2Kg * 5.7; 
-
-        outCo2.textContent = Math.round(co2Kg);
-        outCar.textContent = Math.round(carKm);
-        outLed.textContent = Math.round(ledDays);
-
-        const price = parseInt(priceSlider.value, 10);
-        priceVal.textContent = price;
-
-        const trees = Math.max(0, Math.floor((price * 0.5) / 1));
-        const treeText = trees === 1 ? 'tree' : 'trees';
-        
-        treeCount.textContent = trees;
-        treeLabel.textContent = treeText;
-    }
-
-    unsubSlider.addEventListener('input', updateCalculator);
-    priceSlider.addEventListener('input', updateCalculator);
-    updateCalculator();
-})();
+slider.addEventListener('input', updateCalculator);
+updateCalculator();
