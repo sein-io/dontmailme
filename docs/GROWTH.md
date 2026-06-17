@@ -10,15 +10,11 @@ The repo is the growth engine. None of our competitors (Unroll.me, Cleanfox, Lea
 
 These can't be set from files; do them in the GitHub web UI.
 
-- [ ] **Settings → About → Description** (paste):
-  > Free, open-source, zero-data auto-unsubscribe for Gmail, Outlook & Apple Mail. Bulk-unsubscribe from newsletters via the RFC 8058 one-click standard — runs in your own account, never sees your email. An open-source Unroll.me / Cleanfox alternative, built for humans & AI agents.
-- [ ] **About → Website:** `https://dontmailme.org`
-- [ ] **About → Topics** (paste all — this single action triggers LibHunt / Ecosyste.ms auto-indexing):
-  ```
-  unsubscribe email gmail outlook apple-mail newsletter inbox-zero privacy zero-data rfc8058 unroll-me-alternative cleanfox-alternative email-cleaner gdpr open-source ai-agents mcp apps-script powershell self-hosted
-  ```
-- [ ] **Settings → Social preview →** upload a 1280×640 image (see §1a).
-- [ ] **Enable Discussions** (community + a Q&A surface for launch traffic).
+- [x] **About → Description** — ✅ done (set to the new positioning).
+- [x] **About → Website:** `https://dontmailme.org` — ✅ done.
+- [x] **About → Topics** — ✅ done (20 topics set; this triggers LibHunt / Ecosyste.ms auto-indexing): `unsubscribe, bulk-unsubscribe, email, gmail, outlook, apple-mail, newsletter, inbox-zero, privacy, zero-data, rfc8058, unroll-me-alternative, cleanfox-alternative, email-cleaner, gdpr, open-source, ai-agents, apps-script, powershell, productivity`.
+- [x] **Enable Discussions** — ✅ done.
+- [ ] **Settings → Social preview →** upload a 1280×640 image (see §1a). *(web-UI only)*
 - [ ] **Settings → Branches →** protect `main` (require a PR before merge) — OpenSSF signal.
 - [ ] Confirm the **Sponsor** button shows (driven by `.github/FUNDING.yml`).
 - [ ] **Insights → Community Standards →** confirm 100% (all health files are in the repo).
