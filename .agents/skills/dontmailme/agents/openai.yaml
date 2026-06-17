@@ -1,0 +1,6 @@
+interface:
+  display_name: "Dontmailme"
+  short_description: "Repo-specific patterns and workflows for dontmailme"
+  default_prompt: "Use the dontmailme repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
