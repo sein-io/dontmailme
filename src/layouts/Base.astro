@@ -7,7 +7,10 @@ interface Props {
   description: string;
   path?: string;          // canonical path, e.g. "/" or "/compare"
   ogImage?: string;
-  showRail?: boolean;
+  showRail?: boolean;     // homepage scroll-spy rail (sections must exist)
+  ctaHref?: string;       // header CTA target
+  ctaLabel?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -15,7 +18,10 @@ const {
   description,
   path = '/',
   ogImage = '/og-image.jpg',
-  showRail = true,
+  showRail = false,
+  ctaHref = '/gmail',
+  ctaLabel = 'Clean my inbox',
+  noindex = false,
 } = Astro.props;
 
 const site = 'https://dontmailme.org';
@@ -48,6 +54,7 @@ const navLinks = [
 
   <title>{title}</title>
   <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="canonical" href={canonical} />
   <link rel="alternate" type="text/markdown" href={path === '/' ? '/index.md' : path + '.md'} />
 
@@ -113,7 +120,7 @@ const navLinks = [
           <a href="https://github.com/sein-io/dontmailme" target="_blank" rel="noopener">GitHub</a>
         </nav>
         <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch colour theme"></button>
-        <a href="#how" class="btn btn-primary">Clean my inbox</a>
+        <a href={ctaHref} class="btn btn-primary">{ctaLabel}</a>
       </div>
     </header>
 

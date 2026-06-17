@@ -97,7 +97,7 @@ const jsonLd = {
   ],
 };
 ---
-<Base title={title} description={description} path="/">
+<Base title={title} description={description} path="/" showRail={true} ctaHref="#how">
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </Fragment>

@@ -100,16 +100,39 @@ Most unsubscribe tools are free because *you* are the product, or paid because p
 - **[FAQ](https://dontmailme.org/faq)** — is it safe? is it free? can it read my email? (No.)
 - **[Impact & methodology](https://dontmailme.org/impact)** — the honest, sourced version of the CO₂/trees math.
 
+## 🛠 Build &amp; deploy
+
+The site is built with [Astro](https://astro.build) (static output). Source lives in `src/`;
+everything in `public/` is copied to the output **verbatim**. The build writes the complete,
+ready-to-host site into **`dist/`**.
+
+```bash
+npm install      # once
+npm run dev      # dev server with hot reload          → http://localhost:4321
+npm run build    # generate the production site into   → dist/
+npm run preview  # serve the built dist/ exactly as it goes live → http://localhost:4321
+```
+
+**Deploy:** upload the **contents of `dist/`** (the files inside it, not the folder itself) to the
+web root, so `dist/index.html` is served at `https://dontmailme.org/`. `dist/` already contains the
+whole agent layer (`gmail.gs`, `outlook.ps1`, `*.md`, `llms.txt`, `AGENTS.md`, `_headers`,
+`_redirects`, `fonts/`, …) at the same paths as before — nothing else to upload.
+
+> ⚠️ Don't open `dist/index.html` by double-clicking. Like every website, it loads its CSS from a
+> root-absolute path (`/_astro/…`), which the browser can only resolve when the files are **served**
+> (over HTTP), not opened as a `file://`. Run `npm run preview` to check the build locally.
+
 ## 🧩 Project layout
 
 | Path | What it is |
 |------|-----------|
-| `index.html`, `gmail.html`, `outlook.html`, … | The static site |
-| `gmail.gs`, `outlook.ps1` | Canonical raw scripts (served to users **and** agents) |
-| `llms.txt`, `llms-full.txt`, `AGENTS.md`, `*.md` | Machine-readable twins for AI agents |
+| `src/pages/`, `src/layouts/`, `src/components/`, `src/styles/` | Astro source for the site |
+| `public/` | Served verbatim at the web root: the agent layer, fonts, images, not-yet-migrated pages |
+| `dist/` | **Build output — this is what you upload** (git-ignored) |
+| `public/gmail.gs`, `public/outlook.ps1` | Canonical raw scripts (served to users **and** agents) |
+| `public/llms.txt`, `public/llms-full.txt`, `public/AGENTS.md`, `public/*.md` | Machine-readable twins for AI agents |
 | `mcp/` | MCP server (`@sein-io/dontmailme-mcp`) — stdio + Cloudflare Worker |
-| `styles.css`, `calculator.js`, `fonts/` | Styles, impact calculator, self-hosted fonts |
-| `docs/STRATEGY.md`, `docs/GROWTH.md` | Product blueprint & growth playbook |
+| `docs/STRATEGY.md`, `docs/GROWTH.md`, `docs/REDESIGN-PLAN.md` | Product blueprint, growth &amp; redesign plans |
 
 ## ⭐ Star history
 
