@@ -11,12 +11,11 @@ const nativeProviders = ['Gmail', 'Outlook', 'Apple Mail'];
 const tierA = ['iCloud', 'Yahoo', 'Fastmail', 'Proton', 'GMX', 'Web.de', 'Posteo', 'Mailbox.org'];
 
 const railItems = [
-  { href: '#features', name: 'grid', label: 'Warum' },
-  { href: '#how', name: 'route', label: 'Wie' },
-  { href: '#providers', name: 'inbox', label: 'Wo' },
-  { href: '#compare', name: 'scale', label: 'Vergleich' },
+  { href: '#features', name: 'shield', label: 'Warum' },
+  { href: '#how', name: 'list', label: 'Wie' },
+  { href: '#providers', name: 'mail', label: 'Anbieter' },
   { href: '#impact', name: 'leaf', label: 'Wirkung' },
-  { href: '#developers', name: 'code', label: 'Agenten' },
+  { href: '#developers', name: 'bot', label: 'Agenten' },
 ];
 const navLinks = [
   { href: '#how', label: "So geht's" },
@@ -58,9 +57,9 @@ const navLinks = [
   <!-- ===================== Warum (Features) ===================== -->
   <section class="sec" id="features">
     <div class="sec-h">
-      <p class="sec-q">WARUM<span class="q">?</span></p>
+      <p class="sec-q">WARUM WIR<span class="q">?</span></p>
       <h2 class="sec-t">Kostenlose Mail-Tools verkaufen meist dein Postfach. Wir haben nichts zu verkaufen.</h2>
-      <p class="sec-sub">Weil nichts dein Konto verlässt. Die Architektur <em>ist</em> der Datenschutz — keine Richtlinie. <span class="hint mono">für das Warum über eine Kachel fahren</span></p>
+      <p class="sec-sub">Weil nichts dein Konto verlässt — die Architektur <em>ist</em> der Datenschutz, kein Versprechen. <span class="hint mono">für Details über eine Kachel fahren</span></p>
     </div>
     <div class="bento">
       <article class="bc glass span-2 bc-reveal">
@@ -80,13 +79,13 @@ const navLinks = [
         <div class="bc-body"><div><p class="bc-p">Vertrau uns nicht — prüfe den Code, dann führ ihn aus. <a href={repo}>Auf GitHub →</a></p></div></div>
       </article>
       <article class="bc glass bc-reveal">
-        <span class="bc-badge"><Icon name="bolt" /></span>
+        <span class="bc-badge"><Icon name="shield" /></span>
         <div class="bc-lbl">Sicher per Standard</div>
         <h3 class="bc-t">Nur der authentifizierte Header.</h3>
         <div class="bc-body"><div><p class="bc-p">Wirkt auf den RFC&nbsp;8058 <code>List-Unsubscribe-Post</code>-Header — klickt nie Links im Text und kann so nicht auf eine Phishing-Seite gelockt werden.</p></div></div>
       </article>
       <article class="bc glass span-2 bc-reveal">
-        <span class="bc-badge"><Icon name="code" /></span>
+        <span class="bc-badge"><Icon name="bot" /></span>
         <div class="bc-lbl">Für Menschen und ihre Agenten</div>
         <h3 class="bc-t">Kein Vermittler zwischen Agent und Postfach.</h3>
         <div class="bc-body"><div><p class="bc-p">
@@ -113,8 +112,8 @@ const navLinks = [
   <!-- ===================== Wie ===================== -->
   <section class="sec" id="how">
     <div class="sec-h">
-      <p class="sec-q">WIE<span class="q">?</span></p>
-      <h2 class="sec-t">Drei Schritte, dann vergiss es.</h2>
+      <p class="sec-q">SO GEHT'S</p>
+      <h2 class="sec-t">Drei Schritte, dann läuft es von allein.</h2>
       <p class="sec-sub">Keine App, kein Konto, kein Postfach-Zugriff für Fremde.</p>
     </div>
     <ol class="steps">
@@ -149,8 +148,8 @@ const navLinks = [
   <!-- ===================== Wo ===================== -->
   <section class="sec" id="providers">
     <div class="sec-h">
-      <p class="sec-q">WO<span class="q">?</span></p>
-      <h2 class="sec-t">Funktioniert dort, wo deine Mail schon ist.</h2>
+      <p class="sec-q">ÜBERALL</p>
+      <h2 class="sec-t">Funktioniert mit der Mail, die du schon nutzt.</h2>
       <p class="sec-sub">Native Wege heute; ehrliche Status-Badges, während die Abdeckung wächst.</p>
     </div>
     <div class="providers">
@@ -208,9 +207,9 @@ const navLinks = [
   <!-- ===================== Für Agenten ===================== -->
   <section class="sec" id="developers">
     <div class="sec-h">
-      <p class="sec-q">FÜR AGENTEN<span class="q">?</span></p>
-      <h2 class="sec-t">Ein verlässlicher Weg für Assistenten — keine fragilen Web-UIs.</h2>
-      <p class="sec-sub">Alles, was es mit jedem Newsletter macht, ist eine authentifizierte Anfrage. Kein Parsen, kein Link-Klick.</p>
+      <p class="sec-q">WAS NOCH<span class="q">?</span></p>
+      <h2 class="sec-t">Deine KI kann es auch für dich einrichten.</h2>
+      <p class="sec-sub">Ein verlässlicher, standardbasierter Weg für Agenten — keine fragilen Web-UIs. Der ganze Job ist eine authentifizierte Anfrage: kein Parsen, kein Link-Klick.</p>
     </div>
     <div class="dev-grid">
       <div class="code-card">
@@ -225,8 +224,8 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
       <ul class="dev-links">
         <li><Icon name="code" /> <a href="/gmail.gs"><code>/gmail.gs</code></a> · <a href="/outlook.ps1"><code>/outlook.ps1</code></a></li>
         <li><Icon name="book" /> <a href="/AGENTS.md"><code>AGENTS.md</code></a> — ein nummeriertes Runbook</li>
-        <li><Icon name="route" /> <a href="/llms.txt"><code>llms.txt</code></a> — Maschinen-Index</li>
-        <li><Icon name="bolt" /> <a href="/mcp"><code>MCP-Server</code></a> — als Tool aufrufen</li>
+        <li><Icon name="list" /> <a href="/llms.txt"><code>llms.txt</code></a> — Maschinen-Index</li>
+        <li><Icon name="bot" /> <a href="/mcp"><code>MCP-Server</code></a> — als Tool aufrufen</li>
         <li><span class="inline-code">npx -y @sein-io/dontmailme-mcp</span></li>
       </ul>
     </div>
