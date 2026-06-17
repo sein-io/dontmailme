@@ -3,14 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gmail Setup — DontMailMe</title>
-    <meta property="og:title" content="DontMailMe — Stop the noise.">
-    <meta property="og:description" content="Auto-unsubscribe from newsletters. Runs locally. Zero data access. Plants trees.">
+    <title>How to Auto-Unsubscribe From Newsletters in Gmail (Free Script) | DontMailMe</title>
+    <meta name="description" content="Set up automatic newsletter unsubscribing in Gmail in about 3 minutes with a free, open-source Google Apps Script. It runs inside your own account using the RFC 8058 standard — we never see your email.">
+    <link rel="canonical" href="https://dontmailme.org/gmail">
+    <meta name="theme-color" content="#0A7D5C">
+    <link rel="alternate" type="text/markdown" href="/gmail.md">
+
+    <meta property="og:title" content="Auto-Unsubscribe From Newsletters in Gmail — Free Script">
+    <meta property="og:description" content="A free, open-source Google Apps Script that auto-unsubscribes you from newsletters inside your own Gmail. Zero data access, RFC 8058, ~3 minute setup.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dontmailme.org/gmail">
+    <meta property="og:image" content="https://dontmailme.org/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Auto-Unsubscribe From Newsletters in Gmail — Free Script">
+    <meta name="twitter:description" content="Free, open-source Gmail script. Runs in your own account, zero data access, RFC 8058. ~3 minute setup.">
+    <meta name="twitter:image" content="https://dontmailme.org/og-image.jpg">
+
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "How to auto-unsubscribe from newsletters in Gmail",
+          "description": "Set up a free, open-source Google Apps Script that automatically unsubscribes you from newsletters inside your own Gmail account using the RFC 8058 one-click standard.",
+          "totalTime": "PT3M",
+          "estimatedCost": { "@type": "MonetaryAmount", "currency": "EUR", "value": "0" },
+          "tool": [
+            { "@type": "HowToTool", "name": "A Gmail / Google account" },
+            { "@type": "HowToTool", "name": "Google Apps Script (script.google.com)" }
+          ],
+          "step": [
+            { "@type": "HowToStep", "position": 1, "name": "Create a new script", "text": "Go to script.google.com and click New Project.", "url": "https://dontmailme.org/gmail#step1" },
+            { "@type": "HowToStep", "position": 2, "name": "Enable the Gmail API", "text": "Click the Services (+) icon, select Gmail API and click Add.", "url": "https://dontmailme.org/gmail#step2" },
+            { "@type": "HowToStep", "position": 3, "name": "Personalize and copy the code", "text": "Add any senders you want to keep to the safe-senders list, then copy the generated script into the editor.", "url": "https://dontmailme.org/gmail#step3" },
+            { "@type": "HowToStep", "position": 4, "name": "Test safely", "text": "Select the testDryRun function and click Run. Check the logs to see what would be unsubscribed — nothing is changed yet.", "url": "https://dontmailme.org/gmail#step4" },
+            { "@type": "HowToStep", "position": 5, "name": "Activate", "text": "Select the installTrigger function and click Run. Your inbox now cleans itself every 15 minutes.", "url": "https://dontmailme.org/gmail#step5" }
+          ]
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          "name": "DontMailMe Gmail auto-unsubscribe script",
+          "programmingLanguage": "Google Apps Script",
+          "codeRepository": "https://github.com/sein-io/dontmailme",
+          "license": "https://opensource.org/licenses/MIT",
+          "codeSampleType": "full (solution)",
+          "targetProduct": { "@type": "SoftwareApplication", "name": "Google Apps Script", "applicationCategory": "DeveloperApplication" },
+          "url": "https://dontmailme.org/gmail.gs"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dontmailme.org/" },
+            { "@type": "ListItem", "position": 2, "name": "Gmail setup", "item": "https://dontmailme.org/gmail" }
+          ]
+        }
+      ]
+    }
+    </script>
     <style>
         .whitelist-manager {
             background: var(--surface);
@@ -76,28 +132,34 @@
 <header>
     <a href="/" class="brand">DontMailMe.org</a>
     <nav class="nav-links">
-        <a href="/gmail">Gmail Tool</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/gmail" class="active">Gmail</a>
         <a href="/outlook">Outlook</a>
+        <a href="/compare">Compare</a>
+        <a href="/faq">FAQ</a>
         <a href="/impact">Impact</a>
     </nav>
 </header>
 
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> › Gmail setup</nav>
+
 <main>
     <section>
-        <h1 class="page-title" style="font-size: 3rem; margin-bottom: 16px;">Gmail Setup</h1>
-        <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 64px;">Takes about 3 minutes. Runs completely within your own Google account.</p>
+        <h1 class="page-title" style="font-size: 3rem; margin-bottom: 16px;">How to auto-unsubscribe from newsletters in Gmail</h1>
+        <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 24px;">A free, open-source Google Apps Script that runs entirely inside your own Google account. It uses the official one-click unsubscribe standard (RFC&nbsp;8058) — we never see your email. Setup takes about 3 minutes.</p>
+        <p style="margin-bottom: 64px;"><a href="/gmail.gs">For AI agents &amp; power users: get the raw script (text/plain) →</a></p>
 
-        <div class="step">
+        <div class="step" id="step1">
             <h2><span class="step-number">1</span> Create a new Script</h2>
             <p>Go to <a href="https://script.google.com" target="_blank">script.google.com</a> and click <strong>New Project</strong>.</p>
         </div>
 
-        <div class="step">
+        <div class="step" id="step2">
             <h2><span class="step-number">2</span> Enable Gmail API</h2>
             <p>Click the <strong>Services (+)</strong> icon. Select <strong>Gmail API</strong> and click <strong>Add</strong>.</p>
         </div>
 
-        <div class="step">
+        <div class="step" id="step3">
             <h2><span class="step-number">3</span> Personalize & Copy Code</h2>
             <p>Add email addresses you want to <strong>keep</strong> (whitelist):</p>
             
@@ -108,7 +170,17 @@
                     <button id="add-email-btn" class="btn" style="padding: 10px 20px;">Add</button>
                 </div>
                 <div class="chip-container" id="chip-container">
-                    </div>
+                </div>
+            </div>
+
+            <div class="whitelist-manager" style="margin-top: 16px;">
+                <label style="font-weight: 500;">Custom search query <span style="color: var(--text-muted); font-weight: 400;">(optional)</span></label>
+                <div class="input-group">
+                    <input type="text" id="query-input" placeholder="e.g. label:newsletters is:unread">
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 12px;">
+                    Leave empty for default. Override only if your newsletters live in a specific label or folder.
+                </p>
             </div>
 
             <div class="copy-banner">
@@ -116,29 +188,181 @@
                 <button id="copy-btn" class="btn">Copy Code</button>
             </div>
             
-            <pre><code id="script-block"></code></pre>
+            <pre><code id="script-block">'use strict';
+
+const ALLOWED_SENDERS = ['newsletter@favorite.com', 'news@example.com'];
+const CUSTOM_QUERY = '';
+
+function testDryRun() {
+    Logger.log('START DRY RUN');
+    processEmails(true);
+    Logger.log('END DRY RUN');
+}
+
+function installTrigger() {
+    ScriptApp.getProjectTriggers().forEach(function(t) {
+        ScriptApp.deleteTrigger(t);
+    });
+    ScriptApp.newTrigger('runJob').timeBased().everyMinutes(15).create();
+}
+
+function runJob() {
+    processEmails(false);
+}
+
+function processEmails(isDryRun) {
+    const defaultQuery = 'is:unread (category:promotions OR list:unsubscribe)';
+    const query = CUSTOM_QUERY || defaultQuery;
+    const threads = GmailApp.search(query, 0, 50);
+    let processedCount = 0;
+    const processedSenders = [];
+
+    for (let i = 0; i &lt; threads.length; i++) {
+        const messages = threads[i].getMessages();
+        for (let j = messages.length - 1; j &gt;= 0; j--) {
+            const message = messages[j];
+            if (!message.isUnread()) continue;
+
+            const id = message.getId();
+            const sender = message.getFrom();
+            const emailMatch = sender.match(/&lt;([^&gt;]+)&gt;/);
+            const email = emailMatch ? emailMatch[1].toLowerCase() : sender.toLowerCase();
+
+            const isWhitelisted = ALLOWED_SENDERS.some(function(s) { return email === s.toLowerCase(); });
+            if (isWhitelisted) continue;
+
+            if (processedSenders.indexOf(email) !== -1) {
+                if (!isDryRun) {
+                    try { Gmail.Users.Messages.trash('me', id); } catch (e) {}
+                }
+                continue;
+            }
+
+            try {
+                const metadata = Gmail.Users.Messages.get('me', id, {
+                    format: 'metadata',
+                    metadataHeaders: ['List-Unsubscribe', 'List-Unsubscribe-Post', 'Authentication-Results']
+                });
+
+                if (!metadata.payload || !metadata.payload.headers) continue;
+
+                let listUnsub = '';
+                let listUnsubPost = '';
+                let authResults = '';
+
+                metadata.payload.headers.forEach(function(header) {
+                    const name = header.name.toLowerCase();
+                    if (name === 'list-unsubscribe') listUnsub = header.value;
+                    else if (name === 'list-unsubscribe-post') listUnsubPost = header.value;
+                    else if (name === 'authentication-results') authResults = header.value;
+                });
+
+                if (!listUnsub) continue;
+
+                const urlMatch = listUnsub.match(/&lt;(https:\/\/[^&gt;]+)&gt;/i);
+                if (!urlMatch || !urlMatch[1]) continue;
+
+                const postUrl = urlMatch[1];
+                const supportsOneClick = listUnsubPost.indexOf('List-Unsubscribe=One-Click') !== -1;
+                const isAuthenticated = authResults.indexOf('spf=pass') !== -1 || authResults.indexOf('dkim=pass') !== -1;
+
+                if (!supportsOneClick &amp;&amp; !isAuthenticated) continue;
+
+                if (isDryRun) {
+                    const method = supportsOneClick ? 'POST' : 'GET';
+                    Logger.log('WILL UNSUBSCRIBE [' + method + ']: ' + email);
+                    processedSenders.push(email);
+                    processedCount++;
+                    continue;
+                }
+
+                let success = false;
+
+                if (supportsOneClick) {
+                    const response = UrlFetchApp.fetch(postUrl, {
+                        method: 'post',
+                        contentType: 'application/x-www-form-urlencoded',
+                        payload: 'List-Unsubscribe=One-Click',
+                        muteHttpExceptions: true,
+                        followRedirects: true
+                    });
+                    const code = response.getResponseCode();
+                    if (code &gt;= 200 &amp;&amp; code &lt; 400) success = true;
+                } else {
+                    const response = UrlFetchApp.fetch(postUrl, {
+                        method: 'get',
+                        muteHttpExceptions: true,
+                        followRedirects: true
+                    });
+                    const code = response.getResponseCode();
+                    if (code &gt;= 200 &amp;&amp; code &lt; 400) success = true;
+                }
+
+                if (success) {
+                    Gmail.Users.Messages.trash('me', id);
+                    processedSenders.push(email);
+                    processedCount++;
+                }
+            } catch (e) {}
+        }
+    }
+
+    Logger.log('Processed unique senders: ' + processedCount);
+}</code></pre>
         </div>
 
-        <div class="step">
+        <div class="step" id="step4">
             <h2><span class="step-number">4</span> Test safely</h2>
             <p>Select <strong>testDryRun</strong> and click <strong>Run</strong>. Check the logs to see what would happen.</p>
         </div>
 
-        <div class="step">
+        <div class="step" id="step5">
             <h2><span class="step-number">5</span> Activate</h2>
             <p>Select <strong>installTrigger</strong> and click <strong>Run</strong>.</p>
             <p style="margin-top: 16px; color: var(--accent); font-weight: 700;">Done. Your inbox cleans itself every 15 minutes.</p>
+        </div>
+
+        <div class="card" style="margin-top: 64px;">
+            <h3>Related guides</h3>
+            <p style="margin-top:12px;">
+                <a href="/free-gmail-storage">Free up Gmail storage without paying for Google One</a><br>
+                <a href="/gmail-manage-subscriptions">Gmail's "Manage subscriptions" vs. automatic unsubscribing</a><br>
+                <a href="/how-it-works">Why this is safer than clicking unsubscribe</a><br>
+                <a href="/teams">Rolling this out for a team or business</a>
+            </p>
         </div>
     </section>
 </main>
 
 <footer>
-    <p>A Green IT Suite initiative. Built for personal productivity and planetary health.</p>
-    <div style="margin-top: 16px; display: flex; justify-content: center; gap: 16px;">
-        <a href="https://github.com/sein-io/dontmailme">GitHub</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/imprint">Imprint</a>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Set up</h4>
+            <a href="/gmail">Gmail</a>
+            <a href="/outlook">Outlook (Windows)</a>
+            <a href="/outlook#apple-mail">Apple Mail (macOS)</a>
+        </div>
+        <div class="footer-col">
+            <h4>Learn</h4>
+            <a href="/how-it-works">How it works</a>
+            <a href="/compare">Compare tools</a>
+            <a href="/faq">FAQ</a>
+            <a href="/impact">Impact &amp; methodology</a>
+        </div>
+        <div class="footer-col">
+            <h4>For AI agents</h4>
+            <a href="/llms.txt">llms.txt</a>
+            <a href="/AGENTS.md">AGENTS.md</a>
+            <a href="/gmail.gs">Raw Gmail script</a>
+        </div>
+        <div class="footer-col">
+            <h4>Project</h4>
+            <a href="https://github.com/sein-io/dontmailme">GitHub (source)</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/imprint">Imprint</a>
+        </div>
     </div>
+    <p class="footer-note">A SEIN initiative. Built for personal productivity and planetary health — open source, zero data access.</p>
 </footer>
 
 <script>
@@ -147,12 +371,137 @@
     const chipContainer = document.getElementById('chip-container');
     const scriptBlock = document.getElementById('script-block');
     const copyBtn = document.getElementById('copy-btn');
+    const queryInput = document.getElementById('query-input');
 
-    let whitelist = ['newsletter@favorite.com', 'news@stripe.com'];
+    let whitelist = ['newsletter@favorite.com', 'news@example.com'];
+
+    queryInput.addEventListener('input', updateScript);
 
     function updateScript() {
         const emailsFormatted = whitelist.map(e => "'" + e + "'").join(', ');
-        const code = "'use strict';\n\nconst ALLOWED_SENDERS = [" + emailsFormatted + "];\n\nfunction testDryRun() {\n    Logger.log('START');\n    processEmails(true);\n    Logger.log('END');\n}\n\nfunction installTrigger() {\n    ScriptApp.getProjectTriggers().forEach(function(t) {\n        ScriptApp.deleteTrigger(t);\n    });\n    ScriptApp.newTrigger('runJob').timeBased().everyMinutes(15).create();\n}\n\nfunction runJob() {\n    processEmails(false);\n}\n\nfunction processEmails(isDryRun) {\n    const query = 'is:unread (category:promotions OR list:unsubscribe)';\n    const threads = GmailApp.search(query, 0, 50);\n    let processedCount = 0;\n\n    for (let i = 0; i < threads.length; i++) {\n        const messages = threads[i].getMessages();\n        for (let j = 0; j < messages.length; j++) {\n            const message = messages[j];\n            if (!message.isUnread()) continue;\n            const id = message.getId();\n            const sender = message.getFrom();\n            const emailMatch = sender.match(/<([^>]+)>/);\n            const email = emailMatch ? emailMatch[1].toLowerCase() : sender.toLowerCase();\n            const isWhitelisted = ALLOWED_SENDERS.some(function(s) { return email === s.toLowerCase(); });\n            if (isWhitelisted) continue;\n            try {\n                const metadata = Gmail.Users.Messages.get('me', id, { \n                    format: 'metadata', \n                    metadataHeaders: ['List-Unsubscribe', 'List-Unsubscribe-Post'] \n                });\n                let listUnsub = '';\n                let listUnsubPost = '';\n                if (metadata.payload && metadata.payload.headers) {\n                    metadata.payload.headers.forEach(function(header) {\n                        if (header.name.toLowerCase() === 'list-unsubscribe') listUnsub = header.value;\n                        if (header.name.toLowerCase() === 'list-unsubscribe-post') listUnsubPost = header.value;\n                    });\n                }\n                if (listUnsubPost.indexOf('List-Unsubscribe=One-Click') !== -1) {\n                    const urlMatch = listUnsub.match(/<(https:\\/\\/[^>]+)>/i);\n                    if (urlMatch && urlMatch[1]) {\n                        const postUrl = urlMatch[1];\n                        if (!isDryRun) {\n                            const response = UrlFetchApp.fetch(postUrl, {\n                                method: 'post',\n                                contentType: 'application/x-www-form-urlencoded',\n                                payload: 'List-Unsubscribe=One-Click',\n                                muteHttpExceptions: true,\n                                followRedirects: true\n                            });\n                            const code = response.getResponseCode();\n                            if (code >= 200 && code < 400) {\n                                Gmail.Users.Messages.remove('me', id);\n                            }\n                        }\n                        processedCount++;\n                    }\n                }\n            } catch (e) {}\n        }\n    }\n    Logger.log('Processed: ' + processedCount);\n}";
+        const customQuery = queryInput.value.trim().replace(/'/g, "\\'");
+        
+        const code = `'use strict';
+
+const ALLOWED_SENDERS = [${emailsFormatted}];
+const CUSTOM_QUERY = '${customQuery}';
+
+function testDryRun() {
+    Logger.log('START DRY RUN');
+    processEmails(true);
+    Logger.log('END DRY RUN');
+}
+
+function installTrigger() {
+    ScriptApp.getProjectTriggers().forEach(function(t) {
+        ScriptApp.deleteTrigger(t);
+    });
+    ScriptApp.newTrigger('runJob').timeBased().everyMinutes(15).create();
+}
+
+function runJob() {
+    processEmails(false);
+}
+
+function processEmails(isDryRun) {
+    const defaultQuery = 'is:unread (category:promotions OR list:unsubscribe)';
+    const query = CUSTOM_QUERY || defaultQuery;
+    const threads = GmailApp.search(query, 0, 50);
+    let processedCount = 0;
+    const processedSenders = [];
+
+    for (let i = 0; i < threads.length; i++) {
+        const messages = threads[i].getMessages();
+        for (let j = messages.length - 1; j >= 0; j--) {
+            const message = messages[j];
+            if (!message.isUnread()) continue;
+
+            const id = message.getId();
+            const sender = message.getFrom();
+            const emailMatch = sender.match(/<([^>]+)>/);
+            const email = emailMatch ? emailMatch[1].toLowerCase() : sender.toLowerCase();
+            
+            const isWhitelisted = ALLOWED_SENDERS.some(function(s) { return email === s.toLowerCase(); });
+            if (isWhitelisted) continue;
+
+            if (processedSenders.indexOf(email) !== -1) {
+                if (!isDryRun) {
+                    try { Gmail.Users.Messages.trash('me', id); } catch (e) {}
+                }
+                continue;
+            }
+
+            try {
+                const metadata = Gmail.Users.Messages.get('me', id, {
+                    format: 'metadata',
+                    metadataHeaders: ['List-Unsubscribe', 'List-Unsubscribe-Post', 'Authentication-Results']
+                });
+
+                if (!metadata.payload || !metadata.payload.headers) continue;
+
+                let listUnsub = '';
+                let listUnsubPost = '';
+                let authResults = '';
+
+                metadata.payload.headers.forEach(function(header) {
+                    const name = header.name.toLowerCase();
+                    if (name === 'list-unsubscribe') listUnsub = header.value;
+                    else if (name === 'list-unsubscribe-post') listUnsubPost = header.value;
+                    else if (name === 'authentication-results') authResults = header.value;
+                });
+
+                if (!listUnsub) continue;
+
+                const urlMatch = listUnsub.match(/<(https:\\/\\/[^>]+)>/i);
+                if (!urlMatch || !urlMatch[1]) continue;
+
+                const postUrl = urlMatch[1];
+                const supportsOneClick = listUnsubPost.indexOf('List-Unsubscribe=One-Click') !== -1;
+                const isAuthenticated = authResults.indexOf('spf=pass') !== -1 || authResults.indexOf('dkim=pass') !== -1;
+
+                if (!supportsOneClick && !isAuthenticated) continue;
+
+                if (isDryRun) {
+                    const method = supportsOneClick ? 'POST' : 'GET';
+                    Logger.log('WILL UNSUBSCRIBE [' + method + ']: ' + email);
+                    processedSenders.push(email);
+                    processedCount++;
+                    continue;
+                }
+
+                let success = false;
+
+                if (supportsOneClick) {
+                    const response = UrlFetchApp.fetch(postUrl, {
+                        method: 'post',
+                        contentType: 'application/x-www-form-urlencoded',
+                        payload: 'List-Unsubscribe=One-Click',
+                        muteHttpExceptions: true,
+                        followRedirects: true
+                    });
+                    const code = response.getResponseCode();
+                    if (code >= 200 && code < 400) success = true;
+                } else {
+                    const response = UrlFetchApp.fetch(postUrl, {
+                        method: 'get',
+                        muteHttpExceptions: true,
+                        followRedirects: true
+                    });
+                    const code = response.getResponseCode();
+                    if (code >= 200 && code < 400) success = true;
+                }
+
+                if (success) {
+                    Gmail.Users.Messages.trash('me', id);
+                    processedSenders.push(email);
+                    processedCount++;
+                }
+            } catch (e) {}
+        }
+    }
+
+    Logger.log('Processed unique senders: ' + processedCount);
+}`;
         scriptBlock.textContent = code;
     }
 

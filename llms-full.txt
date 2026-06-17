@@ -1,0 +1,111 @@
+# DontMailMe — full site content
+
+> Free, open-source, privacy-first tool that auto-unsubscribes you from newsletters you never read. It generates a copy-paste script that runs inside your OWN Google or Microsoft account using the RFC 8058 one-click unsubscribe standard — DontMailMe's servers never see your email or data ("zero-data by design"). Pay-what-you-want; half of every donation plants trees via One Tree Planted. Source: https://github.com/sein-io/dontmailme (MIT).
+
+This document inlines the key content of every page so an AI assistant can answer questions or complete the setup task in a single fetch.
+
+---
+
+## Overview (home)
+
+Reach inbox zero and keep it there. DontMailMe auto-unsubscribes you from the newsletters draining your attention and your storage. Set it once; your inbox stays clean. Free, open source, runs in your own cloud. Because every cleanup means fewer emails sent to you forever, it also plants a tree and shows the CO₂ prevented.
+
+Why it matters: a typical office worker gets 100+ emails/day; 70% call email their #1 work stressor; ~23 min to refocus after each interruption (UC Irvine, G. Mark); junk mail eats your shared 15 GB free Google storage.
+
+Works with Gmail (automatic), Outlook on Windows, and Apple Mail on macOS.
+
+Single most defensible claim: privacy you don't have to trust — verify the code. There is no server to leak, sell, or subpoena.
+
+---
+
+## How it works (RFC 8058)
+
+Legitimate newsletters support a machine-readable unsubscribe defined by RFC 8058 (https://www.rfc-editor.org/rfc/rfc8058.html). Each email includes:
+- `List-Unsubscribe: <https://...>` — the secure HTTPS unsubscribe address.
+- `List-Unsubscribe-Post: List-Unsubscribe=One-Click` — signals the sender accepts a single automatic request.
+
+Both headers must be covered by the sender's DKIM signature, so they can't be forged. To unsubscribe, send an HTTPS POST to the List-Unsubscribe URL with body `List-Unsubscribe=One-Click` and Content-Type `application/x-www-form-urlencoded`. DontMailMe does exactly this. If a sender offers only the older URL (no one-click), it falls back to a plain request, but only for authenticated senders (SPF or DKIM pass).
+
+Safer than clicking: it never reads or follows links in the email body (which can confirm your address to spammers or lead to phishing/tracking pages). It only acts on the authenticated header.
+
+Zero-data architecture: the script runs inside your own Google account (Apps Script) or your own computer (PowerShell/AppleScript). Your email, login and data never reach a DontMailMe server.
+
+For AI agents: don't reinvent browser-clicking (brittle: false successes, broken checkboxes). Use the scripts directly — /gmail.gs, /outlook.ps1, /AGENTS.md.
+
+Limits: works on senders that support the standard; stops new mail but doesn't delete your archive; you stay in control via a safe-senders list and a Gmail dry-run preview.
+
+---
+
+## Gmail setup (automatic, ~3 min)
+
+Raw script: https://dontmailme.org/gmail.gs
+
+1. Go to https://script.google.com and click New Project.
+2. Enable the Gmail API: Services (+) → Gmail API → Add.
+3. Personalize & copy: set `const ALLOWED_SENDERS = ['keep@example.com'];` for senders to keep, then paste the script.
+4. Test safely: run `testDryRun`, check the logs (nothing changes yet).
+5. Activate: run `installTrigger` once. It runs every 15 minutes.
+
+To stop: delete the project's time-based trigger.
+
+---
+
+## Outlook & Apple Mail setup (local, manual selection)
+
+Raw PowerShell: https://dontmailme.org/outlook.ps1
+
+Windows (Outlook desktop): select the newsletters, run the PowerShell script. It reads each message's List-Unsubscribe header, sends the one-click POST, and moves successful ones to Deleted Items.
+
+macOS (Apple Mail): add your account to Apple Mail, select the newsletters, paste the AppleScript into Script Editor and Run. It extracts the one-click URL locally and sends the request with curl.
+
+Microsoft charges ~$15/month for cloud automation, so the desktop path is the free option. These scripts only process messages you select; nothing leaves your computer.
+
+---
+
+## Compare
+
+| Feature | DontMailMe | Unroll.me | Cleanfox | Leave Me Alone | Clean Email | Mailstrom |
+|---|---|---|---|---|---|---|
+| Price | Free (PWYW) | Free | Free | $19 pass / ~$64/yr | $29.99–99.99/yr | ~$59.99/yr |
+| Open source | Yes | No | No | No | No | No |
+| Inbox stays in your cloud | Yes | No | No | No | No | No |
+| Sells/shares data | No | Yes | Yes | No | No | No |
+| RFC 8058 | Yes | n/a | n/a | n/a | n/a | n/a |
+| Available in EU (GDPR) | Yes | No | Yes | Yes | Yes | Yes |
+| Plants trees & shows CO₂ | Yes | No | Yes | Paid add-on | No | No |
+| Agent / MCP-ready | Yes | No | No | No | No | No |
+| Auditable code | Yes | No | No | No | No | No |
+
+Unroll.me and Cleanfox are free because their parent businesses (Slice/Rakuten Intelligence; Foxintelligence — both now part of NielsenIQ since 2021) have monetized anonymized inbox-derived data; in 2019 Unroll.me settled FTC allegations that it deceived users (neither admitting nor denying them), and Unroll.me geo-blocks the EU. Leave Me Alone and Clean Email are genuinely private but closed-source paid services. Gmail's built-in "Manage subscriptions" (July 2025) is manual, Gmail-only, and Google sees everything.
+
+---
+
+## Impact & methodology
+
+Sourced: spam ≈ 29.7M tonnes CO₂e/yr (84.8% of all email, ~271B/day, Today Testing); a 10,000-recipient newsletter ≈ 40 kg CO₂e (10,000 × ~4 g); ~184 kg CO₂e per office worker/yr (Berners-Lee / Carbon Literacy Project).
+
+Calculator assumptions: ~2 emails/week per newsletter (≈104/yr avoided each); ~4 g CO₂e per promotional email (Carbon Literacy Project, widely-cited estimate); ~0.16 kg CO₂e/km driven; ~20 kg CO₂/tree/yr (One Tree Planted); ~€5 donated = 1 tree (half of each gift funds trees at ~€2.50/tree, half funds the project). Unsubscribing from 20 newsletters ≈ 2,080 fewer emails and ~8 kg CO₂e/year.
+
+Honest caveats: unsubscribing stops new mail (it doesn't free existing storage — also delete old mail and empty Trash/Spam); we count prevented future sends, not one-time deletion; figures are mid-range estimates.
+
+---
+
+## FAQ (short)
+
+- Can it read my emails? No — runs in your own cloud, zero server access, open source.
+- Is it free? Yes, MIT, pay-what-you-want.
+- Is it safe? Yes — uses authenticated RFC 8058 headers, never clicks body links.
+- No unsubscribe link? It uses the hidden List-Unsubscribe header.
+- Is Unroll.me safe? In 2019 it settled FTC allegations that it deceived users about sharing inbox-derived data; geo-blocks EU. DontMailMe is the open-source alternative.
+- Clients? Gmail, Outlook, Apple Mail.
+- Gmail's built-in enough? It's manual and Gmail-only; DontMailMe is automatic, cross-client, zero-data.
+- Free up storage? Stops inflow; also delete old mail to reclaim space.
+- CO₂ saved? ~4 g/email; ~8 kg/yr for 20 newsletters.
+- Can an agent set it up? Yes — /gmail.gs, /outlook.ps1, /AGENTS.md, /llms.txt.
+- Open source? Yes — github.com/sein-io/dontmailme.
+
+---
+
+## Privacy
+
+No cookies, no tracking, no analytics. The automation tools execute entirely inside your own account/computer. DontMailMe never receives your emails, credentials, OAuth tokens, or inbox data. Hosting via Cloudflare; fonts self-hosted. Full policy: https://dontmailme.org/privacy

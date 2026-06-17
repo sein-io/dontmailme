@@ -1,0 +1,26 @@
+name: 💡 Feature request
+description: Suggest a new mail client, capability, or improvement.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's the problem or use case?
+      description: What are you trying to do that DontMailMe doesn't do yet?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: How might it work? (Remember the constraint — it must run in the user's own account, zero data to us.)
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type
+      options:
+        - New mail client (Yahoo, Proton, Fastmail, …)
+        - Agent / MCP capability
+        - Site / SEO / docs
+        - Eco / impact feature
+        - Other

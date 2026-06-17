@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsubscribe FAQ — Is It Safe? Is It Free? | DontMailMe</title>
+    <meta name="description" content="Answers to the most-asked questions about unsubscribing from newsletters: does it work, is it safe, is DontMailMe free, can it read your email, and how it compares to Unroll.me and Gmail's built-in tool.">
+    <link rel="canonical" href="https://dontmailme.org/faq">
+    <meta name="theme-color" content="#0A7D5C">
+    <link rel="alternate" type="text/markdown" href="/faq.md">
+
+    <meta property="og:title" content="Unsubscribe FAQ — Is It Safe? Is It Free?">
+    <meta property="og:description" content="Does unsubscribing work? Is it safe? Is DontMailMe free? Can it read your email? Clear, sourced answers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dontmailme.org/faq">
+    <meta property="og:image" content="https://dontmailme.org/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Unsubscribe FAQ — Is It Safe? Is It Free?">
+    <meta name="twitter:description" content="Does unsubscribing work? Is it safe? Is DontMailMe free? Can it read your email? Clear, sourced answers.">
+    <meta name="twitter:image" content="https://dontmailme.org/og-image.jpg">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dontmailme.org/" },
+            { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://dontmailme.org/faq" }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "How do I unsubscribe from all newsletters at once?", "acceptedAnswer": { "@type": "Answer", "text": "Instead of clicking unsubscribe on each email, DontMailMe generates a small script that runs inside your own Gmail or Outlook account. It reads each newsletter's official List-Unsubscribe header and sends the one-click unsubscribe request for you, automatically and on a schedule. Setup takes about three minutes." } },
+            { "@type": "Question", "name": "Does unsubscribing actually work?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, for legitimate senders. The RFC 8058 one-click standard that DontMailMe uses requires the sender to honour the request, and the headers are cryptographically signed (DKIM) so they can't be faked. Outright spammers may ignore any unsubscribe, which is why the script only acts on authenticated senders." } },
+            { "@type": "Question", "name": "Is it safe to unsubscribe from emails?", "acceptedAnswer": { "@type": "Answer", "text": "It is, when done the right way. DontMailMe never clicks links inside the email body, so it can't be lured to a tracking pixel or phishing page. It only sends the authenticated RFC 8058 List-Unsubscribe-Post request to the address the sender published and signed. That's safer than manually clicking unsubscribe links." } },
+            { "@type": "Question", "name": "How do I unsubscribe if there's no unsubscribe link?", "acceptedAnswer": { "@type": "Answer", "text": "Many emails that show no visible unsubscribe button still include a hidden List-Unsubscribe header — the machine-readable standard email clients use. DontMailMe reads that header and sends the one-click request, so it can unsubscribe you even when there's no obvious link in the email body." } },
+            { "@type": "Question", "name": "Is DontMailMe free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely. DontMailMe is open source under the MIT license and funded by pay-what-you-want donations, including nothing. Half of every donation plants trees through One Tree Planted. You never have to pay to use the tool." } },
+            { "@type": "Question", "name": "Can DontMailMe read my emails?", "acceptedAnswer": { "@type": "Answer", "text": "No. There is no DontMailMe server in the loop. The script runs entirely inside your own Google or Microsoft account, so your email, login and data never reach us. The code is open source, so you can verify this line by line. We call it zero-data by design." } },
+            { "@type": "Question", "name": "Is Unroll.me safe?", "acceptedAnswer": { "@type": "Answer", "text": "In 2019 Unroll.me settled U.S. FTC allegations that it deceived users — telling them it would not touch their personal emails while sharing data derived from their inboxes with its parent company (it neither admitted nor denied the allegations). It also geo-blocks the EU rather than comply with GDPR. DontMailMe is the private, open-source alternative — it runs in your own cloud and never sees your data." } },
+            { "@type": "Question", "name": "What's a private, open-source alternative to Cleanfox or Unroll.me?", "acceptedAnswer": { "@type": "Answer", "text": "DontMailMe. Cleanfox and Unroll.me are free because their parent companies monetize anonymized inbox data. DontMailMe is open source and runs inside your own Gmail or Outlook account, so it never sees or sells your data — and you can audit every line of the code on GitHub." } },
+            { "@type": "Question", "name": "Does it work with Gmail, Outlook, and Apple Mail?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Gmail uses an automatic Google Apps Script that runs every 15 minutes. Outlook on Windows uses a local PowerShell script, and Apple Mail on macOS uses an AppleScript — both act on the messages you select. All three run on your side; no data leaves your device or cloud." } },
+            { "@type": "Question", "name": "Is Gmail's built-in \"Manage subscriptions\" enough?", "acceptedAnswer": { "@type": "Answer", "text": "Gmail's Manage subscriptions view (launched July 2025) is useful but manual: you unsubscribe one sender at a time, only in Gmail, and Google processes everything. DontMailMe is set-and-forget, works across Gmail, Outlook and Apple Mail, and keeps your data out of everyone's hands — including ours." } },
+            { "@type": "Question", "name": "How does auto-unsubscribe work? What is RFC 8058?", "acceptedAnswer": { "@type": "Answer", "text": "RFC 8058 is the internet standard for one-click unsubscribe. Senders add a List-Unsubscribe address and a List-Unsubscribe-Post header to each email. To unsubscribe, a client sends an HTTPS POST with the body List-Unsubscribe=One-Click. DontMailMe's script does exactly this, automatically, for the newsletters you don't want." } },
+            { "@type": "Question", "name": "Will unsubscribing free up my Google storage?", "acceptedAnswer": { "@type": "Answer", "text": "Partly. Unsubscribing stops new newsletters from arriving and filling your shared 15 GB Google limit. To reclaim space you've already used, you also need to delete old mail and empty your Trash and Spam folders — only permanently deleted mail frees storage, per Google." } },
+            { "@type": "Question", "name": "How much CO₂ does unsubscribing save?", "acceptedAnswer": { "@type": "Answer", "text": "Roughly 4 g CO₂e per promotional email avoided (Carbon Literacy Project). Unsubscribing from 20 newsletters prevents about 2,080 emails and ~8 kg CO₂e a year — every year, since the mail simply stops being sent. For scale, spam alone emits about 29.7 million tonnes of CO₂e annually." } },
+            { "@type": "Question", "name": "Can an AI assistant or agent set this up for me?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. DontMailMe is built for agents as well as people. The ready-to-run scripts are plain-text endpoints (/gmail.gs, /outlook.ps1), there's a step-by-step runbook at /AGENTS.md, and a machine index at /llms.txt — so an AI assistant can fetch the script and complete setup without driving a browser." } },
+            { "@type": "Question", "name": "Is it open source and can I audit the code?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All of DontMailMe's code is open source under the MIT license and published on GitHub at github.com/sein-io/dontmailme. The script you run is the script you can read — there is no hidden server-side component, because nothing runs on our servers." } }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+<header>
+    <a href="/" class="brand">DontMailMe.org</a>
+    <nav class="nav-links">
+        <a href="/how-it-works">How it works</a>
+        <a href="/gmail">Gmail</a>
+        <a href="/outlook">Outlook</a>
+        <a href="/compare">Compare</a>
+        <a href="/faq" class="active">FAQ</a>
+        <a href="/impact">Impact</a>
+    </nav>
+</header>
+
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> › FAQ</nav>
+
+<main>
+    <section>
+        <div class="section-head">
+            <h1 style="font-size: clamp(2.5rem, 6vw, 4rem);">Frequently asked questions</h1>
+            <p>Everything people ask before trusting a tool with their inbox.</p>
+        </div>
+
+        <div class="faq-list">
+            <details class="faq-item" open>
+                <summary>How do I unsubscribe from all newsletters at once?</summary>
+                <div class="answer">Instead of clicking unsubscribe on each email, DontMailMe generates a small script that runs inside your own Gmail or Outlook account. It reads each newsletter's official <code>List-Unsubscribe</code> header and sends the one-click request for you, automatically and on a schedule. <a href="/gmail">Setup takes about three minutes</a>.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Does unsubscribing actually work?</summary>
+                <div class="answer">Yes, for legitimate senders. The RFC 8058 one-click standard requires the sender to honour the request, and the headers are cryptographically signed (DKIM) so they can't be faked. Outright spammers may ignore any unsubscribe, which is why the script only acts on authenticated senders.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Is it safe to unsubscribe from emails?</summary>
+                <div class="answer">It is, when done the right way. DontMailMe never clicks links inside the email body, so it can't be lured to a tracking pixel or phishing page. It only sends the authenticated <code>List-Unsubscribe-Post</code> request to the address the sender published and signed — <a href="/how-it-works">safer than clicking manually</a>.</div>
+            </details>
+            <details class="faq-item">
+                <summary>How do I unsubscribe if there's no unsubscribe link?</summary>
+                <div class="answer">Many emails that show no visible unsubscribe button still include a hidden <code>List-Unsubscribe</code> header — the machine-readable standard email clients use. DontMailMe reads that header and sends the one-click request, so it can unsubscribe you even when there's no obvious link in the email body.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Is DontMailMe free?</summary>
+                <div class="answer">Yes, completely. DontMailMe is open source under the MIT license and funded by pay-what-you-want donations, including nothing. Half of every donation plants trees through One Tree Planted. You never have to pay to use the tool.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Can DontMailMe read my emails?</summary>
+                <div class="answer">No. There is no DontMailMe server in the loop. The script runs entirely inside your own Google or Microsoft account, so your email, login and data never reach us. The code is open source, so you can verify this line by line. We call it <strong>zero-data by design</strong>.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Is Unroll.me safe?</summary>
+                <div class="answer">In 2019 Unroll.me settled U.S. FTC allegations that it deceived users — telling them it would not touch their personal emails while sharing data derived from their inboxes with its parent company (it neither admitted nor denied the allegations). It also geo-blocks the EU rather than comply with GDPR. DontMailMe is the private, open-source alternative — it runs in your own cloud and never sees your data. <a href="/compare">See the comparison</a>.</div>
+            </details>
+            <details class="faq-item">
+                <summary>What's a private, open-source alternative to Cleanfox or Unroll.me?</summary>
+                <div class="answer">DontMailMe. Cleanfox and Unroll.me are free because their parent companies monetize anonymized inbox data. DontMailMe is open source and runs inside your own Gmail or Outlook account, so it never sees or sells your data — and you can <a href="https://github.com/sein-io/dontmailme" target="_blank" rel="noopener noreferrer">audit every line on GitHub</a>.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Does it work with Gmail, Outlook, and Apple Mail?</summary>
+                <div class="answer">Yes. <a href="/gmail">Gmail</a> uses an automatic Google Apps Script that runs every 15 minutes. <a href="/outlook">Outlook on Windows</a> uses a local PowerShell script, and <a href="/outlook#apple-mail">Apple Mail on macOS</a> uses an AppleScript — both act on the messages you select. All three run on your side; no data leaves your device or cloud.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Is Gmail's built-in "Manage subscriptions" enough?</summary>
+                <div class="answer">Gmail's Manage subscriptions view (launched July 2025) is useful but manual: you unsubscribe one sender at a time, only in Gmail, and Google processes everything. DontMailMe is set-and-forget, works across Gmail, Outlook and Apple Mail, and keeps your data out of everyone's hands — including ours.</div>
+            </details>
+            <details class="faq-item">
+                <summary>How does auto-unsubscribe work? What is RFC 8058?</summary>
+                <div class="answer"><a href="/how-it-works">RFC 8058</a> is the internet standard for one-click unsubscribe. Senders add a <code>List-Unsubscribe</code> address and a <code>List-Unsubscribe-Post</code> header to each email. To unsubscribe, a client sends an HTTPS POST with the body <code>List-Unsubscribe=One-Click</code>. DontMailMe's script does exactly this, automatically, for the newsletters you don't want.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Will unsubscribing free up my Google storage?</summary>
+                <div class="answer">Partly. Unsubscribing stops new newsletters from filling your shared 15 GB Google limit. To reclaim space you've already used, you also need to delete old mail and empty your Trash and Spam folders — only permanently deleted mail frees storage, per Google.</div>
+            </details>
+            <details class="faq-item">
+                <summary>How much CO₂ does unsubscribing save?</summary>
+                <div class="answer">Roughly 4 g CO₂e per promotional email avoided (Carbon Literacy Project). Unsubscribing from 20 newsletters prevents about 2,080 emails and ~8 kg CO₂e a year — every year, since the mail simply stops being sent. For scale, spam alone emits about 29.7 million tonnes of CO₂e annually. <a href="/impact">See the methodology</a>.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Can an AI assistant or agent set this up for me?</summary>
+                <div class="answer">Yes. DontMailMe is built for agents as well as people. The ready-to-run scripts are plain-text endpoints (<a href="/gmail.gs"><code>/gmail.gs</code></a>, <a href="/outlook.ps1"><code>/outlook.ps1</code></a>), there's a step-by-step runbook at <a href="/AGENTS.md"><code>/AGENTS.md</code></a>, and a machine index at <a href="/llms.txt"><code>/llms.txt</code></a> — so an agent can fetch the script and finish setup without driving a browser.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Is it open source and can I audit the code?</summary>
+                <div class="answer">Yes. All of DontMailMe's code is open source under the MIT license and published on <a href="https://github.com/sein-io/dontmailme" target="_blank" rel="noopener noreferrer">GitHub</a>. The script you run is the script you can read — there is no hidden server-side component, because nothing runs on our servers.</div>
+            </details>
+        </div>
+
+        <div class="cta-row" style="margin-top:48px;">
+            <a href="/gmail" class="btn">Start your cleanup — free</a>
+            <a href="/compare" class="btn btn-secondary">Compare vs. other tools</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Set up</h4>
+            <a href="/gmail">Gmail</a>
+            <a href="/outlook">Outlook (Windows)</a>
+            <a href="/outlook#apple-mail">Apple Mail (macOS)</a>
+        </div>
+        <div class="footer-col">
+            <h4>Learn</h4>
+            <a href="/how-it-works">How it works</a>
+            <a href="/compare">Compare tools</a>
+            <a href="/faq">FAQ</a>
+            <a href="/impact">Impact &amp; methodology</a>
+        </div>
+        <div class="footer-col">
+            <h4>For AI agents</h4>
+            <a href="/llms.txt">llms.txt</a>
+            <a href="/AGENTS.md">AGENTS.md</a>
+            <a href="/gmail.gs">Raw Gmail script</a>
+        </div>
+        <div class="footer-col">
+            <h4>Project</h4>
+            <a href="https://github.com/sein-io/dontmailme">GitHub (source)</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/imprint">Imprint</a>
+        </div>
+    </div>
+    <p class="footer-note">A SEIN initiative. Built for personal productivity and planetary health — open source, zero data access.</p>
+</footer>
+
+</body>
+</html>

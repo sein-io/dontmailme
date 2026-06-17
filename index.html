@@ -3,90 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DontMailMe — Stop the noise.</title>
-    <meta property="og:title" content="DontMailMe — Stop the noise.">
-    <meta property="og:description" content="Auto-unsubscribe from newsletters. Runs locally. Zero data access. Plants trees.">
+    <title>Auto-Unsubscribe From All Newsletters — Free, Open-Source, Private | DontMailMe</title>
+    <meta name="description" content="Reach inbox zero and keep it there. DontMailMe auto-unsubscribes you from newsletters you never read with a free script that runs inside your own Gmail or Outlook — our servers never see your email. Open-source, RFC 8058, plants trees.">
+    <link rel="canonical" href="https://dontmailme.org/">
+    <meta name="theme-color" content="#0A7D5C">
+    <link rel="alternate" type="text/markdown" href="/index.md">
+
+    <meta property="og:title" content="Auto-Unsubscribe From All Newsletters — Free &amp; Private">
+    <meta property="og:description" content="Inbox zero, on autopilot. A free open-source script that unsubscribes you from newsletters inside your own cloud — we never see your data. Every cleanup plants a tree.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dontmailme.org">
+    <meta property="og:url" content="https://dontmailme.org/">
+    <meta property="og:image" content="https://dontmailme.org/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Auto-Unsubscribe From All Newsletters — Free &amp; Private">
+    <meta name="twitter:description" content="Inbox zero, on autopilot. Free, open-source, runs in your own cloud — zero data access. Every cleanup plants a tree.">
+    <meta name="twitter:image" content="https://dontmailme.org/og-image.jpg">
+
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://dontmailme.org/#org",
+          "name": "DontMailMe",
+          "url": "https://dontmailme.org/",
+          "logo": "https://dontmailme.org/favicon.svg",
+          "description": "Free, open-source tool that auto-unsubscribes you from newsletters using the RFC 8058 standard, running entirely inside your own cloud.",
+          "sameAs": ["https://github.com/sein-io/dontmailme"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://dontmailme.org/#website",
+          "name": "DontMailMe",
+          "url": "https://dontmailme.org/",
+          "publisher": { "@id": "https://dontmailme.org/#org" },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "DontMailMe",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Web-based (Gmail, Outlook, Apple Mail)",
+          "url": "https://dontmailme.org/",
+          "description": "Auto-unsubscribe from newsletters you never read. A free, open-source script that runs inside your own Google or Microsoft account using the RFC 8058 one-click unsubscribe standard — our servers never see your email.",
+          "isAccessibleForFree": true,
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+          "featureList": [
+            "Automatic one-click unsubscribe (RFC 8058)",
+            "Runs in your own cloud — zero data access",
+            "Open source and auditable",
+            "Works with Gmail, Outlook and Apple Mail",
+            "Plants trees and tracks CO2 saved"
+          ],
+          "license": "https://opensource.org/licenses/MIT",
+          "publisher": { "@id": "https://dontmailme.org/#org" }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
 
 <header>
     <a href="/" class="brand">DontMailMe.org</a>
     <nav class="nav-links">
-        <a href="/gmail">Gmail Tool</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/gmail">Gmail</a>
         <a href="/outlook">Outlook</a>
+        <a href="/compare">Compare</a>
+        <a href="/faq">FAQ</a>
         <a href="/impact">Impact</a>
     </nav>
 </header>
 
 <main>
     <section class="hero">
-        <h1>We just stop the noise and plant trees.</h1>
-        <p>DontMailMe auto-unsubscribes you from newsletters you never read. It runs locally inside your own cloud — we never see your data. Every cleanup prevents CO₂, every donation plants a tree.</p>
-        <a href="/gmail" class="btn">Start your cleanup — free</a>
-        <p style="margin-top: 24px; font-size: 0.9rem; color: var(--text-muted);">
-            Open source &middot; RFC 8058 secure &middot; Zero data access
-        </p>
+        <h1>Reach inbox zero. Auto-unsubscribe from newsletters you never read.</h1>
+        <p>Copy-paste one free script that runs inside <em>your</em> Google or Microsoft account using the official one-click unsubscribe standard (RFC&nbsp;8058). Our servers never see a single email. Set it once — your inbox stays clean.</p>
+        <div class="cta-row">
+            <a href="/gmail" class="btn">Start your cleanup — free, ~3&nbsp;min</a>
+            <a href="/compare" class="btn btn-secondary">Compare vs. Unroll.me &amp; others</a>
+        </div>
+        <div class="badges">
+            <span class="badge">Free &amp; open source</span>
+            <span class="badge">Zero data access</span>
+            <span class="badge">RFC 8058 one-click</span>
+            <span class="badge">Gmail · Outlook · Apple Mail</span>
+        </div>
+        <p class="eco-note">And because every cleanup means fewer emails sent to you forever, we plant a tree for you and show the <strong>CO₂ you prevented</strong>. The good part rides along for free.</p>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>Your inbox is expensive — in attention, storage, and carbon</h2>
+            <p>The cost of newsletters you never open is real and measurable. DontMailMe stops the inflow at the source.</p>
+        </div>
+        <div class="stats-row">
+            <div class="stat"><strong>100+</strong><span>emails a typical office worker gets every day</span></div>
+            <div class="stat"><strong>70%</strong><span>name email their #1 source of work stress</span></div>
+            <div class="stat"><strong>~23 min</strong><span>to refocus after each interruption</span></div>
+            <div class="stat"><strong>15 GB</strong><span>free Google storage junk mail quietly eats</span></div>
+        </div>
+        <p class="footer-note" style="margin-top:32px;">Sources: business email-volume studies, Mailbird Email Overload Survey 2025, University of California Irvine (G. Mark), Google Support. See the <a href="/impact">full methodology</a>.</p>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>How it works — three steps, then forget about it</h2>
+            <p>No app to install, no account to create, no inbox access to grant a stranger.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <span class="num">1</span>
+                <h3>Copy the script</h3>
+                <p>We generate a small open-source script for your mail provider. You can read every line — nothing is hidden.</p>
+            </div>
+            <div class="step-card">
+                <span class="num">2</span>
+                <h3>Paste it into your own account</h3>
+                <p>It runs in Google Apps Script (Gmail) or on your desktop (Outlook / Apple Mail). It lives in <em>your</em> cloud, not ours.</p>
+            </div>
+            <div class="step-card">
+                <span class="num">3</span>
+                <h3>Relax — it runs on autopilot</h3>
+                <p>The script sends the official one-click unsubscribe for each junk newsletter and tidies your inbox. Set it once.</p>
+            </div>
+        </div>
+        <div class="cta-row" style="margin-top:40px;">
+            <a href="/gmail" class="btn">Set up Gmail</a>
+            <a href="/how-it-works" class="btn btn-secondary">Why this is safer than clicking unsubscribe</a>
+        </div>
     </section>
 
     <section id="calculator">
         <div class="calculator-box">
             <h2>Your Impact Calculator</h2>
-            <p style="color: var(--text-muted); margin-top: 8px; margin-bottom: 32px;">See what your donation and unsubscriptions achieve.</p>
-            
+            <p style="color: var(--text-muted); margin-top: 8px; margin-bottom: 32px;">See what cleaning up — and chipping in — actually achieves.</p>
+
             <div class="slider-container">
-                <label style="display:block; margin-bottom: 8px; font-size: 1.1rem; font-weight: 500;">
-                    Newsletters unsubscribed: <span id="unsub-val">20</span>
+                <label for="unsub-slider" style="display:block; margin-bottom: 8px; font-size: 1.1rem; font-weight: 500;">
+                    Newsletters you unsubscribe from: <span id="unsub-val">20</span>
                 </label>
                 <input type="range" id="unsub-slider" min="1" max="100" value="20" step="1">
             </div>
 
             <div class="metrics-grid">
                 <div class="metric">
-                    <strong id="out-co2">20</strong> kg CO₂
+                    <strong id="out-emails">2,080</strong> emails
+                    you never receive per year
+                </div>
+                <div class="metric">
+                    <strong id="out-co2">8.3</strong> kg CO₂e
                     prevented per year
                 </div>
                 <div class="metric">
-                    <strong id="out-car">119</strong> km
-                    driven in a car
-                </div>
-                <div class="metric">
-                    <strong id="out-led">114</strong> days
-                    of an LED bulb
+                    <strong id="out-car">52</strong> km
+                    of driving avoided
                 </div>
             </div>
 
             <hr style="border: 0; border-top: 1px solid var(--border); margin: 48px 0 32px;">
 
             <div class="slider-container">
-                <label style="display:block; margin-bottom: 8px; font-size: 1.1rem; font-weight: 500;">
-                    Donation: €<span id="price-val">5</span>
+                <label for="price-slider" style="display:block; margin-bottom: 8px; font-size: 1.1rem; font-weight: 500;">
+                    Pay what you want: €<span id="price-val">5</span>
                 </label>
-                <input type="range" id="price-slider" min="1" max="50" value="5" step="1">
+                <input type="range" id="price-slider" min="0" max="50" value="5" step="1">
             </div>
 
             <p style="font-size: 1.1rem; margin-bottom: 24px;">
-                Funds the project and plants <strong id="tree-count">2</strong> <span id="tree-label">trees</span>.
+                Half funds the project, half plants <strong id="tree-count">1</strong> <span id="tree-label">tree</span> via One Tree Planted — locking in roughly <strong id="tree-co2">20</strong> kg of CO₂ a year.
             </p>
 
-            <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn" style="width: 100%; max-width: 300px;">Donate & Support</a>
+            <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn" style="width: 100%; max-width: 320px;">Support &amp; plant trees</a>
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-top:16px;">Pay-what-you-want, including nothing. The tool is free either way.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="agent-callout">
+            <h3>Built for humans <em>and</em> their agents</h3>
+            <p>AI assistants increasingly handle chores like unsubscribing. Today they do it by clicking through fragile web pages, which often fails. DontMailMe gives them the reliable path instead — the standards-based script, ready to run:</p>
+            <ul>
+                <li>Ready-to-run scripts as plain text: <a href="/gmail.gs"><code>/gmail.gs</code></a> · <a href="/outlook.ps1"><code>/outlook.ps1</code></a></li>
+                <li>A literal step-by-step runbook: <a href="/AGENTS.md"><code>/AGENTS.md</code></a></li>
+                <li>A machine index of the whole site: <a href="/llms.txt"><code>/llms.txt</code></a></li>
+            </ul>
+            <p style="margin-bottom:0;">Edit <code>ALLOWED_SENDERS</code> at the top of the script to keep senders you trust. No browser automation required.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>Questions, answered</h2>
+            <p>The things people ask before they trust a tool with their inbox.</p>
+        </div>
+        <div class="faq-list">
+            <details class="faq-item">
+                <summary>How do I unsubscribe from all newsletters at once?</summary>
+                <div class="answer">Instead of clicking unsubscribe on every email, DontMailMe generates a script that runs inside your own Gmail or Outlook. It reads each newsletter's official <code>List-Unsubscribe</code> header and sends the one-click request for you, automatically. Setup takes about three minutes.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Can DontMailMe read my emails?</summary>
+                <div class="answer">No. There's no server in the loop — the script runs entirely inside your own account, so your email and login never reach us. The code is open source, so you can verify it. We call this <strong>zero-data by design</strong>.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Is it free?</summary>
+                <div class="answer">Completely. DontMailMe is open source (MIT) and funded by pay-what-you-want donations. Half of every donation plants trees through One Tree Planted. You never have to pay to use it.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Is it safe to unsubscribe this way?</summary>
+                <div class="answer">Yes — safer than clicking. The script only uses the authenticated RFC 8058 <code>List-Unsubscribe-Post</code> header; it never clicks links in the email body, so it can't be lured to a tracking or phishing page. <a href="/how-it-works">See how it works</a>.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Is Unroll.me safe? Is there a private alternative?</summary>
+                <div class="answer">Unroll.me settled FTC allegations that it misled users about sharing data derived from their inboxes, and it geo-blocks the EU. DontMailMe is the private, open-source alternative: it runs in your own cloud and never sees your data. <a href="/compare">Compare them side by side</a>.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Can an AI assistant set this up for me?</summary>
+                <div class="answer">Yes. The scripts are exposed as plain-text endpoints (<a href="/gmail.gs"><code>/gmail.gs</code></a>, <a href="/outlook.ps1"><code>/outlook.ps1</code></a>) and there's an agent runbook at <a href="/AGENTS.md"><code>/AGENTS.md</code></a>, so an agent can fetch and run the script directly.</div>
+            </details>
+        </div>
+        <div class="cta-row" style="margin-top:40px;">
+            <a href="/faq" class="btn btn-secondary">Read all FAQs</a>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-head">
+            <h2>Popular guides</h2>
+            <p>Looking for something specific?</p>
+        </div>
+        <div class="steps-grid">
+            <a class="step-card" href="/free-gmail-storage" style="color:inherit;">
+                <h3>Free up Gmail storage</h3>
+                <p>Stop paying Google One — kill the junk mail eating your 15&nbsp;GB.</p>
+            </a>
+            <a class="step-card" href="/gmail-manage-subscriptions" style="color:inherit;">
+                <h3>Gmail's built-in tool vs. this</h3>
+                <p>How automatic unsubscribing compares to Gmail "Manage subscriptions".</p>
+            </a>
+            <a class="step-card" href="/teams" style="color:inherit;">
+                <h3>For teams &amp; businesses</h3>
+                <p>Cut mailbox storage costs and digital waste across your organisation.</p>
+            </a>
         </div>
     </section>
 </main>
 
 <footer>
-    <p>A Green IT Suite initiative. Built for personal productivity and planetary health.</p>
-    <div style="margin-top: 16px; display: flex; justify-content: center; gap: 16px;">
-        <a href="https://github.com/sein-io/dontmailme">GitHub</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/imprint">Imprint</a>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Set up</h4>
+            <a href="/gmail">Gmail</a>
+            <a href="/outlook">Outlook (Windows)</a>
+            <a href="/outlook#apple-mail">Apple Mail (macOS)</a>
+        </div>
+        <div class="footer-col">
+            <h4>Learn</h4>
+            <a href="/how-it-works">How it works</a>
+            <a href="/compare">Compare tools</a>
+            <a href="/faq">FAQ</a>
+            <a href="/impact">Impact &amp; methodology</a>
+        </div>
+        <div class="footer-col">
+            <h4>For AI agents</h4>
+            <a href="/llms.txt">llms.txt</a>
+            <a href="/AGENTS.md">AGENTS.md</a>
+            <a href="/gmail.gs">Raw Gmail script</a>
+        </div>
+        <div class="footer-col">
+            <h4>Project</h4>
+            <a href="https://github.com/sein-io/dontmailme">GitHub (source)</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/imprint">Imprint</a>
+        </div>
     </div>
+    <p class="footer-note">A SEIN initiative. Built for personal productivity and planetary health — open source, zero data access.</p>
 </footer>
 
-<script src="calculator.js"></script>
+<script src="calculator.js" defer></script>
 </body>
 </html>
