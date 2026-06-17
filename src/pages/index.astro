@@ -97,7 +97,20 @@ const jsonLd = {
   ],
 };
 ---
-<Base title={title} description={description} path="/" showRail={true} ctaHref="#how">
+<Base
+  title={title}
+  description={description}
+  path="/"
+  ctaHref="#how"
+  railItems={[
+    { href: '#features', name: 'grid', label: 'Why' },
+    { href: '#how', name: 'route', label: 'How' },
+    { href: '#providers', name: 'inbox', label: 'Where' },
+    { href: '#compare', name: 'scale', label: 'Which' },
+    { href: '#impact', name: 'leaf', label: 'Impact' },
+    { href: '#developers', name: 'code', label: 'For agents' },
+  ]}
+>
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </Fragment>
@@ -126,54 +139,54 @@ const jsonLd = {
   <!-- ===================== Features bento ===================== -->
   <section class="sec" id="features">
     <div class="sec-h">
-      <div class="sec-lbl mono">01 · Why DontMailMe</div>
-      <h2 class="sec-t">Most free email tools sell your inbox. We have nothing to sell.</h2>
-      <p class="sec-sub">Because nothing leaves your account. The architecture is the privacy proof — not a policy.</p>
+      <p class="sec-q">WHY<span class="q">?</span></p>
+      <h2 class="sec-t">Free email tools usually sell your inbox. We have nothing to sell.</h2>
+      <p class="sec-sub">Because nothing ever leaves your account. The architecture <em>is</em> the privacy — not a policy. <span class="hint mono">hover a card for the why</span></p>
     </div>
     <div class="bento">
-      <article class="bc glass span-2">
-        <Icon name="lock" class="ic bc-ic" />
+      <article class="bc glass span-2 bc-reveal">
+        <span class="bc-badge"><Icon name="lock" /></span>
         <div class="bc-lbl">Zero-data by design</div>
         <h3 class="bc-t">There is no server. The code runs in your account.</h3>
-        <p class="bc-p">
+        <div class="bc-body"><div><p class="bc-p">
           The script lives in your own Google Apps Script or on your desktop — there is no DontMailMe backend
           that could see, store, or sell your mail. Not a privacy <em>policy</em>; an <em>architecture</em>.
           <a href="/gmail.gs">Read <code>gmail.gs</code> →</a>
-        </p>
+        </p></div></div>
       </article>
-      <article class="bc glass">
-        <Icon name="book" class="ic bc-ic" />
+      <article class="bc glass bc-reveal">
+        <span class="bc-badge"><Icon name="book" /></span>
         <div class="bc-lbl">Open source · MIT</div>
         <h3 class="bc-t">~120 lines you can read first.</h3>
-        <p class="bc-p">Don't trust us — verify the code, then run it. <a href={repo}>On GitHub →</a></p>
+        <div class="bc-body"><div><p class="bc-p">Don't trust us — verify the code, then run it. <a href={repo}>On GitHub →</a></p></div></div>
       </article>
-      <article class="bc glass">
-        <Icon name="bolt" class="ic bc-ic" />
+      <article class="bc glass bc-reveal">
+        <span class="bc-badge"><Icon name="bolt" /></span>
         <div class="bc-lbl">Safe by standard</div>
         <h3 class="bc-t">Only the authenticated header.</h3>
-        <p class="bc-p">Acts on the RFC&nbsp;8058 <code>List-Unsubscribe-Post</code> header — never clicks links in the body, so it can't be lured to a phishing page.</p>
+        <div class="bc-body"><div><p class="bc-p">Acts on the RFC&nbsp;8058 <code>List-Unsubscribe-Post</code> header — never clicks links in the body, so it can't be lured to a phishing page.</p></div></div>
       </article>
-      <article class="bc glass span-2">
-        <Icon name="code" class="ic bc-ic" />
+      <article class="bc glass span-2 bc-reveal">
+        <span class="bc-badge"><Icon name="code" /></span>
         <div class="bc-lbl">Built for humans and their agents</div>
         <h3 class="bc-t">No broker between the agent and your inbox.</h3>
-        <p class="bc-p">
+        <div class="bc-body"><div><p class="bc-p">
           A single-purpose unsubscribe tool an assistant runs <em>inside your own account</em> — not one that
           OAuths your mailbox into someone's server. Ships an MCP server, <code>AGENTS.md</code> and raw scripts.
           <a href="/mcp">For developers →</a>
-        </p>
+        </p></div></div>
       </article>
-      <article class="bc glass">
-        <Icon name="inbox" class="ic bc-ic" />
+      <article class="bc glass bc-reveal">
+        <span class="bc-badge"><Icon name="inbox" /></span>
         <div class="bc-lbl">Many providers</div>
         <h3 class="bc-t">Gmail, Outlook, Apple Mail &amp; more.</h3>
-        <p class="bc-p">Native tracks today; a generic IMAP tool for iCloud, Yahoo, GMX and others is on the roadmap.</p>
+        <div class="bc-body"><div><p class="bc-p">Native tracks today; a generic IMAP tool for iCloud, Yahoo, GMX and others is on the roadmap.</p></div></div>
       </article>
-      <article class="bc glass">
-        <Icon name="leaf" class="ic bc-ic" />
+      <article class="bc glass bc-reveal">
+        <span class="bc-badge"><Icon name="leaf" /></span>
         <div class="bc-lbl">The quiet good</div>
         <h3 class="bc-t">Every cleanup plants a tree.</h3>
-        <p class="bc-p">Fewer emails forever means less carbon. Pay what you want; half plants a tree. <a href="/impact">See the impact →</a></p>
+        <div class="bc-body"><div><p class="bc-p">Fewer emails forever means less carbon. Pay what you want; half plants a tree. <a href="/impact">See the impact →</a></p></div></div>
       </article>
     </div>
   </section>
@@ -181,7 +194,7 @@ const jsonLd = {
   <!-- ===================== How it works ===================== -->
   <section class="sec" id="how">
     <div class="sec-h">
-      <div class="sec-lbl mono">02 · How it works</div>
+      <p class="sec-q">HOW<span class="q">?</span></p>
       <h2 class="sec-t">Three steps, then forget about it.</h2>
       <p class="sec-sub">No app to install, no account to create, no inbox access to grant a stranger.</p>
     </div>
@@ -217,7 +230,7 @@ const jsonLd = {
   <!-- ===================== Providers ===================== -->
   <section class="sec" id="providers">
     <div class="sec-h">
-      <div class="sec-lbl mono">03 · Providers</div>
+      <p class="sec-q">WHERE<span class="q">?</span></p>
       <h2 class="sec-t">Works where your mail already is.</h2>
       <p class="sec-sub">Native setup tracks today; honest status badges as coverage grows.</p>
     </div>
@@ -238,7 +251,7 @@ const jsonLd = {
   <!-- ===================== Compare ===================== -->
   <section class="sec" id="compare">
     <div class="sec-h">
-      <div class="sec-lbl mono">04 · Compare</div>
+      <p class="sec-q">WHICH<span class="q">?</span></p>
       <h2 class="sec-t">An open-source Unroll.me / Cleanfox alternative.</h2>
       <p class="sec-sub">Most unsubscribe tools are free because you are the product, or paid because privacy is sold back to you. DontMailMe is neither.</p>
     </div>
@@ -275,7 +288,7 @@ const jsonLd = {
   <!-- ===================== Impact ===================== -->
   <section class="sec" id="impact">
     <div class="sec-h">
-      <div class="sec-lbl mono">05 · Impact</div>
+      <p class="sec-q">WORTH IT<span class="q">?</span></p>
       <h2 class="sec-t">See what cleaning up actually achieves.</h2>
       <p class="sec-sub">Transparent assumptions, sourced on the <a href="/impact">methodology page</a>. The good part rides along for free.</p>
     </div>
@@ -292,23 +305,29 @@ const jsonLd = {
       </output>
       <hr />
       <div class="calc-field">
-        <label for="price-slider">Pay what you want: <span class="val">€<span id="price-val">5</span></span></label>
-        <input type="range" id="price-slider" min="0" max="50" value="5" step="1"
-          aria-describedby="pledge" />
+        <label id="pwyw-label">Chip in what feels right — keeps it free for everyone</label>
+        <div class="pwyw">
+          <div class="pwyw-chips" role="group" aria-labelledby="pwyw-label">
+            <button type="button" data-amt="5">€5</button>
+            <button type="button" data-amt="10" aria-pressed="true">€10</button>
+            <button type="button" data-amt="20">€20</button>
+            <button type="button" data-amt="50">€50</button>
+            <span class="pwyw-custom">€<input type="number" id="price-input" min="0" step="1" inputmode="numeric" aria-label="Custom amount in euros" placeholder="…" /></span>
+          </div>
+        </div>
       </div>
       <p class="calc-pledge" id="pledge" aria-live="polite">
-        Half funds the project, half plants <strong id="tree-count">1</strong> <span id="tree-label">tree</span>
-        via One Tree Planted — locking in roughly <strong id="tree-co2">20</strong> kg of CO₂ a year.
+        €10 — half funds the project, half plants 2 trees via One Tree Planted, locking in ~40 kg of CO₂ a year.
       </p>
       <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Support &amp; plant trees</a>
-      <p class="calc-fine">Pay-what-you-want, including nothing. The tool is free either way.</p>
+      <p class="calc-fine">Pay what you want — €0 is fine too. The tool is free either way.</p>
     </div>
   </section>
 
   <!-- ===================== Developers ===================== -->
   <section class="sec" id="developers">
     <div class="sec-h">
-      <div class="sec-lbl mono">06 · Developers &amp; agents</div>
+      <p class="sec-q">FOR AGENTS<span class="q">?</span></p>
       <h2 class="sec-t">A reliable path for assistants — not fragile web UIs.</h2>
       <p class="sec-sub">The entire thing it does to each newsletter is one authenticated request. No body parsing, no link clicking.</p>
     </div>
@@ -375,7 +394,6 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
 
     const $ = (id) => document.getElementById(id);
     const unsub = $('unsub-slider');
-    const price = $('price-slider');
 
     function updateUnsub() {
       if (!unsub) return;
@@ -387,16 +405,33 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
       $('out-co2').textContent = co2.toFixed(1);
       $('out-car').textContent = String(Math.round(co2 / KG_CO2_PER_CAR_KM));
     }
-    function updatePrice() {
-      if (!price) return;
-      const eur = parseInt(price.value, 10);
-      const trees = Math.floor(eur / EUR_PER_TREE);
-      $('price-val').textContent = String(eur);
-      $('tree-count').textContent = String(trees);
-      $('tree-label').textContent = trees === 1 ? 'tree' : 'trees';
-      $('tree-co2').textContent = String(trees * KG_CO2_PER_TREE_YEAR);
-    }
     if (unsub) { unsub.addEventListener('input', updateUnsub); updateUnsub(); }
-    if (price) { price.addEventListener('input', updatePrice); updatePrice(); }
+
+    // Pay-what-you-want: preset tiers + custom field (anchored, no nonsensical 0 default).
+    const pledge = $('pledge');
+    const custom = $('price-input');
+    const chips = Array.from(document.querySelectorAll('.pwyw-chips button[data-amt]'));
+
+    function renderDonation(eur) {
+      if (!pledge) return;
+      const trees = Math.floor(eur / EUR_PER_TREE);
+      const co2 = trees * KG_CO2_PER_TREE_YEAR;
+      if (trees < 1) {
+        pledge.textContent = `€${eur} — no problem, the tool is free either way. Every €5 plants your first tree.`;
+      } else {
+        pledge.textContent = `€${eur} — half funds the project, half plants ${trees} tree${trees === 1 ? '' : 's'} via One Tree Planted, locking in ~${co2} kg of CO₂ a year.`;
+      }
+    }
+    chips.forEach((btn) => btn.addEventListener('click', () => {
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === btn)));
+      if (custom) custom.value = '';
+      renderDonation(parseInt(btn.dataset.amt, 10));
+    }));
+    if (custom) custom.addEventListener('input', () => {
+      chips.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+      renderDonation(Math.max(0, parseInt(custom.value, 10) || 0));
+    });
+    const def = chips.find((c) => c.getAttribute('aria-pressed') === 'true') || chips[0];
+    if (def) renderDonation(parseInt(def.dataset.amt, 10));
   </script>
 </Base>
