@@ -7,7 +7,8 @@
 # Sensitive / business documents (order confirmations, invoices)
 docs/*.pdf
 
-# Node build artifacts (mcp/ package)
+# Node build artifacts (mcp/ package + Astro site)
 node_modules/
 dist/
+.astro/
 *.tsbuildinfo

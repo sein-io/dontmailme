@@ -1,0 +1,16 @@
+{
+  "name": "dontmailme-site",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "dontmailme.org — static Astro site (sein/UI v2.0). Build with `npm run build`, then upload the contents of dist/ to the web root.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "devDependencies": {
+    "astro": "^5.6.0"
+  }
+}
