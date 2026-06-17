@@ -189,16 +189,16 @@ const navLinks = [
         <label id="pwyw-label">Gib, was sich richtig anfühlt — hält es für alle kostenlos</label>
         <div class="pwyw">
           <div class="pwyw-chips" role="group" aria-labelledby="pwyw-label">
-            <button type="button" data-amt="5">€5</button>
-            <button type="button" data-amt="10" aria-pressed="true">€10</button>
-            <button type="button" data-amt="20">€20</button>
-            <button type="button" data-amt="50">€50</button>
-            <span class="pwyw-custom">€<input type="number" id="price-input" min="0" step="1" inputmode="numeric" aria-label="Eigener Betrag in Euro" placeholder="…" /></span>
+            <button type="button" data-amt="5">5 €</button>
+            <button type="button" data-amt="10" aria-pressed="true">10 €</button>
+            <button type="button" data-amt="20">20 €</button>
+            <button type="button" data-amt="50">50 €</button>
+            <span class="pwyw-custom"><input type="number" id="price-input" min="0" step="1" inputmode="numeric" aria-label="Eigener Betrag in Euro" placeholder="…" /> €</span>
           </div>
         </div>
       </div>
       <p class="calc-pledge" id="pledge" aria-live="polite">
-        €10 — die Hälfte trägt das Projekt, die Hälfte pflanzt 2 Bäume über One Tree Planted und bindet ~40 kg CO₂ pro Jahr.
+        10 € — die Hälfte trägt das Projekt, die Hälfte pflanzt 2 Bäume über One Tree Planted und bindet ~40 kg CO₂ pro Jahr.
       </p>
       <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Unterstützen &amp; Bäume pflanzen</a>
       <p class="calc-fine">Zahl, was du willst — €0 ist auch okay. Das Tool ist so oder so kostenlos.</p>
@@ -274,9 +274,9 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
       const trees = Math.floor(eur / EUR_PER_TREE);
       const co2 = trees * KG_CO2_PER_TREE_YEAR;
       if (trees < 1) {
-        pledge.textContent = `€${eur} — kein Problem, das Tool ist so oder so kostenlos. Je €5 pflanzt deinen ersten Baum.`;
+        pledge.textContent = `${eur} € — kein Problem, das Tool ist so oder so kostenlos. Je 5 € pflanzt deinen ersten Baum.`;
       } else {
-        pledge.textContent = `€${eur} — die Hälfte trägt das Projekt, die Hälfte pflanzt ${trees} ${trees === 1 ? 'Baum' : 'Bäume'} über One Tree Planted und bindet ~${co2} kg CO₂ pro Jahr.`;
+        pledge.textContent = `${eur} € — die Hälfte trägt das Projekt, die Hälfte pflanzt ${trees} ${trees === 1 ? 'Baum' : 'Bäume'} über One Tree Planted und bindet ~${co2} kg CO₂ pro Jahr.`;
       }
     }
     chips.forEach((btn) => btn.addEventListener('click', () => {

@@ -6,11 +6,6 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
-# Fonts — long cache (rename the file if you change its glyph set)
-/fonts/*
-  Cache-Control: public, max-age=31536000, immutable
-  Access-Control-Allow-Origin: *
-
 # Build assets — content-hashed by Astro, safe to cache forever
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable

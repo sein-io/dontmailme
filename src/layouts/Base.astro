@@ -1,6 +1,7 @@
 ---
 import '../styles/main.css';
 import Icon from '../components/Icon.astro';
+import { LANGUAGES, currentLanguage } from '../i18n/config';
 
 interface RailItem { href: string; name: string; label: string; }
 interface NavLink { href: string; label: string; }
@@ -52,6 +53,7 @@ const {
 const site = 'https://dontmailme.org';
 const canonical = site + (path === '/' ? '/' : path);
 const lang = Astro.currentLocale ?? 'en';
+const curLang = currentLanguage(lang);
 const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${path === '/' ? 'index' : path.replace(/^\//, '')}.astro`;
 ---
 <!doctype html>
@@ -109,45 +111,69 @@ const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${pa
   <a class="skip" href="#main">Skip to content</a>
 
   {showRail && (
-    <aside class="rail" aria-label="Navigation">
-      <button class="ri ri-toggle" type="button" data-rail-toggle aria-label="Expand navigation" aria-expanded="false">
-        <Icon name="chevrons" /><span class="ri-lbl">Collapse</span>
-      </button>
-      <nav class="ri-nav" aria-label="Site">
-        {railItems.map((it) => (
-          <a class="ri" href={it.href} title={it.label} aria-label={it.label}>
-            <Icon name={it.name} /><span class="ri-lbl">{it.label}</span>
-          </a>
-        ))}
-      </nav>
-      <div class="ri-spacer"></div>
-      <a class="ri" href="https://github.com/sein-io/dontmailme" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener">
-        <Icon name="github" /><span class="ri-lbl">GitHub</span>
-      </a>
-      <button class="ri ri-theme" type="button" data-theme-toggle aria-label="Switch colour theme">
-        <span class="ri-ico" data-theme-icon></span><span class="ri-lbl">Theme</span>
-      </button>
-    </aside>
+    <>
+      <div class="nav-backdrop" data-nav-close aria-hidden="true"></div>
+      <aside class="rail" id="rail" aria-label="Navigation">
+        <button class="ri ri-toggle" type="button" data-rail-toggle aria-label="Collapse navigation" aria-expanded="false">
+          <Icon name="chevrons" /><span class="ri-lbl">Collapse</span>
+        </button>
+        <button class="ri ri-close" type="button" data-nav-close aria-label="Close menu">
+          <Icon name="close" /><span class="ri-lbl">Close</span>
+        </button>
+        <nav class="ri-nav" aria-label="Site">
+          {railItems.map((it) => (
+            <a class="ri" href={it.href} title={it.label} aria-label={it.label}>
+              <Icon name={it.name} /><span class="ri-lbl">{it.label}</span>
+            </a>
+          ))}
+        </nav>
+        <div class="ri-spacer"></div>
+        <a class="ri" href="https://github.com/sein-io/dontmailme" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener">
+          <Icon name="github" /><span class="ri-lbl">GitHub</span>
+        </a>
+        <button class="ri ri-theme-drawer" type="button" data-theme-toggle aria-label="Switch colour theme">
+          <span class="ri-ico" data-theme-icon></span><span class="ri-lbl">Theme</span>
+        </button>
+        <div class="ri-langs">
+          {LANGUAGES.map((l) => (
+            <a class:list={['ri', { active: l.code === lang }]} href={l.href} hreflang={l.code} aria-current={l.code === lang ? 'true' : undefined}>
+              <span class="ri-code">{l.short}</span><span class="ri-lbl">{l.label}</span>
+            </a>
+          ))}
+        </div>
+      </aside>
+    </>
   )}
 
   <div class="shell">
     <header class="hdr" id="top">
-      <a class="hdr-l" href="/" aria-label="DontMailMe home">
-        <Icon name="brand" class="ic ic-brand hdr-logo" />
-        <span class="hdr-name">DontMailMe</span>
-        <span class="hdr-ver mono">v2.0</span>
-      </a>
-      <div class="hdr-r">
-        <nav class="hdr-nav" aria-label="Primary">
-          {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
-          <a href="https://github.com/sein-io/dontmailme" target="_blank" rel="noopener">GitHub</a>
-        </nav>
-        <div class="lang-switch" role="group" aria-label="Language">
-          <a href="/" hreflang="en" class={lang === 'en' ? 'on' : ''} aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
-          <a href="/de" hreflang="de" class={lang === 'de' ? 'on' : ''} aria-current={lang === 'de' ? 'true' : undefined}>DE</a>
+      <div class="hdr-wrap">
+        <div class="hdr-l">
+          {showRail && (
+            <button class="burger" type="button" data-nav-toggle aria-label="Open menu" aria-expanded="false" aria-controls="rail">
+              <Icon name="menu" />
+            </button>
+          )}
+          <a class="brand" href="/" aria-label="DontMailMe home">
+            <Icon name="brand" class="ic ic-brand hdr-logo" />
+            <span class="hdr-name">DontMailMe</span>
+            <span class="hdr-ver mono">v2.0</span>
+          </a>
         </div>
-        <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch colour theme"><span class="ri-ico" data-theme-icon></span></button>
-        <a href={ctaHref} class="btn btn-primary">{ctaLabel}</a>
+        <div class="hdr-r">
+          <details class="lang-menu">
+            <summary aria-label="Language">
+              <Icon name="globe" class="ic ic-sm" /><span class="lang-cur mono">{curLang.short}</span><Icon name="chevronDown" class="ic ic-xs" />
+            </summary>
+            <ul class="menu-list">
+              {LANGUAGES.map((l) => (
+                <li><a href={l.href} hreflang={l.code} aria-current={l.code === lang ? 'true' : undefined}>{l.label}</a></li>
+              ))}
+            </ul>
+          </details>
+          <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch colour theme"><span class="ri-ico" data-theme-icon></span></button>
+          <a href={ctaHref} class="btn btn-primary hdr-cta">{ctaLabel}</a>
+        </div>
       </div>
     </header>
 
@@ -250,6 +276,33 @@ const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${pa
         applyRail(open);
       });
     }
+
+    // ---- Mobile nav drawer (burger toggles the rail as an overlay) ----------
+    function setNav(open) {
+      root.classList.toggle('nav-open', open);
+      const burger = document.querySelector('[data-nav-toggle]');
+      if (burger) burger.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    document.querySelectorAll('[data-nav-toggle]').forEach((b) =>
+      b.addEventListener('click', () => setNav(!root.classList.contains('nav-open'))));
+    document.querySelectorAll('[data-nav-close]').forEach((b) =>
+      b.addEventListener('click', () => setNav(false)));
+    document.querySelectorAll('.rail .ri-nav a').forEach((a) =>
+      a.addEventListener('click', () => setNav(false)));
+
+    // ---- Language menu: close on outside click / Escape ---------------------
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('.lang-menu[open]').forEach((m) => {
+        if (!m.contains(e.target)) m.removeAttribute('open');
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        setNav(false);
+        document.querySelectorAll('.lang-menu[open]').forEach((m) => m.removeAttribute('open'));
+      }
+    });
 
     // ---- Scroll-spy (anchor rails only) -------------------------------------
     const spies = Array.from(document.querySelectorAll('.rail .ri[href^="#"]'))
