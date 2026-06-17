@@ -7,7 +7,7 @@ import { join } from 'node:path';
 // The island below uses this exact text as its template and injects ALLOWED_SENDERS /
 // CUSTOM_QUERY the same way the MCP does — so gmail.gs is the single source of truth and
 // no-JS visitors still get a valid script. (cwd = project root during dev and build.)
-const gmailGs = readFileSync(join(process.cwd(), 'public/gmail.gs'), 'utf8');
+const gmailGs = readFileSync(join(process.cwd(), 'static/gmail.gs'), 'utf8');
 
 const title = 'How to Auto-Unsubscribe From Newsletters in Gmail (Free Script) | DontMailMe';
 const description =

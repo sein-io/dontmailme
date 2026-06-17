@@ -7,7 +7,7 @@ import { join } from 'node:path';
 // build-time source. Astro auto-escapes the rendered text, so the copy buttons hand over the
 // exact script and no-JS visitors still see it. (cwd = project root during dev and build.)
 const root = process.cwd();
-const outlookPs1 = readFileSync(join(root, 'public/outlook.ps1'), 'utf8');
+const outlookPs1 = readFileSync(join(root, 'static/outlook.ps1'), 'utf8');
 const appleScript = readFileSync(join(root, 'src/_scripts/applemail.applescript'), 'utf8');
 
 const title = 'Bulk Unsubscribe From Newsletters in Outlook & Apple Mail (Free) | DontMailMe';

@@ -18,15 +18,15 @@ The site is built with [Astro](https://astro.build) (static output).
 
 | Path | What it is |
 |------|------------|
-| `src/pages/`, `src/layouts/`, `src/components/`, `src/styles/` | Astro source for the site |
+| `src/pages/`, `src/layouts/`, `src/components/`, `src/styles/` | Astro page source |
 | `src/data/providers.yaml` | The provider directory — drives `/providers` and `/api/providers.json` |
-| `public/` | Files served verbatim at the web root: the agent layer, fonts, images |
-| `public/gmail.gs`, `public/outlook.ps1` | The canonical raw scripts served to users and AI agents |
-| `public/*.md`, `public/llms.txt`, `public/llms-full.txt`, `public/AGENTS.md` | Machine-readable twins for AI agents |
-| `dist/` | Build output (what gets deployed) — never edit by hand |
-| `docs/STRATEGY.md` | The product/positioning blueprint |
+| `static/` | Copied verbatim into the build: the agent layer, fonts, images |
+| `static/gmail.gs`, `static/outlook.ps1` | The canonical raw scripts served to users and AI agents |
+| `static/*.md`, `static/llms.txt`, `static/llms-full.txt`, `static/AGENTS.md` | Machine-readable twins for AI agents |
+| `public/` | Build output (what gets deployed) — never edit by hand; run `npm run build` |
+| `docs/STRATEGY.md`, `docs/DESIGN-RULES.md` | The product blueprint &amp; design rules |
 
-> **Important:** the Gmail page (`src/pages/gmail.astro`) renders the **canonical `public/gmail.gs`** and injects the user's safe-sender list on top of it — so there is a single source of truth. If you change the unsubscribe logic, edit **`public/gmail.gs`**; the in-page generator stays in sync automatically. To add a mail provider, edit **`src/data/providers.yaml`**.
+> **Important:** the Gmail page (`src/pages/gmail.astro`) renders the **canonical `static/gmail.gs`** and injects the user's safe-sender list on top of it — so there is a single source of truth. If you change the unsubscribe logic, edit **`static/gmail.gs`**; the in-page generator stays in sync automatically. To add a mail provider, edit **`src/data/providers.yaml`**.
 
 ## Running locally
 
@@ -37,7 +37,7 @@ npm run build    # generate the production site into dist/
 npm run preview  # serve the built dist/ exactly as it will look live
 ```
 
-Clean URLs (e.g. `/gmail`) work out of the box. To deploy, upload the **contents of `dist/`** to the web root.
+Clean URLs (e.g. `/gmail`) work out of the box. To deploy, upload the **contents of `public/`** to the web root.
 
 ## Guidelines
 

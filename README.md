@@ -102,23 +102,23 @@ Most unsubscribe tools are free because *you* are the product, or paid because p
 
 ## 🛠 Build &amp; deploy
 
-The site is built with [Astro](https://astro.build) (static output). Source lives in `src/`;
-everything in `public/` is copied to the output **verbatim**. The build writes the complete,
-ready-to-host site into **`dist/`**.
+The site is built with [Astro](https://astro.build) (static output). Page source lives in `src/`;
+everything in `static/` is copied to the output **verbatim**. The build writes the complete,
+ready-to-host site into **`public/`** — that's the folder you upload.
 
 ```bash
 npm install      # once
-npm run dev      # dev server with hot reload          → http://localhost:4321
-npm run build    # generate the production site into   → dist/
-npm run preview  # serve the built dist/ exactly as it goes live → http://localhost:4321
+npm run dev      # dev server with hot reload            → http://localhost:4321
+npm run build    # generate the production site into     → public/
+npm run preview  # serve the built public/ exactly as it goes live → http://localhost:4321
 ```
 
-**Deploy:** upload the **contents of `dist/`** (the files inside it, not the folder itself) to the
-web root, so `dist/index.html` is served at `https://dontmailme.org/`. `dist/` already contains the
-whole agent layer (`gmail.gs`, `outlook.ps1`, `*.md`, `llms.txt`, `AGENTS.md`, `_headers`,
-`_redirects`, `fonts/`, …) at the same paths as before — nothing else to upload.
+**Deploy:** run `npm run build`, then upload the **contents of `public/`** (the files inside it) to
+the web root, so `public/index.html` is served at `https://dontmailme.org/`. `public/` already
+contains the whole agent layer (`gmail.gs`, `outlook.ps1`, `*.md`, `llms.txt`, `AGENTS.md`,
+`_headers`, `_redirects`, `fonts/`, …) at the same paths as before — nothing else to upload.
 
-> ⚠️ Don't open `dist/index.html` by double-clicking. Like every website, it loads its CSS from a
+> ⚠️ Don't open `public/index.html` by double-clicking. Like every website, it loads its CSS from a
 > root-absolute path (`/_astro/…`), which the browser can only resolve when the files are **served**
 > (over HTTP), not opened as a `file://`. Run `npm run preview` to check the build locally.
 
@@ -126,13 +126,14 @@ whole agent layer (`gmail.gs`, `outlook.ps1`, `*.md`, `llms.txt`, `AGENTS.md`, `
 
 | Path | What it is |
 |------|-----------|
-| `src/pages/`, `src/layouts/`, `src/components/`, `src/styles/` | Astro source for the site |
-| `public/` | Served verbatim at the web root: the agent layer, fonts, images, not-yet-migrated pages |
-| `dist/` | **Build output — this is what you upload** (git-ignored) |
-| `public/gmail.gs`, `public/outlook.ps1` | Canonical raw scripts (served to users **and** agents) |
-| `public/llms.txt`, `public/llms-full.txt`, `public/AGENTS.md`, `public/*.md` | Machine-readable twins for AI agents |
+| `src/pages/`, `src/layouts/`, `src/components/`, `src/styles/` | Astro page source |
+| `src/data/providers.yaml` | The provider directory — drives `/providers` and `/api/providers.json` |
+| `static/` | Copied verbatim into the build: the agent layer, fonts, images |
+| `static/gmail.gs`, `static/outlook.ps1` | Canonical raw scripts (served to users **and** agents) |
+| `static/llms.txt`, `static/AGENTS.md`, `static/*.md` | Machine-readable twins for AI agents |
+| `public/` | **Build output — this is what you upload** (git-ignored; run `npm run build`) |
 | `mcp/` | MCP server (`@sein-io/dontmailme-mcp`) — stdio + Cloudflare Worker |
-| `docs/STRATEGY.md`, `docs/GROWTH.md`, `docs/REDESIGN-PLAN.md` | Product blueprint, growth &amp; redesign plans |
+| `docs/STRATEGY.md`, `docs/GROWTH.md`, `docs/REDESIGN-PLAN.md`, `docs/DESIGN-RULES.md` | Blueprint, growth, redesign &amp; design rules |
 
 ## ⭐ Star history
 
