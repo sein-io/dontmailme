@@ -1,0 +1,293 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+
+const title = 'Newsletter automatisch abbestellen — kostenlos, Open Source, Zero-Data | DontMailMe';
+const description =
+  'Erreiche Inbox Zero und halte es. DontMailMe meldet dich automatisch von Newslettern ab — mit einem kostenlosen, quelloffenen Skript, das in deinem eigenen Gmail oder Outlook läuft. Es gibt keinen Server, also verlässt nichts dein Konto. RFC 8058, agenten-bereit, pflanzt Bäume.';
+
+const repo = 'https://github.com/sein-io/dontmailme';
+const nativeProviders = ['Gmail', 'Outlook', 'Apple Mail'];
+const tierA = ['iCloud', 'Yahoo', 'Fastmail', 'Proton', 'GMX', 'Web.de', 'Posteo', 'Mailbox.org'];
+
+const railItems = [
+  { href: '#features', name: 'grid', label: 'Warum' },
+  { href: '#how', name: 'route', label: 'Wie' },
+  { href: '#providers', name: 'inbox', label: 'Wo' },
+  { href: '#compare', name: 'scale', label: 'Vergleich' },
+  { href: '#impact', name: 'leaf', label: 'Wirkung' },
+  { href: '#developers', name: 'code', label: 'Agenten' },
+];
+const navLinks = [
+  { href: '#how', label: "So geht's" },
+  { href: '#compare', label: 'Vergleich' },
+  { href: '#developers', label: 'Entwickler' },
+];
+---
+<Base
+  title={title}
+  description={description}
+  path="/de"
+  ctaHref="#how"
+  ctaLabel="Postfach aufräumen"
+  hreflangHome={true}
+  railItems={railItems}
+  navLinks={navLinks}
+>
+  <!-- ===================== Hero ===================== -->
+  <section class="hero">
+    <p class="eyebrow"><span class="dot"></span> Kostenlos · Open Source · Zero-Data</p>
+    <h1>Abmelden von allem, was du nie liest —<br /><span class="accent">in deinem eigenen Postfach.</span></h1>
+    <p class="hero-sub">
+      Ein Copy-paste-Skript läuft in <strong>deinem</strong> Google- oder Microsoft-Konto über den
+      offiziellen One-Click-Standard (RFC&nbsp;8058). Es gibt keinen DontMailMe-Server — also verlässt
+      nichts dein Konto. Lies den Code, bevor du ihn ausführst.
+    </p>
+    <div class="hero-cta">
+      <a href="#how" class="btn btn-primary btn-lg">Postfach aufräumen</a>
+      <a href="/gmail.gs" class="btn btn-lg">Quellcode lesen <Icon name="arrow" /></a>
+    </div>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Kein Konto, keine Karte</span>
+      <span><span class="dot"></span> Open-Source &amp; prüfbar</span>
+      <span><span class="dot"></span> RFC 8058 One-Click</span>
+      <span><span class="dot"></span> Gmail · Outlook · Apple Mail</span>
+    </div>
+  </section>
+
+  <!-- ===================== Warum (Features) ===================== -->
+  <section class="sec" id="features">
+    <div class="sec-h">
+      <p class="sec-q">WARUM<span class="q">?</span></p>
+      <h2 class="sec-t">Kostenlose Mail-Tools verkaufen meist dein Postfach. Wir haben nichts zu verkaufen.</h2>
+      <p class="sec-sub">Weil nichts dein Konto verlässt. Die Architektur <em>ist</em> der Datenschutz — keine Richtlinie. <span class="hint mono">für das Warum über eine Kachel fahren</span></p>
+    </div>
+    <div class="bento">
+      <article class="bc glass span-2 bc-reveal">
+        <span class="bc-badge"><Icon name="lock" /></span>
+        <div class="bc-lbl">Zero-Data per Design</div>
+        <h3 class="bc-t">Es gibt keinen Server. Der Code läuft in deinem Konto.</h3>
+        <div class="bc-body"><div><p class="bc-p">
+          Das Skript lebt in deinem eigenen Google Apps Script oder auf deinem Rechner — es gibt kein
+          DontMailMe-Backend, das deine Mail sehen, speichern oder verkaufen könnte. Keine Datenschutz-<em>Richtlinie</em>;
+          eine <em>Architektur</em>. <a href="/gmail.gs"><code>gmail.gs</code> lesen →</a>
+        </p></div></div>
+      </article>
+      <article class="bc glass bc-reveal">
+        <span class="bc-badge"><Icon name="book" /></span>
+        <div class="bc-lbl">Open Source · MIT</div>
+        <h3 class="bc-t">~120 Zeilen, die du zuerst lesen kannst.</h3>
+        <div class="bc-body"><div><p class="bc-p">Vertrau uns nicht — prüfe den Code, dann führ ihn aus. <a href={repo}>Auf GitHub →</a></p></div></div>
+      </article>
+      <article class="bc glass bc-reveal">
+        <span class="bc-badge"><Icon name="bolt" /></span>
+        <div class="bc-lbl">Sicher per Standard</div>
+        <h3 class="bc-t">Nur der authentifizierte Header.</h3>
+        <div class="bc-body"><div><p class="bc-p">Wirkt auf den RFC&nbsp;8058 <code>List-Unsubscribe-Post</code>-Header — klickt nie Links im Text und kann so nicht auf eine Phishing-Seite gelockt werden.</p></div></div>
+      </article>
+      <article class="bc glass span-2 bc-reveal">
+        <span class="bc-badge"><Icon name="code" /></span>
+        <div class="bc-lbl">Für Menschen und ihre Agenten</div>
+        <h3 class="bc-t">Kein Vermittler zwischen Agent und Postfach.</h3>
+        <div class="bc-body"><div><p class="bc-p">
+          Ein Single-Purpose-Tool, das ein Assistent <em>in deinem eigenen Konto</em> ausführt — nicht eines,
+          das dein Postfach in fremde Server einloggt. Mit MCP-Server, <code>AGENTS.md</code> und rohen Skripten.
+          <a href="/mcp">Für Entwickler →</a>
+        </p></div></div>
+      </article>
+      <article class="bc glass bc-reveal">
+        <span class="bc-badge"><Icon name="inbox" /></span>
+        <div class="bc-lbl">Viele Anbieter</div>
+        <h3 class="bc-t">Gmail, Outlook, Apple Mail &amp; mehr.</h3>
+        <div class="bc-body"><div><p class="bc-p">Native Wege heute; ein generisches IMAP-Tool für iCloud, Yahoo, GMX und andere ist in Arbeit.</p></div></div>
+      </article>
+      <article class="bc glass bc-reveal">
+        <span class="bc-badge"><Icon name="leaf" /></span>
+        <div class="bc-lbl">Das stille Gute</div>
+        <h3 class="bc-t">Jede Aufräumaktion pflanzt einen Baum.</h3>
+        <div class="bc-body"><div><p class="bc-p">Weniger Mails für immer heißt weniger CO₂. Zahl, was du willst; die Hälfte pflanzt einen Baum. <a href="/impact">Zur Wirkung →</a></p></div></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== Wie ===================== -->
+  <section class="sec" id="how">
+    <div class="sec-h">
+      <p class="sec-q">WIE<span class="q">?</span></p>
+      <h2 class="sec-t">Drei Schritte, dann vergiss es.</h2>
+      <p class="sec-sub">Keine App, kein Konto, kein Postfach-Zugriff für Fremde.</p>
+    </div>
+    <ol class="steps">
+      <li>
+        <span class="step-n mono">01</span>
+        <div>
+          <h3 class="step-t">Skript kopieren</h3>
+          <p class="step-p">Wir erzeugen ein kleines Open-Source-Skript für deinen Anbieter. Du kannst jede Zeile lesen — nichts ist versteckt.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-n mono">02</span>
+        <div>
+          <h3 class="step-t">In dein eigenes Konto einfügen</h3>
+          <p class="step-p">Es läuft in Google Apps Script (Gmail) oder auf deinem Rechner (Outlook / Apple Mail). Es lebt in <em>deiner</em> Cloud, nicht unserer.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-n mono">03</span>
+        <div>
+          <h3 class="step-t">Zurücklehnen — läuft automatisch</h3>
+          <p class="step-p">Das Skript schickt für jeden Newsletter die offizielle One-Click-Abmeldung und räumt dein Postfach auf. Einmal einrichten.</p>
+        </div>
+      </li>
+    </ol>
+    <div class="hero-cta" style="margin-block-start: 24px;">
+      <a href="/gmail" class="btn btn-primary">Gmail einrichten</a>
+      <a href="/outlook" class="btn">Outlook &amp; Apple Mail</a>
+    </div>
+  </section>
+
+  <!-- ===================== Wo ===================== -->
+  <section class="sec" id="providers">
+    <div class="sec-h">
+      <p class="sec-q">WO<span class="q">?</span></p>
+      <h2 class="sec-t">Funktioniert dort, wo deine Mail schon ist.</h2>
+      <p class="sec-sub">Native Wege heute; ehrliche Status-Badges, während die Abdeckung wächst.</p>
+    </div>
+    <div class="providers">
+      {nativeProviders.map((p) => (
+        <span class="prov"><Icon name="inbox" /> {p} <span class="tier">NATIV</span></span>
+      ))}
+      {tierA.map((p) => (
+        <span class="prov">{p} <span class="tier b">IMAP · bald</span></span>
+      ))}
+    </div>
+    <p class="prov-note">
+      Ein einziges Open-Source-IMAP-Tool (Zero-Data, läuft auf deinem Rechner) ergänzt iCloud, Yahoo, GMX,
+      Web.de, Posteo, Mailbox.org und mehr. <a href="/providers">Alle Anbieter &amp; Status →</a>
+    </p>
+  </section>
+
+  <!-- ===================== Wirkung (Calculator) ===================== -->
+  <section class="sec" id="impact">
+    <div class="sec-h">
+      <p class="sec-q">LOHNT SICH<span class="q">?</span></p>
+      <h2 class="sec-t">Sieh, was Aufräumen wirklich bringt.</h2>
+      <p class="sec-sub">Transparente Annahmen, belegt auf der <a href="/impact">Methodik-Seite</a>. Das Gute fährt kostenlos mit.</p>
+    </div>
+    <div class="calc">
+      <div class="calc-field">
+        <label for="unsub-slider">Newsletter, von denen du dich abmeldest: <span class="val" id="unsub-val">20</span></label>
+        <input type="range" id="unsub-slider" min="1" max="100" value="20" step="1" aria-describedby="calc-metrics" />
+      </div>
+      <output id="calc-metrics" class="calc-metrics" aria-live="polite">
+        <div class="metric"><span class="m-val tnum" id="out-emails">2.080</span><span class="m-lbl">Mails, die du nie bekommst / Jahr</span></div>
+        <div class="metric"><span class="m-val tnum" id="out-co2">8,3</span><span class="m-lbl">kg CO₂e vermieden / Jahr</span></div>
+        <div class="metric"><span class="m-val tnum" id="out-car">52</span><span class="m-lbl">km Autofahrt gespart</span></div>
+      </output>
+      <hr />
+      <div class="calc-field">
+        <label id="pwyw-label">Gib, was sich richtig anfühlt — hält es für alle kostenlos</label>
+        <div class="pwyw">
+          <div class="pwyw-chips" role="group" aria-labelledby="pwyw-label">
+            <button type="button" data-amt="5">€5</button>
+            <button type="button" data-amt="10" aria-pressed="true">€10</button>
+            <button type="button" data-amt="20">€20</button>
+            <button type="button" data-amt="50">€50</button>
+            <span class="pwyw-custom">€<input type="number" id="price-input" min="0" step="1" inputmode="numeric" aria-label="Eigener Betrag in Euro" placeholder="…" /></span>
+          </div>
+        </div>
+      </div>
+      <p class="calc-pledge" id="pledge" aria-live="polite">
+        €10 — die Hälfte trägt das Projekt, die Hälfte pflanzt 2 Bäume über One Tree Planted und bindet ~40 kg CO₂ pro Jahr.
+      </p>
+      <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Unterstützen &amp; Bäume pflanzen</a>
+      <p class="calc-fine">Zahl, was du willst — €0 ist auch okay. Das Tool ist so oder so kostenlos.</p>
+    </div>
+  </section>
+
+  <!-- ===================== Für Agenten ===================== -->
+  <section class="sec" id="developers">
+    <div class="sec-h">
+      <p class="sec-q">FÜR AGENTEN<span class="q">?</span></p>
+      <h2 class="sec-t">Ein verlässlicher Weg für Assistenten — keine fragilen Web-UIs.</h2>
+      <p class="sec-sub">Alles, was es mit jedem Newsletter macht, ist eine authentifizierte Anfrage. Kein Parsen, kein Link-Klick.</p>
+    </div>
+    <div class="dev-grid">
+      <div class="code-card">
+        <div class="code-head mono"><span class="d"></span><span class="d"></span><span class="d"></span> gmail.gs</div>
+        <pre class="code-body"><code><span class="c">// RFC 8058 One-Click — nur auf dem DKIM-signierten Header</span>
+UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
+  method: <span class="k">'post'</span>,
+  contentType: <span class="k">'application/x-www-form-urlencoded'</span>,
+  payload: <span class="k">'List-Unsubscribe=One-Click'</span>
+&#125;);</code></pre>
+      </div>
+      <ul class="dev-links">
+        <li><Icon name="code" /> <a href="/gmail.gs"><code>/gmail.gs</code></a> · <a href="/outlook.ps1"><code>/outlook.ps1</code></a></li>
+        <li><Icon name="book" /> <a href="/AGENTS.md"><code>AGENTS.md</code></a> — ein nummeriertes Runbook</li>
+        <li><Icon name="route" /> <a href="/llms.txt"><code>llms.txt</code></a> — Maschinen-Index</li>
+        <li><Icon name="bolt" /> <a href="/mcp"><code>MCP-Server</code></a> — als Tool aufrufen</li>
+        <li><span class="inline-code">npx -y @sein-io/dontmailme-mcp</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="cta">
+    <h2>Stopp den Zustrom an der Quelle.</h2>
+    <p>Kostenlos, quelloffen und architektonisch unfähig, deine Daten zu sehen. Einmal einrichten — dein Postfach bleibt sauber.</p>
+    <div class="cta-row">
+      <a href="/gmail" class="btn btn-primary btn-lg">Gmail einrichten — ~3 Min</a>
+      <a href="/gmail.gs" class="btn btn-lg">Quellcode lesen <Icon name="arrow" /></a>
+    </div>
+    <p class="prov-note" style="margin-block-start: 18px;">Die ausführlichen Anleitungen, der Vergleich und die FAQ sind aktuell auf Englisch. <a href="/">English version →</a></p>
+  </section>
+
+  <script>
+    // Impact-Rechner — Konstanten identisch zu mcp/src/tools.ts und /impact.
+    const EMAILS_PER_NEWSLETTER_YEAR = 104;
+    const KG_CO2_PER_EMAIL = 0.004;
+    const KG_CO2_PER_CAR_KM = 0.16;
+    const EUR_PER_TREE = 5;
+    const KG_CO2_PER_TREE_YEAR = 20;
+
+    const $ = (id) => document.getElementById(id);
+    const unsub = $('unsub-slider');
+    function updateUnsub() {
+      if (!unsub) return;
+      const n = parseInt(unsub.value, 10);
+      const emails = n * EMAILS_PER_NEWSLETTER_YEAR;
+      const co2 = emails * KG_CO2_PER_EMAIL;
+      $('unsub-val').textContent = String(n);
+      $('out-emails').textContent = emails.toLocaleString('de-DE');
+      $('out-co2').textContent = co2.toFixed(1).replace('.', ',');
+      $('out-car').textContent = String(Math.round(co2 / KG_CO2_PER_CAR_KM));
+    }
+    if (unsub) { unsub.addEventListener('input', updateUnsub); updateUnsub(); }
+
+    const pledge = $('pledge');
+    const custom = $('price-input');
+    const chips = Array.from(document.querySelectorAll('.pwyw-chips button[data-amt]'));
+    function renderDonation(eur) {
+      if (!pledge) return;
+      const trees = Math.floor(eur / EUR_PER_TREE);
+      const co2 = trees * KG_CO2_PER_TREE_YEAR;
+      if (trees < 1) {
+        pledge.textContent = `€${eur} — kein Problem, das Tool ist so oder so kostenlos. Je €5 pflanzt deinen ersten Baum.`;
+      } else {
+        pledge.textContent = `€${eur} — die Hälfte trägt das Projekt, die Hälfte pflanzt ${trees} ${trees === 1 ? 'Baum' : 'Bäume'} über One Tree Planted und bindet ~${co2} kg CO₂ pro Jahr.`;
+      }
+    }
+    chips.forEach((btn) => btn.addEventListener('click', () => {
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === btn)));
+      if (custom) custom.value = '';
+      renderDonation(parseInt(btn.dataset.amt, 10));
+    }));
+    if (custom) custom.addEventListener('input', () => {
+      chips.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+      renderDonation(Math.max(0, parseInt(custom.value, 10) || 0));
+    });
+    const def = chips.find((c) => c.getAttribute('aria-pressed') === 'true') || chips[0];
+    if (def) renderDonation(parseInt(def.dataset.amt, 10));
+  </script>
+</Base>

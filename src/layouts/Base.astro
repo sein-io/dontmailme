@@ -3,6 +3,7 @@ import '../styles/main.css';
 import Icon from '../components/Icon.astro';
 
 interface RailItem { href: string; name: string; label: string; }
+interface NavLink { href: string; label: string; }
 interface Props {
   title: string;
   description: string;
@@ -10,9 +11,11 @@ interface Props {
   ogImage?: string;
   showRail?: boolean;     // left rail (default on)
   railItems?: RailItem[]; // override the rail nav (homepage uses section anchors)
+  navLinks?: NavLink[];   // header nav (localised by passing a translated list)
   ctaHref?: string;       // header CTA target
   ctaLabel?: string;
   noindex?: boolean;
+  hreflangHome?: boolean; // emit en/de hreflang alternates (homepage variants only)
 }
 
 // Default rail = consistent site nav (every inner page). The homepage passes its own
@@ -26,6 +29,11 @@ const SITE_NAV: RailItem[] = [
   { href: '/mcp', name: 'code', label: 'Developers' },
   { href: '/faq', name: 'help', label: 'FAQ' },
 ];
+const NAV_LINKS: NavLink[] = [
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/compare', label: 'Compare' },
+  { href: '/mcp', label: 'Developers' },
+];
 
 const {
   title,
@@ -34,21 +42,17 @@ const {
   ogImage = '/og-image.jpg',
   showRail = true,
   railItems = SITE_NAV,
+  navLinks = NAV_LINKS,
   ctaHref = '/gmail',
   ctaLabel = 'Clean my inbox',
   noindex = false,
+  hreflangHome = false,
 } = Astro.props;
 
 const site = 'https://dontmailme.org';
 const canonical = site + (path === '/' ? '/' : path);
 const lang = Astro.currentLocale ?? 'en';
 const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${path === '/' ? 'index' : path.replace(/^\//, '')}.astro`;
-
-const navLinks = [
-  { href: '/how-it-works', label: 'How it works' },
-  { href: '/compare', label: 'Compare' },
-  { href: '/mcp', label: 'Developers' },
-];
 ---
 <!doctype html>
 <html lang={lang} data-theme="dark">
@@ -64,6 +68,13 @@ const navLinks = [
   {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="canonical" href={canonical} />
   <link rel="alternate" type="text/markdown" href={path === '/' ? '/index.md' : path + '.md'} />
+  {hreflangHome && (
+    <>
+      <link rel="alternate" hreflang="en" href="https://dontmailme.org/" />
+      <link rel="alternate" hreflang="de" href="https://dontmailme.org/de" />
+      <link rel="alternate" hreflang="x-default" href="https://dontmailme.org/" />
+    </>
+  )}
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content={title} />
@@ -131,6 +142,10 @@ const navLinks = [
           {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
           <a href="https://github.com/sein-io/dontmailme" target="_blank" rel="noopener">GitHub</a>
         </nav>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <a href="/" hreflang="en" class={lang === 'en' ? 'on' : ''} aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
+          <a href="/de" hreflang="de" class={lang === 'de' ? 'on' : ''} aria-current={lang === 'de' ? 'true' : undefined}>DE</a>
+        </div>
         <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch colour theme"><span class="ri-ico" data-theme-icon></span></button>
         <a href={ctaHref} class="btn btn-primary">{ctaLabel}</a>
       </div>

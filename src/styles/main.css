@@ -285,6 +285,12 @@ img, svg { display: block; max-width: 100%; }
 }
 .theme-btn:hover { color: var(--text); border-color: var(--border-on); }
 
+/* Language switcher */
+.lang-switch { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--border); border-radius: var(--r-sm); }
+.lang-switch a { font: 600 12px var(--mono); color: var(--text2); padding: 5px 8px; border-radius: 4px; min-height: 24px; display: inline-flex; align-items: center; }
+.lang-switch a:hover { color: var(--text); }
+.lang-switch a.on { background: var(--accent-soft); color: var(--accent); }
+
 /* ============================================================================
    Buttons
    ========================================================================== */
@@ -404,7 +410,7 @@ img, svg { display: block; max-width: 100%; }
     border: 1px solid var(--border);
     border-radius: var(--r-md);
     padding: 24px;
-    min-height: 168px;
+    min-height: 144px;
     display: flex;
     flex-direction: column;
     gap: 10px;
