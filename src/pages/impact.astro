@@ -81,8 +81,9 @@ const stats = [
     </div>
   </section>
 
-  <script>
+  <script is:inline>
     // Live community tree counter (read-only public stat, 3s timeout → graceful 0).
+    (function () {
     async function fetchImpact() {
       const counter = document.getElementById('tree-counter');
       if (!counter) return;
@@ -113,5 +114,6 @@ const stats = [
       window.requestAnimationFrame(step);
     }
     fetchImpact();
+    })();
   </script>
 </Base>

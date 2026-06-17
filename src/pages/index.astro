@@ -384,9 +384,10 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
     </div>
   </section>
 
-  <script>
+  <script is:inline>
     // Impact calculator. Constants MUST match mcp/src/tools.ts and the /impact page.
     //   104 emails/yr per newsletter · 4 g CO2e/email · 0.16 kg CO2e/car-km · €5 = 1 tree · 20 kg CO2/tree/yr
+    (function () {
     const EMAILS_PER_NEWSLETTER_YEAR = 104;
     const KG_CO2_PER_EMAIL = 0.004;
     const KG_CO2_PER_CAR_KM = 0.16;
@@ -434,5 +435,6 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
     });
     const def = chips.find((c) => c.getAttribute('aria-pressed') === 'true') || chips[0];
     if (def) renderDonation(parseInt(def.dataset.amt, 10));
+    })();
   </script>
 </Base>

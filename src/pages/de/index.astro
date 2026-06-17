@@ -243,8 +243,9 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
     <p class="prov-note" style="margin-block-start: 18px;">Die ausführlichen Anleitungen, der Vergleich und die FAQ sind aktuell auf Englisch. <a href="/">English version →</a></p>
   </section>
 
-  <script>
+  <script is:inline>
     // Impact-Rechner — Konstanten identisch zu mcp/src/tools.ts und /impact.
+    (function () {
     const EMAILS_PER_NEWSLETTER_YEAR = 104;
     const KG_CO2_PER_EMAIL = 0.004;
     const KG_CO2_PER_CAR_KM = 0.16;
@@ -289,5 +290,6 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
     });
     const def = chips.find((c) => c.getAttribute('aria-pressed') === 'true') || chips[0];
     if (def) renderDonation(parseInt(def.dataset.amt, 10));
+    })();
   </script>
 </Base>

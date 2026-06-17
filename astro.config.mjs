@@ -24,7 +24,9 @@ export default defineConfig({
   outDir: './public',
   build: {
     format: 'file',
-    inlineStylesheets: 'auto',
+    // Inline ALL CSS into every page so the design renders even when index.html is opened
+    // directly (file://) or served from a subfolder — no external /_astro/*.css to 404.
+    inlineStylesheets: 'always',
   },
   i18n: {
     defaultLocale: 'en',

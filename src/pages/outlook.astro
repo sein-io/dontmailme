@@ -96,7 +96,8 @@ const jsonLd = {
     </section>
   </article>
 
-  <script>
+  <script is:inline>
+    (function () {
     function setupCopy(btnId, codeId) {
       const btn = document.getElementById(btnId);
       const code = document.getElementById(codeId);
@@ -112,5 +113,6 @@ const jsonLd = {
     }
     setupCopy('copy-win', 'script-win');
     setupCopy('copy-mac', 'script-mac');
+    })();
   </script>
 </Base>

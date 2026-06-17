@@ -88,7 +88,7 @@ const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${pa
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={site + ogImage} />
 
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
   <!-- No-flash: apply saved theme + rail state before first paint. -->
   <script is:inline>
@@ -191,8 +191,10 @@ const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${pa
     </footer>
   </div>
 
-  <script>
-    // Theme cycle + rail expand/collapse + scroll-spy + progress bar + reveal. No deps.
+  <script is:inline>
+    // Theme cycle + rail expand/collapse + scroll-spy + progress bar. No deps.
+    // is:inline + IIFE so it runs even when opened from file:// (ES modules are blocked there).
+    (function () {
     const root = document.documentElement;
 
     // ---- 3-state theme (system → light → dark) -------------------------------
@@ -271,6 +273,7 @@ const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${pa
     window.addEventListener('resize', onScroll, { passive: true });
     onScroll();
     // Motion policy (v2.5): interaction + one-shot load only. No scroll-triggered reveals.
+    })();
   </script>
 </body>
 </html>

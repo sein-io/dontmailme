@@ -123,9 +123,10 @@ const jsonLd = {
     </section>
   </article>
 
-  <script>
+  <script is:inline>
     // Safe-sender generator. Uses the rendered canonical gmail.gs as the template and injects
     // ALLOWED_SENDERS / CUSTOM_QUERY exactly like mcp/src/tools.ts — single source of truth.
+    (function () {
     const emailInput = document.getElementById('email-input');
     const addBtn = document.getElementById('add-email-btn');
     const chipContainer = document.getElementById('chip-container');
@@ -201,5 +202,6 @@ const jsonLd = {
 
       renderChips();
     }
+    })();
   </script>
 </Base>
