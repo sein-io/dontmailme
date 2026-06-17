@@ -11,8 +11,9 @@ const live = providers.filter((p) => p.status === 'live');
 const planned = providers.filter((p) => p.status === 'planned');
 const unsupported = providers.filter((p) => p.status === 'unsupported');
 
-const addProvider =
-  'https://github.com/sein-io/dontmailme/issues/new?labels=provider&title=Add%20provider%3A%20%3Cname%3E&body=Provider%20name%3A%0ADomain%3A%0AIMAP%20host%3A%0AApp-password%20URL%3A%0ARFC%208058%20support%3A';
+const repo = 'https://github.com/sein-io/dontmailme';
+const addProvider = `${repo}/issues/new?template=add_provider.yml`;
+const editProviders = `${repo}/edit/main/src/data/providers.yaml`;
 
 const breadcrumb = {
   '@context': 'https://schema.org',
@@ -104,6 +105,7 @@ const breadcrumb = {
 
     <div class="cta-row" style="justify-content:flex-start; margin-block-start: 8px;">
       <a href={addProvider} class="btn btn-primary" target="_blank" rel="noopener">Add or fix a provider</a>
+      <a href={editProviders} class="btn" target="_blank" rel="noopener">Edit the list on GitHub</a>
       <a href="/api/providers.json" class="btn">View the JSON API</a>
     </div>
     <p class="source" style="margin-block-start:16px;">Directory v{providersMeta.version} · last updated {providersMeta.updated}. Tiers: A = generic IMAP + app password · B = special handling · C = use a native track / not possible.</p>

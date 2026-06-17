@@ -39,8 +39,8 @@ const faqs = [
 
 const repo = 'https://github.com/sein-io/dontmailme';
 const contribute = {
-  provider: `${repo}/issues/new?labels=provider&title=Add%20provider%3A%20%3Cname%3E&body=Provider%20name%3A%0ADomain%3A%0AIMAP%20host%3A%0AApp-password%20URL%3A%0ARFC%208058%20support%3A`,
-  translation: `${repo}/issues/new?labels=i18n&title=Add%20translation%3A%20%3Clang%3E&body=Language%3A%0ALocale%20code%3A%0AI%20can%20help%20with%3A`,
+  provider: `${repo}/issues/new?template=add_provider.yml`,
+  translation: `${repo}/issues/new?template=feature_request.yml`,
   edit: `${repo}/edit/main/src/pages/index.astro`,
 };
 

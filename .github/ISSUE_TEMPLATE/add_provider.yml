@@ -1,0 +1,88 @@
+name: 📬 Add or fix a mail provider
+description: Help DontMailMe support another email provider (iCloud, Yahoo, GMX, Proton, …).
+labels: ["provider"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for growing the coverage! Providers live in one file — **`src/data/providers.yaml`**.
+        Fill in what you know; the fields with dropdowns are optional — leave them blank if you're not
+        sure and a maintainer will map it. The schema + an example are in
+        [CONTRIBUTING → Adding a provider](https://github.com/sein-io/dontmailme/blob/main/.github/CONTRIBUTING.md#adding-a-provider).
+  - type: input
+    id: name
+    attributes:
+      label: Provider name
+      placeholder: e.g. Fastmail
+    validations:
+      required: true
+  - type: input
+    id: domains
+    attributes:
+      label: Email domain(s)
+      placeholder: e.g. fastmail.com, fastmail.fm
+    validations:
+      required: true
+  - type: input
+    id: app-password
+    attributes:
+      label: App-password URL
+      description: Where a user generates an app-specific password (most providers need one with 2FA on).
+      placeholder: https://app.fastmail.com/settings/security/apppasswords
+  - type: dropdown
+    id: rfc8058
+    attributes:
+      label: One-click unsubscribe (RFC 8058) support?
+      description: Do this provider's newsletters carry the List-Unsubscribe-Post header? Best guess is fine.
+      options:
+        - "Yes"
+        - "No"
+        - Not sure
+    validations:
+      required: true
+  - type: dropdown
+    id: region
+    attributes:
+      label: Main region
+      options:
+        - Global
+        - Germany
+        - France
+        - Russia
+        - Other / multiple
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Tier (optional — leave blank if unsure)
+      options:
+        - "A — generic IMAP + app password"
+        - "B — special handling (e.g. Bridge, activation code)"
+        - "C — use a native track, or not possible"
+  - type: dropdown
+    id: status
+    attributes:
+      label: Status (optional — be honest)
+      description: "live = set up today · planned = covered by the upcoming IMAP tool · unsupported = no reliable path"
+      options:
+        - "planned (IMAP roadmap)"
+        - "live (a native track exists)"
+        - "unsupported (no IMAP / no path)"
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes, gotchas & sources
+      description: App-password quirks, IMAP that auto-disables, throttling, paid-only, needs Bridge… and a link to the provider's IMAP/app-password docs so a reviewer can verify.
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Can you help?
+      options:
+        - label: I can test the setup with a real account of this provider.
+        - label: I'd like to open the PR myself (edit `src/data/providers.yaml`).
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy note
+      options:
+        - label: I have NOT included any private email content, addresses, or passwords here.
+          required: true

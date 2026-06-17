@@ -143,7 +143,12 @@ contains the whole agent layer (`gmail.gs`, `outlook.ps1`, `*.md`, `llms.txt`, `
 
 ## 🤝 Contributing
 
-PRs welcome — new mail clients (Yahoo, Proton, Fastmail…), fixes, translations, docs. See **[CONTRIBUTING](.github/CONTRIBUTING.md)** and the **[Code of Conduct](CODE_OF_CONDUCT.md)**. For ideas and questions, open a [Discussion](https://github.com/sein-io/dontmailme/discussions).
+**Most useful right now** — these are where help goes furthest:
+
+- 📬 **Add a mail provider.** The directory is one file, [`src/data/providers.yaml`](src/data/providers.yaml). Don't know the code? File an [**Add a provider**](https://github.com/sein-io/dontmailme/issues/new?template=add_provider.yml) issue with what you know. (Most of the 19 listed providers are `planned` — an obvious, concrete backlog.)
+- 🐛 **Report or fix a bug** in the Gmail / Outlook / Apple Mail scripts or the site — [**Report a bug**](https://github.com/sein-io/dontmailme/issues/new?template=bug_report.yml), or fix it and open a PR.
+
+Also welcome: translations (a new language ≈ one file), copy, docs. See **[CONTRIBUTING](.github/CONTRIBUTING.md)** and the **[Code of Conduct](CODE_OF_CONDUCT.md)**; for ideas and questions, open a [Discussion](https://github.com/sein-io/dontmailme/discussions).
 
 ## 🌳 Support
 

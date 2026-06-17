@@ -7,6 +7,9 @@
 #          unsupported → no IMAP / no reliable path; we say so
 # tier:    A (generic IMAP + app password) · B (special handling) · C (use a native track / not possible)
 # method:  gmail-apps-script | outlook-desktop | apple-mail | imap-app-password | imap-bridge | none
+# rfc8058: yes | no | unknown   (does it support List-Unsubscribe-Post one-click?)
+# region:  lowercase code — global | de | fr | ru | …
+# See CONTRIBUTING.md → "Adding a provider" for a field table + example.
 version: 1
 updated: '2026-06-17'
 providers:
