@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.sein-io/dontmailme",
+  "title": "DontMailMe",
+  "description": "Zero-data, open-source auto-unsubscribe advisor (RFC 8058). Returns setup scripts/instructions for Gmail, Outlook and Apple Mail; never touches your inbox.",
+  "version": "0.1.0",
+  "websiteUrl": "https://dontmailme.org",
+  "repository": { "url": "https://github.com/sein-io/dontmailme", "source": "github" },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@sein-io/dontmailme-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "npx",
+      "transport": { "type": "stdio" }
+    }
+  ]
+}

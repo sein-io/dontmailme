@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DontMailMe MCP Server — Unsubscribe for AI Agents | DontMailMe</title>
+    <meta name="description" content="A zero-data Model Context Protocol (MCP) server so AI assistants like Claude and ChatGPT can set up newsletter auto-unsubscribing for you. Open-source, RFC 8058, never touches your inbox.">
+    <link rel="canonical" href="https://dontmailme.org/mcp">
+    <meta name="theme-color" content="#0A7D5C">
+    <link rel="alternate" type="text/markdown" href="/mcp.md">
+
+    <meta property="og:title" content="DontMailMe MCP Server — Unsubscribe for AI Agents">
+    <meta property="og:description" content="A zero-data MCP server so assistants can set up newsletter auto-unsubscribing for you. Open-source, RFC 8058, never sees your inbox.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://dontmailme.org/mcp">
+    <meta property="og:image" content="https://dontmailme.org/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DontMailMe MCP Server — Unsubscribe for AI Agents">
+    <meta name="twitter:description" content="A zero-data MCP server so assistants can set up newsletter auto-unsubscribing for you. Open-source, RFC 8058.">
+    <meta name="twitter:image" content="https://dontmailme.org/og-image.jpg">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dontmailme.org/" },
+        { "@type": "ListItem", "position": 2, "name": "MCP server", "item": "https://dontmailme.org/mcp" }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+<header>
+    <a href="/" class="brand">DontMailMe.org</a>
+    <nav class="nav-links">
+        <a href="/how-it-works">How it works</a>
+        <a href="/gmail">Gmail</a>
+        <a href="/outlook">Outlook</a>
+        <a href="/compare">Compare</a>
+        <a href="/faq">FAQ</a>
+        <a href="/impact">Impact</a>
+    </nav>
+</header>
+
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> › MCP server</nav>
+
+<main>
+    <section>
+        <div class="section-head">
+            <h1 style="font-size: clamp(2.5rem, 6vw, 4rem);">DontMailMe for AI agents — the MCP server</h1>
+            <p>Tell your assistant "unsubscribe me from newsletters" and let it do the setup. DontMailMe ships a Model Context Protocol server — and it's still zero-data.</p>
+        </div>
+
+        <div class="agent-callout">
+            <h3>Zero-data, even for agents</h3>
+            <p>Because the unsubscribe script runs inside <em>your own</em> account (<a href="/how-it-works">RFC 8058</a>), the MCP server never touches an inbox. It's a stateless <strong>advisor</strong>: it hands the assistant the ready-to-run script, the setup steps, and the explanations. There's nothing for it to leak, sell, or store.</p>
+        </div>
+
+        <div class="prose">
+            <h2>The tools it exposes</h2>
+            <ul>
+                <li><code>get_unsubscribe_script</code> — the canonical Gmail or Outlook script (with an optional Gmail safe-senders allow-list).</li>
+                <li><code>get_setup_instructions</code> — step-by-step setup for Gmail, Outlook, or Apple Mail.</li>
+                <li><code>explain_rfc8058</code> — how the one-click standard works and why it's safe.</li>
+                <li><code>estimate_impact</code> — emails avoided, CO₂e saved, and trees a donation funds.</li>
+                <li><code>compare_tools</code> — DontMailMe vs. Unroll.me, Cleanfox, Clean Email and others.</li>
+            </ul>
+
+            <h2>Add it to your assistant</h2>
+            <p><strong>Claude Desktop / any stdio MCP client</strong> — add to your config:</p>
+            <pre><code>{
+  "mcpServers": {
+    "dontmailme": { "command": "npx", "args": ["-y", "@sein-io/dontmailme-mcp"] }
+  }
+}</code></pre>
+            <p><strong>Remote (Claude/ChatGPT custom connector)</strong> — add the hosted URL, no authentication:</p>
+            <pre><code>https://mcp.dontmailme.org/mcp</code></pre>
+            <p class="source">The remote endpoint is authless and zero-data. Source &amp; docs: <a href="https://github.com/sein-io/dontmailme/tree/main/mcp">github.com/sein-io/dontmailme/mcp</a>.</p>
+        </div>
+
+        <div class="cta-row" style="margin-top:40px;">
+            <a href="https://github.com/sein-io/dontmailme/tree/main/mcp" class="btn">View the MCP server</a>
+            <a href="/how-it-works" class="btn btn-secondary">How the unsubscribe works</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Set up</h4>
+            <a href="/gmail">Gmail</a>
+            <a href="/outlook">Outlook (Windows)</a>
+            <a href="/outlook#apple-mail">Apple Mail (macOS)</a>
+        </div>
+        <div class="footer-col">
+            <h4>Learn</h4>
+            <a href="/how-it-works">How it works</a>
+            <a href="/compare">Compare tools</a>
+            <a href="/faq">FAQ</a>
+            <a href="/impact">Impact &amp; methodology</a>
+        </div>
+        <div class="footer-col">
+            <h4>For AI agents</h4>
+            <a href="/llms.txt">llms.txt</a>
+            <a href="/AGENTS.md">AGENTS.md</a>
+            <a href="/mcp">MCP server</a>
+        </div>
+        <div class="footer-col">
+            <h4>Project</h4>
+            <a href="https://github.com/sein-io/dontmailme">GitHub (source)</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/imprint">Imprint</a>
+        </div>
+    </div>
+    <p class="footer-note">A SEIN initiative. Built for personal productivity and planetary health — open source, zero data access.</p>
+</footer>
+
+</body>
+</html>

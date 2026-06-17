@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dontmailme-mcp",
+  "main": "src/worker.ts",
+  "compatibility_date": "2025-03-10",
+  "compatibility_flags": ["nodejs_compat"],
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DontMailMeMCP"] }],
+  "durable_objects": { "bindings": [{ "class_name": "DontMailMeMCP", "name": "MCP_OBJECT" }] },
+  "observability": { "enabled": true }
+}

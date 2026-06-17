@@ -63,11 +63,18 @@ Select the newsletters, then run the local script — [`outlook.ps1`](outlook.ps
 
 AI assistants increasingly handle chores like unsubscribing — today by driving fragile web UIs. DontMailMe gives them the reliable, standards-based path instead:
 
+- **[MCP server](mcp/)** — a Model Context Protocol server so assistants can call DontMailMe as a tool. Zero-data: it serves the scripts/instructions, never your inbox.
 - **[`AGENTS.md`](AGENTS.md)** — a literal, numbered runbook for the full setup.
 - **[`gmail.gs`](gmail.gs)** · **[`outlook.ps1`](outlook.ps1)** — ready-to-run scripts at stable `text/plain` URLs.
 - **[`llms.txt`](https://dontmailme.org/llms.txt)** / **[`llms-full.txt`](https://dontmailme.org/llms-full.txt)** — a machine-readable index of the whole project.
 
-As far as we know, DontMailMe is the **first consumer unsubscribe tool with a documented agent surface.**
+As far as we know, DontMailMe is the **first consumer unsubscribe tool with a documented agent surface — including a real MCP server.**
+
+Add it to an MCP client (e.g. Claude Desktop):
+
+```json
+{ "mcpServers": { "dontmailme": { "command": "npx", "args": ["-y", "@sein-io/dontmailme-mcp"] } } }
+```
 
 ## 🆚 An open-source Unroll.me / Cleanfox alternative
 
@@ -100,6 +107,7 @@ Most unsubscribe tools are free because *you* are the product, or paid because p
 | `index.html`, `gmail.html`, `outlook.html`, … | The static site |
 | `gmail.gs`, `outlook.ps1` | Canonical raw scripts (served to users **and** agents) |
 | `llms.txt`, `llms-full.txt`, `AGENTS.md`, `*.md` | Machine-readable twins for AI agents |
+| `mcp/` | MCP server (`@sein-io/dontmailme-mcp`) — stdio + Cloudflare Worker |
 | `styles.css`, `calculator.js`, `fonts/` | Styles, impact calculator, self-hosted fonts |
 | `docs/STRATEGY.md`, `docs/GROWTH.md` | Product blueprint & growth playbook |
 
