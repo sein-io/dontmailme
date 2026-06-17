@@ -3,14 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Outlook Setup — DontMailMe</title>
-    <meta property="og:title" content="DontMailMe — Stop the noise.">
-    <meta property="og:description" content="Auto-unsubscribe from newsletters. Runs locally. Zero data access. Plants trees.">
+    <title>Bulk Unsubscribe From Newsletters in Outlook &amp; Apple Mail (Free) | DontMailMe</title>
+    <meta name="description" content="Free, open-source scripts to bulk-unsubscribe from newsletters in Outlook (Windows) and Apple Mail (macOS). They run locally on your computer — zero data leaves your device. No subscription, RFC 8058.">
+    <link rel="canonical" href="https://dontmailme.org/outlook">
+    <meta name="theme-color" content="#0A7D5C">
+    <link rel="alternate" type="text/markdown" href="/outlook.md">
+
+    <meta property="og:title" content="Bulk Unsubscribe in Outlook &amp; Apple Mail — Free Scripts">
+    <meta property="og:description" content="Local, open-source scripts that unsubscribe you from newsletters in Outlook and Apple Mail. Nothing leaves your computer.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dontmailme.org/outlook">
+    <meta property="og:image" content="https://dontmailme.org/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bulk Unsubscribe in Outlook &amp; Apple Mail — Free Scripts">
+    <meta name="twitter:description" content="Local, open-source scripts that unsubscribe you from newsletters in Outlook and Apple Mail. Nothing leaves your computer.">
+    <meta name="twitter:image" content="https://dontmailme.org/og-image.jpg">
+
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "How to bulk-unsubscribe from newsletters in Outlook and Apple Mail",
+          "description": "Use a free, open-source local script to unsubscribe from the newsletters you select in Outlook (Windows) or Apple Mail (macOS). Nothing leaves your computer.",
+          "estimatedCost": { "@type": "MonetaryAmount", "currency": "EUR", "value": "0" },
+          "step": [
+            { "@type": "HowToStep", "position": 1, "name": "Select the newsletters", "text": "Open Outlook (Windows) or Apple Mail (macOS) and select the newsletter emails you want to unsubscribe from." },
+            { "@type": "HowToStep", "position": 2, "name": "Run the script", "text": "Paste the PowerShell script (Windows) or AppleScript (macOS) and run it. It reads each message's List-Unsubscribe header and sends the one-click unsubscribe request." },
+            { "@type": "HowToStep", "position": 3, "name": "Done", "text": "Unsubscribed messages are moved to your Deleted Items. Nothing was sent to any third-party server." }
+          ]
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          "name": "DontMailMe Outlook unsubscribe script (Windows)",
+          "programmingLanguage": "PowerShell",
+          "codeRepository": "https://github.com/sein-io/dontmailme",
+          "license": "https://opensource.org/licenses/MIT",
+          "url": "https://dontmailme.org/outlook.ps1"
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          "name": "DontMailMe Apple Mail unsubscribe script (macOS)",
+          "programmingLanguage": "AppleScript",
+          "codeRepository": "https://github.com/sein-io/dontmailme",
+          "license": "https://opensource.org/licenses/MIT"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dontmailme.org/" },
+            { "@type": "ListItem", "position": 2, "name": "Outlook & Apple Mail setup", "item": "https://dontmailme.org/outlook" }
+          ]
+        }
+      ]
+    }
+    </script>
     <style>
         .copy-banner { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; margin-bottom: 8px; }
         .copy-btn { font-size: 0.9rem; padding: 8px 16px; }
@@ -22,16 +75,22 @@
 <header>
     <a href="/" class="brand">DontMailMe.org</a>
     <nav class="nav-links">
-        <a href="/gmail">Gmail Tool</a>
-        <a href="/outlook">Outlook</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/gmail">Gmail</a>
+        <a href="/outlook" class="active">Outlook</a>
+        <a href="/compare">Compare</a>
+        <a href="/faq">FAQ</a>
         <a href="/impact">Impact</a>
     </nav>
 </header>
 
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> › Outlook &amp; Apple Mail setup</nav>
+
 <main>
     <section>
-        <h1 class="page-title" style="font-size: 3rem; margin-bottom: 16px;">Outlook Setup</h1>
-        <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 32px;">Because Microsoft charges $15/month for automated HTTP requests in the cloud, we built a 100% free, local desktop solution.</p>
+        <h1 class="page-title" style="font-size: 3rem; margin-bottom: 16px;">Bulk-unsubscribe from newsletters in Outlook &amp; Apple Mail</h1>
+        <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 24px;">Free, open-source scripts that run locally on your own computer. You select the newsletters; the script sends the official one-click unsubscribe (RFC&nbsp;8058) and tidies them away. Nothing leaves your device. <span style="font-size:1rem;">(Microsoft charges ~$15/month for the cloud automation Gmail gives you for free, so we built the local desktop path instead.)</span></p>
+        <p style="margin-bottom: 32px;"><a href="/outlook.ps1">For AI agents &amp; power users: get the raw PowerShell script (text/plain) →</a></p>
         
         <div class="card" style="margin-bottom: 64px;">
             <h3>You are in full control</h3>
@@ -99,7 +158,7 @@ for ($i = $items.Count - 1; $i -ge 0; $i--) {
 Write-Host "Done! Processed $processed newsletters." -ForegroundColor Green</code></pre>
         </div>
 
-        <div class="step">
+        <div class="step" id="apple-mail">
             <div class="os-badge">macOS</div>
             <h2>Apple Mail</h2>
             <p>If you use a Mac, add your Outlook/Exchange account to the native Apple Mail app. Select the newsletters, open the <strong>Script Editor</strong> app, paste this code, and click Run.</p>
@@ -159,12 +218,34 @@ end tell</code></pre>
 </main>
 
 <footer>
-    <p>A Green IT Suite initiative. Built for personal productivity and planetary health.</p>
-    <div style="margin-top: 16px; display: flex; justify-content: center; gap: 16px;">
-        <a href="https://github.com/sein-io/dontmailme">GitHub</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/imprint">Imprint</a>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Set up</h4>
+            <a href="/gmail">Gmail</a>
+            <a href="/outlook">Outlook (Windows)</a>
+            <a href="/outlook#apple-mail">Apple Mail (macOS)</a>
+        </div>
+        <div class="footer-col">
+            <h4>Learn</h4>
+            <a href="/how-it-works">How it works</a>
+            <a href="/compare">Compare tools</a>
+            <a href="/faq">FAQ</a>
+            <a href="/impact">Impact &amp; methodology</a>
+        </div>
+        <div class="footer-col">
+            <h4>For AI agents</h4>
+            <a href="/llms.txt">llms.txt</a>
+            <a href="/AGENTS.md">AGENTS.md</a>
+            <a href="/outlook.ps1">Raw Outlook script</a>
+        </div>
+        <div class="footer-col">
+            <h4>Project</h4>
+            <a href="https://github.com/sein-io/dontmailme">GitHub (source)</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/imprint">Imprint</a>
+        </div>
     </div>
+    <p class="footer-note">A SEIN initiative. Built for personal productivity and planetary health — open source, zero data access.</p>
 </footer>
 
 <script>

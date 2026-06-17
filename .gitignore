@@ -1,0 +1,8 @@
+# OS noise
+.DS_Store
+
+# Local Claude Code tooling (preview launch config, etc.)
+.claude/
+
+# Sensitive / business documents (order confirmations, invoices)
+docs/*.pdf

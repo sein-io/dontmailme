@@ -3,25 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy — DontMailMe</title>
-    <meta property="og:title" content="DontMailMe — Stop the noise.">
-    <meta property="og:description" content="Auto-unsubscribe from newsletters. Runs locally. Zero data access. Plants trees.">
+    <title>Privacy Policy — Zero Data Access | DontMailMe</title>
+    <meta name="description" content="DontMailMe's privacy policy: no cookies, no tracking, no analytics. Our unsubscribe scripts run inside your own cloud, so we never receive your emails, credentials or data. Zero-data by design.">
+    <link rel="canonical" href="https://dontmailme.org/privacy">
+    <meta name="theme-color" content="#0A7D5C">
+    <meta property="og:title" content="Privacy Policy — Zero Data Access">
+    <meta property="og:description" content="No cookies, no tracking, no analytics. Our scripts run in your own cloud — we never see your data.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dontmailme.org/privacy">
+    <meta property="og:image" content="https://dontmailme.org/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Privacy Policy — Zero Data Access">
+    <meta name="twitter:description" content="No cookies, no tracking, no analytics. Our scripts run in your own cloud — we never see your data.">
+    <meta name="twitter:image" content="https://dontmailme.org/og-image.jpg">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dontmailme.org/" },
+        { "@type": "ListItem", "position": 2, "name": "Privacy", "item": "https://dontmailme.org/privacy" }
+      ]
+    }
+    </script>
 </head>
 <body>
 
 <header>
     <a href="/" class="brand">DontMailMe.org</a>
     <nav class="nav-links">
-        <a href="/gmail">Gmail Tool</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/gmail">Gmail</a>
         <a href="/outlook">Outlook</a>
+        <a href="/compare">Compare</a>
+        <a href="/faq">FAQ</a>
         <a href="/impact">Impact</a>
     </nav>
 </header>
+
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> › Privacy</nav>
 
 <main>
     <section>
@@ -64,12 +88,34 @@
 </main>
 
 <footer>
-    <p>A Green IT Suite initiative. Built for personal productivity and planetary health.</p>
-    <div style="margin-top: 16px; display: flex; justify-content: center; gap: 16px;">
-        <a href="https://github.com/sein-io/dontmailme">GitHub</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/imprint">Imprint</a>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Set up</h4>
+            <a href="/gmail">Gmail</a>
+            <a href="/outlook">Outlook (Windows)</a>
+            <a href="/outlook#apple-mail">Apple Mail (macOS)</a>
+        </div>
+        <div class="footer-col">
+            <h4>Learn</h4>
+            <a href="/how-it-works">How it works</a>
+            <a href="/compare">Compare tools</a>
+            <a href="/faq">FAQ</a>
+            <a href="/impact">Impact &amp; methodology</a>
+        </div>
+        <div class="footer-col">
+            <h4>For AI agents</h4>
+            <a href="/llms.txt">llms.txt</a>
+            <a href="/AGENTS.md">AGENTS.md</a>
+            <a href="/gmail.gs">Raw Gmail script</a>
+        </div>
+        <div class="footer-col">
+            <h4>Project</h4>
+            <a href="https://github.com/sein-io/dontmailme">GitHub (source)</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/imprint">Imprint</a>
+        </div>
     </div>
+    <p class="footer-note">A SEIN initiative. Built for personal productivity and planetary health — open source, zero data access.</p>
 </footer>
 
 </body>

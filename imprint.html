@@ -4,19 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imprint — DontMailMe</title>
+    <meta name="description" content="Legal imprint and contact information for DontMailMe, a free open-source auto-unsubscribe project by Sedat Gergin, Frankfurt am Main, Germany.">
+    <link rel="canonical" href="https://dontmailme.org/imprint">
+    <meta name="theme-color" content="#0A7D5C">
+    <meta name="robots" content="noindex, follow">
+    <meta property="og:title" content="Imprint — DontMailMe">
+    <meta property="og:description" content="Legal imprint and contact information for DontMailMe.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dontmailme.org/imprint">
+    <meta property="og:image" content="https://dontmailme.org/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Imprint — DontMailMe">
+    <meta name="twitter:description" content="Legal imprint and contact information for DontMailMe.">
+    <meta name="twitter:image" content="https://dontmailme.org/og-image.jpg">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dontmailme.org/" },
+        { "@type": "ListItem", "position": 2, "name": "Imprint", "item": "https://dontmailme.org/imprint" }
+      ]
+    }
+    </script>
 </head>
 <body>
 
 <header>
     <a href="/" class="brand">DontMailMe.org</a>
     <nav class="nav-links">
-        <a href="/gmail">Gmail Tool</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/gmail">Gmail</a>
         <a href="/outlook">Outlook</a>
+        <a href="/compare">Compare</a>
+        <a href="/faq">FAQ</a>
         <a href="/impact">Impact</a>
     </nav>
 </header>
+
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> › Imprint</nav>
 
 <main>
     <section>
@@ -46,12 +74,34 @@
 </main>
 
 <footer>
-    <p>A Green IT Suite initiative. Built for personal productivity and planetary health.</p>
-    <div style="margin-top: 16px; display: flex; justify-content: center; gap: 16px;">
-        <a href="https://github.com/sein-io/dontmailme">GitHub</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/imprint">Imprint</a>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Set up</h4>
+            <a href="/gmail">Gmail</a>
+            <a href="/outlook">Outlook (Windows)</a>
+            <a href="/outlook#apple-mail">Apple Mail (macOS)</a>
+        </div>
+        <div class="footer-col">
+            <h4>Learn</h4>
+            <a href="/how-it-works">How it works</a>
+            <a href="/compare">Compare tools</a>
+            <a href="/faq">FAQ</a>
+            <a href="/impact">Impact &amp; methodology</a>
+        </div>
+        <div class="footer-col">
+            <h4>For AI agents</h4>
+            <a href="/llms.txt">llms.txt</a>
+            <a href="/AGENTS.md">AGENTS.md</a>
+            <a href="/gmail.gs">Raw Gmail script</a>
+        </div>
+        <div class="footer-col">
+            <h4>Project</h4>
+            <a href="https://github.com/sein-io/dontmailme">GitHub (source)</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/imprint">Imprint</a>
+        </div>
     </div>
+    <p class="footer-note">A SEIN initiative. Built for personal productivity and planetary health — open source, zero data access.</p>
 </footer>
 
 </body>
