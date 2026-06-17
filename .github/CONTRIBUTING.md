@@ -14,26 +14,30 @@ DontMailMe is a static website plus a set of open-source unsubscribe scripts tha
 
 ## Project layout
 
+The site is built with [Astro](https://astro.build) (static output).
+
 | Path | What it is |
 |------|------------|
-| `index.html`, `gmail.html`, `outlook.html`, … | The static site pages |
-| `styles.css`, `calculator.js` | Shared styles and the impact calculator |
-| `gmail.gs`, `outlook.ps1` | The canonical raw scripts served to users and AI agents |
-| `*.md`, `llms.txt`, `llms-full.txt`, `AGENTS.md` | Machine-readable twins for AI agents |
+| `src/pages/`, `src/layouts/`, `src/components/`, `src/styles/` | Astro source for the site |
+| `src/data/providers.yaml` | The provider directory — drives `/providers` and `/api/providers.json` |
+| `public/` | Files served verbatim at the web root: the agent layer, fonts, images |
+| `public/gmail.gs`, `public/outlook.ps1` | The canonical raw scripts served to users and AI agents |
+| `public/*.md`, `public/llms.txt`, `public/llms-full.txt`, `public/AGENTS.md` | Machine-readable twins for AI agents |
+| `dist/` | Build output (what gets deployed) — never edit by hand |
 | `docs/STRATEGY.md` | The product/positioning blueprint |
 
-> **Important:** `gmail.html` contains an in-page generator that injects a user's safe-sender list into the Gmail script. If you change the unsubscribe logic, update **both** the generator in `gmail.html` and the raw `gmail.gs`, and keep them in sync.
+> **Important:** the Gmail page (`src/pages/gmail.astro`) renders the **canonical `public/gmail.gs`** and injects the user's safe-sender list on top of it — so there is a single source of truth. If you change the unsubscribe logic, edit **`public/gmail.gs`**; the in-page generator stays in sync automatically. To add a mail provider, edit **`src/data/providers.yaml`**.
 
 ## Running locally
 
-It's a static site — no build step:
-
 ```bash
-python3 -m http.server 8000
-# open http://localhost:8000
+npm install
+npm run dev      # dev server with hot reload → http://localhost:4321
+npm run build    # generate the production site into dist/
+npm run preview  # serve the built dist/ exactly as it will look live
 ```
 
-Clean URLs (e.g. `/gmail`) are handled by `_redirects` on Cloudflare Pages / Netlify; locally, use the `.html` paths.
+Clean URLs (e.g. `/gmail`) work out of the box. To deploy, upload the **contents of `dist/`** to the web root.
 
 ## Guidelines
 

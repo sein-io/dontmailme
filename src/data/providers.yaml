@@ -1,0 +1,174 @@
+# DontMailMe provider directory — single source of truth.
+# Drives /providers (the page) and /api/providers.json (the machine API).
+# Add or fix a provider via a PR to this file. Be honest about status.
+#
+# status:  live      → you can set it up today (a native track ships)
+#          planned   → covered by the generic IMAP tool, which is on the roadmap (P1)
+#          unsupported → no IMAP / no reliable path; we say so
+# tier:    A (generic IMAP + app password) · B (special handling) · C (use a native track / not possible)
+# method:  gmail-apps-script | outlook-desktop | apple-mail | imap-app-password | imap-bridge | none
+version: 1
+updated: '2026-06-17'
+providers:
+  # ---- Available today (native tracks) -----------------------------------
+  - name: Gmail
+    slug: gmail
+    tier: B
+    method: gmail-apps-script
+    status: live
+    region: global
+    rfc8058: yes
+    setup: /gmail
+    note: Automatic — a Google Apps Script runs inside your account every 15 minutes.
+  - name: Outlook (desktop)
+    slug: outlook
+    tier: C
+    method: outlook-desktop
+    status: live
+    region: global
+    rfc8058: yes
+    setup: /outlook
+    note: Outlook.com IMAP is OAuth-only since 2024; the local PowerShell track sidesteps that.
+  - name: Apple Mail
+    slug: apple-mail
+    tier: C
+    method: apple-mail
+    status: live
+    region: global
+    rfc8058: yes
+    setup: /outlook#apple-mail
+    note: A local AppleScript acts on the messages you select. Nothing leaves your Mac.
+
+  # ---- Planned via the generic IMAP tool (roadmap, P1) -------------------
+  - name: iCloud Mail
+    slug: icloud
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: global
+    rfc8058: yes
+    appPassword: https://account.apple.com/account/manage
+    note: Requires an app-specific password (2FA on).
+  - name: Yahoo Mail
+    slug: yahoo
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: global
+    rfc8058: yes
+    appPassword: https://login.yahoo.com/account/security/app-passwords
+    note: Generate an app password; Yahoo throttles new IMAP connections briefly.
+  - name: AOL Mail
+    slug: aol
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: global
+    rfc8058: yes
+    appPassword: https://login.aol.com/account/security
+  - name: Fastmail
+    slug: fastmail
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: global
+    rfc8058: yes
+    appPassword: https://app.fastmail.com/settings/security/apppasswords
+    note: Paid accounts only.
+  - name: GMX
+    slug: gmx
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: de
+    rfc8058: yes
+    note: IMAP must be enabled in settings; GMX may auto-disable it after inactivity.
+  - name: Web.de
+    slug: web-de
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: de
+    rfc8058: yes
+    note: Enable IMAP in settings before connecting.
+  - name: Posteo
+    slug: posteo
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: de
+    rfc8058: yes
+  - name: Mailbox.org
+    slug: mailbox-org
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: de
+    rfc8058: yes
+  - name: t-online
+    slug: t-online
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: de
+    rfc8058: yes
+    note: Needs a dedicated mail password set in the t-online profile.
+  - name: Yandex Mail
+    slug: yandex
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: global
+    rfc8058: yes
+    appPassword: https://id.yandex.com/security/app-passwords
+  - name: mail.com
+    slug: mail-com
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: global
+    rfc8058: yes
+  - name: Zoho Mail
+    slug: zoho
+    tier: A
+    method: imap-app-password
+    status: planned
+    region: global
+    rfc8058: yes
+    appPassword: https://accounts.zoho.com/home#security/app_password
+
+  # ---- Special handling --------------------------------------------------
+  - name: Proton Mail
+    slug: proton
+    tier: B
+    method: imap-bridge
+    status: planned
+    region: global
+    rfc8058: yes
+    note: Needs Proton Bridge (paid plans) to expose local IMAP.
+  - name: QQ Mail
+    slug: qq
+    tier: B
+    method: imap-app-password
+    status: planned
+    region: global
+    rfc8058: unknown
+    note: Uses an authorization code; activation can be slow.
+
+  # ---- Not supported (we say so) ----------------------------------------
+  - name: HEY
+    slug: hey
+    tier: C
+    method: none
+    status: unsupported
+    region: global
+    rfc8058: unknown
+    note: No IMAP access, so no standards-based path exists.
+  - name: Tuta (Tutanota)
+    slug: tuta
+    tier: C
+    method: none
+    status: unsupported
+    region: global
+    rfc8058: unknown
+    note: No IMAP by design (end-to-end encrypted).

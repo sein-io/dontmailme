@@ -27,6 +27,7 @@ const {
 const site = 'https://dontmailme.org';
 const canonical = site + (path === '/' ? '/' : path);
 const lang = Astro.currentLocale ?? 'en';
+const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${path === '/' ? 'index' : path.replace(/^\//, '')}.astro`;
 
 const railItems = [
   { href: '#features', name: 'grid', label: 'Features' },
@@ -134,6 +135,7 @@ const navLinks = [
         <a href="/gmail">Gmail</a>
         <a href="/outlook">Outlook (Windows)</a>
         <a href="/outlook#apple-mail">Apple Mail (macOS)</a>
+        <a href="/providers">All providers</a>
       </div>
       <div class="ft-col">
         <h4>Learn</h4>
@@ -152,7 +154,7 @@ const navLinks = [
       <div class="ft-col">
         <h4>Project</h4>
         <a href="https://github.com/sein-io/dontmailme" target="_blank" rel="noopener">GitHub (source)</a>
-        <a href="https://github.com/sein-io/dontmailme/edit/main/src/pages/index.astro" target="_blank" rel="noopener">Improve this page</a>
+        <a href={editHref} target="_blank" rel="noopener">Improve this page</a>
         <a href="/privacy">Privacy</a>
         <a href="/imprint">Imprint</a>
       </div>

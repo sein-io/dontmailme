@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import { providers, providersMeta, METHOD_LABEL, rfcLabel } from '../data/providers';
+
+const title = 'Supported Mail Providers — Gmail, Outlook, iCloud, Yahoo & more | DontMailMe';
+const description =
+  'Which mail providers DontMailMe supports, with honest status. Gmail, Outlook and Apple Mail work today via native scripts; iCloud, Yahoo, GMX, Web.de, Posteo, Mailbox.org and more are planned via a local IMAP tool. RFC 8058, zero-data.';
+
+const regionLabel: Record<string, string> = { global: 'Global', de: 'Germany', fr: 'France', ru: 'Russia' };
+const live = providers.filter((p) => p.status === 'live');
+const planned = providers.filter((p) => p.status === 'planned');
+const unsupported = providers.filter((p) => p.status === 'unsupported');
+
+const addProvider =
+  'https://github.com/sein-io/dontmailme/issues/new?labels=provider&title=Add%20provider%3A%20%3Cname%3E&body=Provider%20name%3A%0ADomain%3A%0AIMAP%20host%3A%0AApp-password%20URL%3A%0ARFC%208058%20support%3A';
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dontmailme.org/' },
+    { '@type': 'ListItem', position: 2, name: 'Providers', item: 'https://dontmailme.org/providers' },
+  ],
+};
+---
+<Base title={title} description={description} path="/providers">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} />
+  </Fragment>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span>Providers</nav>
+
+  <article class="page page-wide">
+    <div class="page-head">
+      <h1>Supported mail providers</h1>
+      <p class="lead">Honest status, no overpromising. Gmail, Outlook and Apple Mail work today through native scripts. The rest are covered by a generic, local IMAP tool (zero-data, runs on your machine) that's on the roadmap — listed here so you know what's coming.</p>
+      <p><a href="/api/providers.json"><code class="inline-code">/api/providers.json</code></a> — the same list as a machine-readable API.</p>
+    </div>
+
+    <section class="prov-group">
+      <h2 class="sec-t">Set up today</h2>
+      <div class="table-wrap">
+        <table class="compare prov-table">
+          <thead>
+            <tr><th scope="col">Provider</th><th scope="col">Tier</th><th scope="col">Region</th><th scope="col">How</th><th scope="col">Setup</th></tr>
+          </thead>
+          <tbody>
+            {live.map((p) => (
+              <tr>
+                <th scope="row">{p.name}</th>
+                <td>{p.tier}</td>
+                <td>{regionLabel[p.region] ?? p.region}</td>
+                <td>{METHOD_LABEL[p.method]}</td>
+                <td>{p.setup ? <a href={p.setup}>Set up →</a> : <span class="ghost">—</span>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="prov-group">
+      <h2 class="sec-t">Planned — generic IMAP tool</h2>
+      <p class="sec-sub">A single open-source, local IMAP tool will add these (RFC&nbsp;8058, app-password). It's the next build (P1); the link below tracks progress.</p>
+      <div class="table-wrap">
+        <table class="compare prov-table">
+          <thead>
+            <tr><th scope="col">Provider</th><th scope="col">Tier</th><th scope="col">Region</th><th scope="col">RFC 8058</th><th scope="col">App password</th></tr>
+          </thead>
+          <tbody>
+            {planned.map((p) => (
+              <tr>
+                <th scope="row">{p.name}{p.note && <span class="prov-tip" title={p.note}> ⓘ</span>}</th>
+                <td>{p.tier}</td>
+                <td>{regionLabel[p.region] ?? p.region}</td>
+                <td>{rfcLabel(p.rfc8058)}</td>
+                <td>{p.appPassword ? <a href={p.appPassword} target="_blank" rel="noopener">Generate ↗</a> : <span class="ghost">in settings</span>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="prov-group">
+      <h2 class="sec-t">Not supported</h2>
+      <p class="sec-sub">No IMAP, so no standards-based path exists. We'd rather say so than pretend.</p>
+      <div class="table-wrap">
+        <table class="compare prov-table">
+          <thead>
+            <tr><th scope="col">Provider</th><th scope="col">Why</th></tr>
+          </thead>
+          <tbody>
+            {unsupported.map((p) => (
+              <tr>
+                <th scope="row">{p.name}</th>
+                <td style="text-align:start;">{p.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="cta-row" style="justify-content:flex-start; margin-block-start: 8px;">
+      <a href={addProvider} class="btn btn-primary" target="_blank" rel="noopener">Add or fix a provider</a>
+      <a href="/api/providers.json" class="btn">View the JSON API</a>
+    </div>
+    <p class="source" style="margin-block-start:16px;">Directory v{providersMeta.version} · last updated {providersMeta.updated}. Tiers: A = generic IMAP + app password · B = special handling · C = use a native track / not possible.</p>
+  </article>
+</Base>

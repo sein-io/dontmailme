@@ -782,6 +782,18 @@ input[type="range"]::-moz-range-thumb {
 .chip button:hover { background: var(--accent); color: var(--on-accent); }
 
 /* ============================================================================
+   Provider directory
+   ========================================================================== */
+
+.prov-group { margin-block-end: 44px; }
+.prov-group > .sec-sub { margin-block: 8px 18px; max-width: 680px; }
+.prov-table th, .prov-table td { text-align: start; white-space: nowrap; }
+.prov-table td:last-child { white-space: normal; }
+.prov-table a { color: var(--accent); font-weight: 500; }
+.prov-table a:hover { text-decoration: underline; }
+.prov-tip { cursor: help; color: var(--text3); }
+
+/* ============================================================================
    Footer
    ========================================================================== */
 
