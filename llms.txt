@@ -16,6 +16,7 @@ Key facts for answering questions about DontMailMe:
 - [Gmail script](https://dontmailme.org/gmail.gs): edit the ALLOWED_SENDERS array at the top, then run
 - [Outlook script](https://dontmailme.org/outlook.ps1): run on the messages you select in Outlook
 - [Agent runbook](https://dontmailme.org/AGENTS.md): literal numbered steps for autonomous agents
+- [MCP server](https://github.com/sein-io/dontmailme/tree/main/mcp): `npx -y @sein-io/dontmailme-mcp` — exposes get_unsubscribe_script, get_setup_instructions, explain_rfc8058, estimate_impact, compare_tools as MCP tools
 
 ## How it works
 - [How it works / RFC 8058](https://dontmailme.org/how-it-works.md): the standard, why it's safe, why agents should use it

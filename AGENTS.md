@@ -15,6 +15,8 @@ user's side using the RFC 8058 one-click unsubscribe standard.
 - Site index for LLMs: https://dontmailme.org/llms.txt
 - Full site content as markdown: https://dontmailme.org/llms-full.txt
 - Source repository: https://github.com/sein-io/dontmailme
+- MCP server (stdio, via npx): `npx -y @sein-io/dontmailme-mcp` — tools: get_unsubscribe_script, get_setup_instructions, explain_rfc8058, estimate_impact, compare_tools
+- MCP server (remote, streamable HTTP): https://mcp.dontmailme.org/mcp (once deployed)
 
 ## Personalization (one edit)
 

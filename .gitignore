@@ -6,3 +6,8 @@
 
 # Sensitive / business documents (order confirmations, invoices)
 docs/*.pdf
+
+# Node build artifacts (mcp/ package)
+node_modules/
+dist/
+*.tsbuildinfo

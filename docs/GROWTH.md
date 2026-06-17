@@ -63,9 +63,21 @@ Reusable one-liner:
 - [ ] **LibHunt / Ecosyste.ms** — no manual submit; auto-ingests once **Topics** (§1) are set.
 - [ ] **marcelkooi/awesome-newsletter-tools** — PR adding an "Unsubscribe" entry.
 
+### Tier 2b — MCP listings (UNLOCKED — we now ship a real MCP server in `mcp/`)
+Publish to the **official MCP registry first** — PulseMCP auto-ingests from it weekly and Glama auto-crawls GitHub, so one publish propagates.
+- [ ] **npm + official registry** — from `mcp/`: `npm publish --access public`, then `mcp-publisher login github` + `mcp-publisher publish` (reads `mcp/server.json`, name `io.github.sein-io/dontmailme`). Full commands in `mcp/README.md` and the build spec.
+- [ ] **punkpeye/awesome-mcp-servers** — PR, one line under `💬 Communication` (alphabetical):
+  ```
+  - [sein-io/dontmailme](https://github.com/sein-io/dontmailme) 📇 🏠 ☁️ - Zero-data auto-unsubscribe advisor (RFC 8058). Generates copy-paste scripts that run inside your own Gmail/Outlook/Apple Mail; never touches your inbox.
+  ```
+- [ ] **mcpservers.org** (wong2 list) — web form at https://mcpservers.org/submit (Category: Communication).
+- [ ] **mcp.so** — Submit button; Category Communication/Email; install `npx -y @sein-io/dontmailme-mcp`.
+- [ ] **glama.ai/mcp** — `glama.json` is already committed at the repo root; run "Claim ownership" on Glama.
+- [ ] **smithery.ai** — point at the deployed Worker URL once live.
+- [ ] **PulseMCP** — nothing to do; auto-ingests from the registry. Claim if it appears unclaimed.
+
 ### Do NOT submit (would be rejected — honest disqualification)
 - **awesome-selfhosted** — excludes non-server / client-side software. We're a static site + copy-paste scripts, no self-hostable backend.
-- **awesome-mcp-servers / official MCP Registry** — require a published MCP server package. We ship AGENTS.md / llms.txt / raw scripts but no MCP server. **Unlock later** by shipping a thin MCP wrapper, then register as `io.github.sein-io/dontmailme`.
 
 ---
 

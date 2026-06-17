@@ -37,6 +37,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dontmailme.org/mcp</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://dontmailme.org/free-gmail-storage</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>

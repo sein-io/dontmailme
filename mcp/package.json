@@ -1,0 +1,33 @@
+{
+  "name": "@sein-io/dontmailme-mcp",
+  "version": "0.1.0",
+  "description": "Zero-data MCP advisor that serves DontMailMe RFC 8058 auto-unsubscribe scripts. Never touches your inbox.",
+  "license": "MIT",
+  "type": "module",
+  "mcpName": "io.github.sein-io/dontmailme",
+  "bin": { "dontmailme-mcp": "dist/index.js" },
+  "files": ["dist"],
+  "engines": { "node": ">=18" },
+  "repository": { "type": "git", "url": "git+https://github.com/sein-io/dontmailme.git", "directory": "mcp" },
+  "homepage": "https://dontmailme.org",
+  "keywords": ["mcp", "model-context-protocol", "unsubscribe", "rfc8058", "email", "gmail", "outlook", "zero-data"],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "pretest": "npm run build",
+    "test": "node test/smoke.mjs",
+    "dev:worker": "wrangler dev src/worker.ts",
+    "deploy:worker": "wrangler deploy src/worker.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0",
+    "agents": "^0.16.1",
+    "wrangler": "^4.101.0"
+  }
+}
