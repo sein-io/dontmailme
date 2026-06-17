@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+
+const title = 'Cut Mailbox Storage Costs & Digital Waste for Your Team | DontMailMe';
+const description =
+  "Help your team kill the newsletter clutter that inflates Microsoft 365 / Google mailbox storage costs and digital waste. Open-source, runs in each user's own account, nothing leaves your tenant. Cost, sustainability and data-minimization in one move.";
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dontmailme.org/' },
+    { '@type': 'ListItem', position: 2, name: 'For teams', item: 'https://dontmailme.org/teams' },
+  ],
+};
+---
+<Base title={title} description={description} path="/teams">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} />
+  </Fragment>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span>For teams</nav>
+
+  <article class="page">
+    <div class="page-head">
+      <h1>Cut mailbox storage costs and digital waste for your team</h1>
+      <p class="lead">Newsletters nobody reads don't just cost attention — they inflate mailbox storage you pay for, and pile up "ROT" (redundant, outdated, trivial) data. DontMailMe is the open-source way to stop the inflow, in every account, without anything leaving your tenant.</p>
+      <div class="hero-cta">
+        <a href="mailto:hi@dontmailme.org?subject=DontMailMe%20for%20our%20team" class="btn btn-primary">Talk to us</a>
+        <a href="/how-it-works" class="btn">How it works</a>
+      </div>
+    </div>
+
+    <section class="sec">
+      <div class="sec-h">
+        <h2 class="sec-t">One move, three justifications</h2>
+        <p class="sec-sub">It's rare that the cost case, the sustainability case and the compliance case all point the same way.</p>
+      </div>
+      <div class="bento">
+        <article class="bc glass">
+          <Icon name="inbox" class="ic bc-ic" />
+          <h3 class="bc-t">Lower storage cost</h3>
+          <p class="bc-p">Per-mailbox limits in Microsoft 365 and Google Workspace mean junk mail pushes teams toward paid add-on storage. Stopping the inflow keeps mailboxes — and your bill — smaller.</p>
+        </article>
+        <article class="bc glass">
+          <Icon name="leaf" class="ic bc-ic" />
+          <h3 class="bc-t">Cut digital waste</h3>
+          <p class="bc-p">Fewer emails stored and sent means a smaller digital footprint — a concrete, measurable line item for green-IT and ESG goals, not a vague pledge.</p>
+        </article>
+        <article class="bc glass">
+          <Icon name="lock" class="ic bc-ic" />
+          <h3 class="bc-t">Support data minimization</h3>
+          <p class="bc-p">Less ROT data is easier to govern and retain correctly. And because the script runs in each user's own account, no inbox data ever leaves your tenant or reaches a third party.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="prose">
+      <h2>Who it's for</h2>
+      <p><strong>IT &amp; admins:</strong> reduce Microsoft 365 / Exchange and Google Workspace mailbox sizes, cut the volume of low-value automated mail, and avoid paying for extra storage tiers — using an auditable, open-source script rather than another SaaS vendor with access to your mail.</p>
+      <p><strong>Operations, ESG &amp; sustainability leads:</strong> turn "reduce digital waste" from a slide into an action with a measurable footprint reduction, delivered as a quiet default rather than a behaviour-change campaign.</p>
+
+      <h2>Why open-source &amp; in-tenant matters for teams</h2>
+      <p>Most inbox tools require granting a third party OAuth access to every mailbox — a security and compliance review in itself. DontMailMe doesn't: the script runs inside each user's own Google or Microsoft account using the official <a href="/how-it-works">RFC 8058</a> standard. There's no DontMailMe server in the loop, nothing to add to your data-processing register, and the code is fully auditable.</p>
+
+      <h2>Rolling it out</h2>
+      <p>DontMailMe is free and open source. For a team you can point staff to the <a href="/gmail">Gmail</a> and <a href="/outlook">Outlook</a> guides, or adapt the <a href="/gmail.gs">open script</a> to your environment and deploy it centrally. Want help scoping a rollout, or a tailored version for your tenant? <a href="mailto:hi@dontmailme.org?subject=DontMailMe%20for%20our%20team">Get in touch</a>.</p>
+    </div>
+
+    <div class="hero-cta" style="margin-block-start: 40px;">
+      <a href="mailto:hi@dontmailme.org?subject=DontMailMe%20for%20our%20team" class="btn btn-primary">Talk to us about your team</a>
+      <a href="/compare" class="btn">Compare vs. other tools</a>
+    </div>
+  </article>
+</Base>

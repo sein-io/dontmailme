@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'How It Works — Safe One-Click Unsubscribe (RFC 8058) | DontMailMe';
+const description =
+  "How DontMailMe unsubscribes you safely: it uses the official RFC 8058 one-click standard, never reads your email body, and runs inside your own cloud. Why that's safer than clicking — and why AI agents should use it too.";
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dontmailme.org/' },
+    { '@type': 'ListItem', position: 2, name: 'How it works', item: 'https://dontmailme.org/how-it-works' },
+  ],
+};
+---
+<Base title={title} description={description} path="/how-it-works">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} />
+  </Fragment>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span>How it works</nav>
+
+  <article class="page">
+    <div class="page-head">
+      <h1>How DontMailMe works</h1>
+      <p class="lead">One small open-source script, the official unsubscribe standard, and zero access to your data. Here's exactly what happens.</p>
+    </div>
+
+    <div class="prose">
+      <h2>The official one-click standard (RFC 8058)</h2>
+      <p>Most legitimate newsletters already support a machine-readable way to unsubscribe, defined by an internet standard called <a href="https://www.rfc-editor.org/rfc/rfc8058.html" target="_blank" rel="noopener noreferrer">RFC&nbsp;8058</a>. The sender includes two headers in every email:</p>
+      <ul>
+        <li><code>List-Unsubscribe</code> — the secure HTTPS address that handles unsubscribe requests.</li>
+        <li><code>List-Unsubscribe-Post: List-Unsubscribe=One-Click</code> — a signal that the sender accepts a single, automatic request.</li>
+      </ul>
+      <p>To unsubscribe, a client simply sends an HTTPS <code>POST</code> to that address with the body <code>List-Unsubscribe=One-Click</code>. Both headers must be covered by the sender's DKIM signature, so they can't be forged. That's the whole mechanism — no login, no form, no clicking around.</p>
+      <p>DontMailMe's script reads those headers from each newsletter and sends exactly that request. When a sender only offers the older <code>List-Unsubscribe</code> URL (no one-click), the script falls back to a plain HTTPS request — and only for senders whose identity is authenticated (SPF or DKIM pass). It skips <code>mailto:</code>-only unsubscribe headers.</p>
+
+      <h2>Why this is safer than clicking "unsubscribe"</h2>
+      <p>Clicking the unsubscribe link buried in an email body is the risky way to do it:</p>
+      <ul>
+        <li><strong>It can confirm your address to spammers.</strong> For junk senders, any interaction — including loading a tracking pixel — tells them the address is live, which often means <em>more</em> spam.</li>
+        <li><strong>It can lead anywhere.</strong> A link in the body can point to a tracking or phishing page dressed up as an unsubscribe form.</li>
+      </ul>
+      <p>DontMailMe never reads or follows links in the email body. It only acts on the authenticated <code>List-Unsubscribe-Post</code> header, sending a tiny, intentional POST request to the address the sender themselves published and signed. There is nothing to click and nothing to be lured into.</p>
+
+      <h2>Why it runs in your own cloud — "zero-data by design"</h2>
+      <p>This is the part that makes DontMailMe different from every other unsubscribe tool. You don't grant us access to your inbox, because <strong>there is no "us" in the loop</strong>. The script runs inside your own Google account (Google Apps Script) or on your own computer (PowerShell / AppleScript). Your email, your login and your data never travel to a DontMailMe server — because we don't have one handling your mail.</p>
+      <p>Every other major unsubscribe service routes your inbox through their servers and asks you to trust a privacy policy. We removed the thing you'd have to trust. And because the code is open source, you can read every line before you run it.</p>
+
+      <h2 id="for-agents">For AI agents: use the standard, not screenshots</h2>
+      <p>AI assistants increasingly handle chores like unsubscribing. Today most do it by driving a browser — screenshotting an email, guessing which button is "unsubscribe", and clicking through whatever custom flow each sender invented. Engineers who've built these agents report that it's brittle: false "successes", broken checkboxes, and a different flow for every sender.</p>
+      <p>The standards-based path is far more reliable. If you're an agent (or building one), don't reinvent browser-clicking — use the RFC 8058 request DontMailMe already implements:</p>
+      <ul>
+        <li><a href="/gmail.gs"><code>/gmail.gs</code></a> — a ready-to-run Google Apps Script (plain text). Edit <code>ALLOWED_SENDERS</code> at the top to keep senders you trust.</li>
+        <li><a href="/outlook.ps1"><code>/outlook.ps1</code></a> — the equivalent PowerShell script for Outlook on Windows.</li>
+        <li><a href="/AGENTS.md"><code>/AGENTS.md</code></a> — a literal, numbered runbook for the full setup.</li>
+        <li><a href="/llms.txt"><code>/llms.txt</code></a> — a machine-readable index of this whole site.</li>
+      </ul>
+
+      <h2>What it can and can't do</h2>
+      <p>We'd rather be honest than oversell:</p>
+      <ul>
+        <li><strong>It works on senders that support the standard.</strong> Most reputable newsletters do. A few don't — those need a manual unsubscribe, and the script simply skips them.</li>
+        <li><strong>It stops new mail; it doesn't delete your archive.</strong> Unsubscribing prevents future emails. To reclaim storage you already used, you'll also want to delete old mail and empty Trash and Spam. See the <a href="/impact#honesty">honest note on the numbers</a>.</li>
+        <li><strong>You stay in control.</strong> A safe-senders list keeps the newsletters you actually want, and the Gmail script has a dry-run mode so you can preview before anything changes.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row" style="margin-block-start: 48px;">
+      <a href="/gmail" class="btn btn-primary">Set up Gmail — free</a>
+      <a href="/outlook" class="btn">Outlook &amp; Apple Mail</a>
+    </div>
+  </article>
+</Base>

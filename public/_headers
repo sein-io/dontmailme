@@ -11,11 +11,11 @@
   Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
 
+# Build assets — content-hashed by Astro, safe to cache forever
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Static assets
-/styles.css
-  Cache-Control: public, max-age=86400
-/calculator.js
-  Cache-Control: public, max-age=86400
 /og-image.jpg
   Cache-Control: public, max-age=2592000
 /favicon.svg

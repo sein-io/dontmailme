@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'The Carbon Cost of Email — Impact & Methodology | DontMailMe';
+const description =
+  'How much CO₂ do unwanted newsletters really cost — and how DontMailMe measures the impact of every cleanup and every tree planted. Sourced figures, transparent methodology.';
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dontmailme.org/' },
+    { '@type': 'ListItem', position: 2, name: 'Impact', item: 'https://dontmailme.org/impact' },
+  ],
+};
+
+const stats = [
+  { v: '29.7M t', l: 'CO₂e from spam email each year — more than some entire countries emit' },
+  { v: '84.8%', l: 'of all email sent is spam (≈271 billion messages a day)' },
+  { v: '~40 kg', l: 'CO₂e for one newsletter sent to 10,000 people who mostly never open it' },
+  { v: '~184 kg', l: 'CO₂e from email for a typical office worker per year' },
+];
+---
+<Base title={title} description={description} path="/impact">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} />
+  </Fragment>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span>Impact</nav>
+
+  <section class="counter-hero">
+    <p class="counter mono tnum" id="tree-counter" aria-live="polite">…</p>
+    <p class="counter-cap">Trees planted by the DontMailMe community.</p>
+    <h1 class="counter-h">The carbon cost of email</h1>
+    <p class="counter-sub">What the newsletters you never read really cost — and how we measure every cleanup and every tree.</p>
+    <div class="cta-row">
+      <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Support &amp; plant trees</a>
+      <a href="/gmail" class="btn btn-lg">Clean my inbox first</a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h">
+      <h2 class="sec-t">The hidden cost of the newsletters you never read</h2>
+      <p class="sec-sub">Email feels weightless. At scale, it isn't. The good news: stopping the ones you never open is one of the easiest footprints to cut.</p>
+    </div>
+    <div class="stats">
+      {stats.map((s) => (
+        <div class="stat"><span class="stat-v mono">{s.v}</span><span class="stat-l">{s.l}</span></div>
+      ))}
+    </div>
+    <p class="compare-foot">Sources: Today Testing (spam footprint); Carbon Literacy Project and Mike Berners-Lee, <em>How Bad Are Bananas?</em> (per-email and per-worker figures). Figures are estimates — see the methodology and honesty note below.</p>
+  </section>
+
+  <section class="sec">
+    <div class="prose">
+      <h2>How we calculate your impact</h2>
+      <p>We keep the math simple and transparent. The calculator on the home page uses these assumptions:</p>
+      <ul>
+        <li><strong>~2 emails per week, per newsletter</strong> — a conservative average for a promotional list (≈104 emails a year that you no longer receive for each unsubscribe).</li>
+        <li><strong>~4 g CO₂e per promotional email</strong> — the Carbon Literacy Project's widely-cited figure for a "standard" email (their range runs from 0.3 g for spam to 50 g for an email with a large attachment; these estimates vary and are debated).</li>
+        <li><strong>~0.16 kg CO₂e per kilometre driven</strong> — an average passenger car, used for the "driving avoided" comparison.</li>
+        <li><strong>~20 kg CO₂ absorbed per tree, per year</strong> — One Tree Planted's working figure for a maturing tree.</li>
+        <li><strong>~€5 donated plants one tree</strong> — half of each pay-what-you-want gift goes to One Tree Planted (~€2.50 per tree); the other half funds the project.</li>
+      </ul>
+      <p>So unsubscribing from 20 newsletters means roughly <strong>2,080 fewer emails a year</strong> and about <strong>8 kg CO₂e</strong> not emitted — every year, automatically, because the mail simply stops being sent to you.</p>
+
+      <h2>Why we plant trees</h2>
+      <p>DontMailMe is free. It's funded by pay-what-you-want donations: <strong>half of every donation goes to <a href="https://onetreeplanted.org" target="_blank" rel="noopener noreferrer">One Tree Planted</a></strong>, the other half keeps the project alive and open source. In practice, roughly every <strong>€5 you give plants one tree</strong> (about €2.50 of it, at ~€2.50 per tree) — and a maturing tree absorbs about 20 kg of CO₂ a year, on top of the emissions your cleanup already prevents.</p>
+
+      <h2 id="honesty">An honest note on the numbers</h2>
+      <p>Carbon figures for email vary widely between studies, and we'd rather be straight with you than impressive:</p>
+      <ul>
+        <li><strong>Unsubscribing stops <em>new</em> mail.</strong> It doesn't, by itself, free storage you've already used — for that you also need to delete old mail and empty your Trash and Spam folders.</li>
+        <li><strong>The saving is "emails never sent," not a one-time delete.</strong> Critics rightly note that the energy you spend deleting an email can exceed the email's own footprint. We count the future sends you prevent — a recurring saving — not the act of deletion.</li>
+        <li><strong>Estimates are estimates.</strong> We use mid-range, sourced figures and show our working so you can judge for yourself.</li>
+      </ul>
+      <p>The point isn't to guilt you into saving the planet one inbox at a time. It's that a cleaner, calmer inbox happens to be good for the planet too — so the good part comes along for free.</p>
+
+      <p class="source">Last updated: 17 June 2026 · Sources: Today Testing, World Cleanup Day, Carbon Literacy Project, One Tree Planted, Mailbird Email Overload Survey 2025.</p>
+    </div>
+  </section>
+
+  <script>
+    // Live community tree counter (read-only public stat, 3s timeout → graceful 0).
+    async function fetchImpact() {
+      const counter = document.getElementById('tree-counter');
+      if (!counter) return;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+      try {
+        const response = await fetch('https://dontmailme-api.late-sound-79c8.workers.dev/stats', { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (response.ok) {
+          const target = parseInt(await response.text(), 10) || 0;
+          animateValue(counter, 0, target, 2000);
+        } else {
+          counter.textContent = '0';
+        }
+      } catch (e) {
+        clearTimeout(timeoutId);
+        counter.textContent = '0';
+      }
+    }
+    function animateValue(obj, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.textContent = Math.floor(progress * (end - start) + start).toLocaleString('en-US');
+        if (progress < 1) window.requestAnimationFrame(step);
+      };
+      window.requestAnimationFrame(step);
+    }
+    fetchImpact();
+  </script>
+</Base>
