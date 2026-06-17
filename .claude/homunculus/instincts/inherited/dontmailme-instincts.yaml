@@ -1,0 +1,523 @@
+# Instincts generated from https://github.com/sein-io/dontmailme
+# Generated: 2026-06-17T09:55:16.130Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: dontmailme-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: feat
+
+## Evidence
+
+- 2 commits analyzed
+- Detected conventional commit pattern
+- Examples: feat: rebuild dontmailme.org — productivity-led positioning + AI-agent layer + SEO/GEO, feat: turn the GitHub repo into a growth engine
+
+---
+id: dontmailme-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Commit Length
+
+## Action
+
+Write moderate-length commit messages (~67 characters)
+
+## Evidence
+
+- Average commit message length: 67 chars
+- Based on 2 commits
+
+---
+id: dontmailme-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: dontmailme-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: dontmailme-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: dontmailme-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: dontmailme-workflow-add-or-update-site-pages
+trigger: "when doing add or update site pages"
+confidence: 0.7
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Workflow Add Or Update Site Pages
+
+## Action
+
+Follow the add-or-update-site-pages workflow:
+1. Create or update .html file for the page (e.g., compare.html, faq.html, teams.html)
+2. Create or update corresponding .md file (e.g., compare.md, faq.md, teams.md)
+3. Update navigation or footer if needed (in index.html or styles.css)
+4. Update or add relevant assets (e.g., images, fonts, scripts) if required
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~4x per month
+- Files: *.html, *.md
+
+---
+id: dontmailme-workflow-update-readme-and-docs-for-growth-or-positioning
+trigger: "when doing update readme and docs for growth or positioning"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Workflow Update Readme And Docs For Growth Or Positioning
+
+## Action
+
+Follow the update-readme-and-docs-for-growth-or-positioning workflow:
+1. Rewrite or update README.md with new copy, tables, or quick-start instructions
+2. Update or add supporting docs (e.g., docs/STRATEGY.md, docs/GROWTH.md, docs/logo.svg)
+3. Ensure SEO/AEO keywords and accurate comparisons are included
+4. Update references to new or changed pages
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: README.md, docs/*.md, docs/*.svg
+
+---
+id: dontmailme-workflow-improve-seo-and-agent-readiness
+trigger: "when doing improve seo and agent readiness"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Workflow Improve Seo And Agent Readiness
+
+## Action
+
+Follow the improve-seo-and-agent-readiness workflow:
+1. Add or update robots.txt, sitemap.xml, and meta tags in HTML files
+2. Add or update llms.txt, llms-full.txt, AGENTS.md for agent-specific instructions
+3. Add JSON-LD or other structured data to HTML pages
+4. Ensure code blocks and scripts are statically rendered for crawler visibility
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: robots.txt, sitemap.xml, llms.txt
+
+---
+id: dontmailme-workflow-add-or-update-community-health-files
+trigger: "when doing add or update community health files"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Workflow Add Or Update Community Health Files
+
+## Action
+
+Follow the add-or-update-community-health-files workflow:
+1. Add or update .github/CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md
+2. Add or update FUNDING.yml, PULL_REQUEST_TEMPLATE.md, ISSUE_TEMPLATE files
+3. Update .github/dependabot.yml for dependency management
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: .github/CONTRIBUTING.md, CODE_OF_CONDUCT.md, .github/SECURITY.md
+
+---
+id: dontmailme-workflow-self-host-and-optimize-fonts
+trigger: "when doing self host and optimize fonts"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/sein-io/dontmailme
+---
+
+# Dontmailme Workflow Self Host And Optimize Fonts
+
+## Action
+
+Follow the self-host-and-optimize-fonts workflow:
+1. Add or update font files in fonts/ directory
+2. Update styles.css to reference new or optimized fonts
+3. Update _headers for caching and performance
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: fonts/*.woff2, styles.css, _headers
+
+---
+id: dontmailme-instinct-file-naming
+trigger: "When creating new files or renaming existing ones"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct File Naming
+
+## Action
+
+Use camelCase for file names
+
+## Evidence
+
+- Pattern in namingConventions.files
+- Observed in repository file structure
+
+---
+id: dontmailme-instinct-function-naming
+trigger: "When defining a new function"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Function Naming
+
+## Action
+
+Use camelCase for function names
+
+## Evidence
+
+- Pattern in namingConventions.functions
+
+---
+id: dontmailme-instinct-class-naming
+trigger: "When creating a new class"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Class Naming
+
+## Action
+
+Use PascalCase for class names
+
+## Evidence
+
+- Pattern in namingConventions.classes
+
+---
+id: dontmailme-instinct-constant-naming
+trigger: "When declaring a constant"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Constant Naming
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for constant names
+
+## Evidence
+
+- Pattern in namingConventions.constants
+
+---
+id: dontmailme-instinct-import-style
+trigger: "When importing modules"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Import Style
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in importStyle
+
+---
+id: dontmailme-instinct-export-style
+trigger: "When exporting modules or functions"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Export Style
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in exportStyle
+
+---
+id: dontmailme-instinct-test-location
+trigger: "When adding or updating tests"
+confidence: 0.75
+domain: testing
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Test Location
+
+## Action
+
+Place test files in a separate directory from source code
+
+## Evidence
+
+- Pattern in architecture.testLocation: separate
+
+---
+id: dontmailme-instinct-commit-format
+trigger: "When making a git commit"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Commit Format
+
+## Action
+
+Use the conventional commit format with 'feat' prefix for new features
+
+## Evidence
+
+- Pattern in commits.type: conventional
+- Examples: 'feat: rebuild dontmailme.org — productivity-led positioning + AI-agent layer + SEO/GEO'
+
+---
+id: dontmailme-instinct-commit-length
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Commit Length
+
+## Action
+
+Keep commit messages around 67 characters on average
+
+## Evidence
+
+- Pattern in commits.averageLength: 67
+
+---
+id: dontmailme-instinct-add-or-update-site-pages
+trigger: "When someone wants to introduce a new feature, section, or informational resource to the website"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Add Or Update Site Pages
+
+## Action
+
+Create or update .html and corresponding .md files, update navigation/footer, and add/update relevant assets
+
+## Evidence
+
+- Workflow: add-or-update-site-pages
+- Commit sequences and files: *.html, *.md
+
+---
+id: dontmailme-instinct-update-readme-and-docs
+trigger: "When someone wants to improve how the project is presented to users, contributors, or search engines"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Update Readme And Docs
+
+## Action
+
+Rewrite or update README.md and supporting docs, ensuring SEO/AEO keywords and accurate comparisons
+
+## Evidence
+
+- Workflow: update-readme-and-docs-for-growth-or-positioning
+- Commit sequences and files: README.md, docs/*.md, docs/*.svg
+
+---
+id: dontmailme-instinct-improve-seo-and-agent-readiness
+trigger: "When someone wants to boost discoverability, ranking, or agent compatibility"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Improve Seo And Agent Readiness
+
+## Action
+
+Add or update robots.txt, sitemap.xml, meta tags, llms.txt, AGENTS.md, and structured data in HTML files
+
+## Evidence
+
+- Workflow: improve-seo-and-agent-readiness
+- Commit sequences and files: robots.txt, sitemap.xml, llms.txt, llms-full.txt, AGENTS.md, *.html
+
+---
+id: dontmailme-instinct-add-or-update-community-health-files
+trigger: "When someone wants to improve the GitHub Community Profile or contributor onboarding"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Add Or Update Community Health Files
+
+## Action
+
+Add or update .github/CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, FUNDING.yml, PULL_REQUEST_TEMPLATE.md, ISSUE_TEMPLATE files, and dependabot.yml
+
+## Evidence
+
+- Workflow: add-or-update-community-health-files
+- Commit sequences and files: .github/CONTRIBUTING.md, CODE_OF_CONDUCT.md, .github/SECURITY.md, .github/FUNDING.yml, .github/PULL_REQUEST_TEMPLATE.md, .github/ISSUE_TEMPLATE/*, .github/dependabot.yml
+
+---
+id: dontmailme-instinct-self-host-and-optimize-fonts
+trigger: "When someone wants to improve font loading speed or update font usage"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: sein-io/dontmailme
+---
+
+# Dontmailme Instinct Self Host And Optimize Fonts
+
+## Action
+
+Add or update font files in fonts/ directory, update styles.css, and update _headers for caching and performance
+
+## Evidence
+
+- Workflow: self-host-and-optimize-fonts
+- Commit sequences and files: fonts/*.woff2, styles.css, _headers
+
