@@ -4,7 +4,7 @@ Most unsubscribe tools are free because *you* are the product, or paid because p
 
 | Feature | DontMailMe | Unroll.me | Cleanfox | Leave Me Alone | Clean Email | Mailstrom |
 |---|---|---|---|---|---|---|
-| Price | **Free (pay what you want)** | Free | Free | $19 pass / ~$64/yr | $29.99–99.99/yr | ~$59.99/yr |
+| Price | **Free (pay what you want)** | Free | Free | Paid | Paid | Paid |
 | Open source | **Yes** | No | No | No | No | No |
 | Inbox stays in your own cloud | **Yes** | No | No | No | No | No |
 | Sells or shares your data | **No** | Yes¹ | Yes² | No | No | No |

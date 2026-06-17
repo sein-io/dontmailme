@@ -1,52 +1,122 @@
+<div align="center">
+
+<img src="docs/logo.svg" width="96" height="96" alt="DontMailMe logo">
+
 # DontMailMe 🌳
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Website Live](https://img.shields.io/website-up-down-green-red/https/dontmailme.org.svg)](https://dontmailme.org)
+### Auto-unsubscribe from newsletters — without handing your inbox to anyone.
 
-**Reach inbox zero — and keep it there.** Auto-unsubscribe from newsletters you never read.
+[![License: MIT](https://img.shields.io/github/license/sein-io/dontmailme?color=blue)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/sein-io/dontmailme?style=social)](https://github.com/sein-io/dontmailme/stargazers)
+[![Last commit](https://img.shields.io/github/last-commit/sein-io/dontmailme?color=brightgreen)](https://github.com/sein-io/dontmailme/commits/main)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](.github/CONTRIBUTING.md)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fdontmailme.org&label=dontmailme.org)](https://dontmailme.org)
+[![Made for humans & AI agents](https://img.shields.io/badge/made%20for-humans%20%26%20AI%20agents-7c3aed)](https://dontmailme.org/AGENTS.md)
+[![Tracking: none](https://img.shields.io/badge/tracking-none-success)](https://dontmailme.org/privacy)
+[![Standard: RFC 8058](https://img.shields.io/badge/standard-RFC%208058-informational)](https://www.rfc-editor.org/rfc/rfc8058.html)
 
-[DontMailMe.org](https://dontmailme.org) is a free, privacy-first, open-source tool that auto-unsubscribes you from newsletters using the [RFC 8058](https://www.rfc-editor.org/rfc/rfc8058.html) one-click standard. It generates a copy-paste script that runs **inside your own** Google or Microsoft account — our servers never see your email or your data (*zero-data by design*). Every cleanup prevents CO₂, and half of every pay-what-you-want donation plants a tree.
+</div>
 
-Built for **humans and their AI agents**: the same scripts are exposed as plain-text endpoints and documented in an agent runbook, so an assistant can set it up without driving a browser.
+**DontMailMe** is a free, **open-source, zero-data unsubscribe tool** — a private **[Unroll.me](#-an-open-source-unrollme--cleanfox-alternative) / Cleanfox alternative** that auto-unsubscribes you from newsletters using the official **[RFC 8058](https://www.rfc-editor.org/rfc/rfc8058.html) one-click** standard. It generates a copy-paste script that runs **inside your own Google or Microsoft account**, so our servers never see your email or your data. Built for **humans and their AI agents** (ships [`llms.txt`](https://dontmailme.org/llms.txt), [`AGENTS.md`](AGENTS.md), and raw [`gmail.gs`](gmail.gs) / [`outlook.ps1`](outlook.ps1)). Works on **Gmail, Outlook, and Apple Mail**.
 
-## Pages
+> ⭐ **If you'd rather unsubscribe than be sold, give the repo a star** — it's the only "payment" that keeps this free and open. **[Star DontMailMe →](https://github.com/sein-io/dontmailme/stargazers)**
 
-| Page | Path |
-|---|---|
-| Home | `/` |
-| How it works (RFC 8058) | `/how-it-works` |
-| Gmail setup (automatic) | `/gmail` |
-| Outlook & Apple Mail (local) | `/outlook` |
-| Compare vs. other tools | `/compare` |
-| FAQ | `/faq` |
-| Impact & methodology | `/impact` |
+---
 
-## Agent & machine-readable layer
+## ✨ Why DontMailMe
 
-| File | Purpose |
-|---|---|
-| `robots.txt` | Explicitly allows AI crawlers (OpenAI, Anthropic, Perplexity, …) + sitemap |
-| `sitemap.xml` | All canonical URLs |
-| `llms.txt` / `llms-full.txt` | Routing index + full content for LLMs and IDE agents |
-| `AGENTS.md` | Literal numbered runbook for autonomous agents |
-| `gmail.gs` | Raw, ready-to-run Gmail script (edit `ALLOWED_SENDERS`, then run) |
-| `outlook.ps1` | Raw PowerShell script for Outlook on Windows |
-| `*.md` twins | Markdown version of each page (linked via `rel="alternate"`) |
+- 🔒 **Zero-data by design** — there's no server in the loop, so we *can't* see, store, or sell your email. Not a privacy *policy* — an *architecture*.
+- 📖 **Open source (MIT)** — it's ~120 lines you can read before you run them. Don't trust us; verify the code.
+- ✅ **Safe by standard** — uses the authenticated RFC 8058 `List-Unsubscribe-Post` header. It never clicks links in the email body, so it can't be lured to a tracking or phishing page.
+- 🤖 **Built for humans *and* their AI agents** — ships machine-readable scripts so an assistant can set it up for you instead of fumbling through a web UI.
+- 🆓 **Free, pay-what-you-want** — half of any donation plants a tree via One Tree Planted. The tool is 100% free either way.
+- 🇪🇺 **Works everywhere, including the EU** — no GDPR geo-block.
 
-Each HTML page also ships JSON-LD structured data (`SoftwareApplication`, `HowTo`, `FAQPage`, `Organization`, `BreadcrumbList`).
+## 🚀 Quick start
 
-## Code reference
+Pick your mail client — full visual guides on **[dontmailme.org](https://dontmailme.org)**.
 
-* `gmail.html` — the user-facing script **generator** (injects the safe-sender whitelist and custom query). A complete default script is also rendered statically into the page so it works without JavaScript.
-* `gmail.gs` — the canonical raw Gmail script served at `/gmail.gs` for agents and power users (clean `ALLOWED_SENDERS = []`).
-* `gworker.gs` — legacy GitHub reference; superseded by `gmail.gs` (safe to remove).
-* `calculator.js` — the home-page impact calculator.
-* `docs/STRATEGY.md` — the strategic blueprint (v2.0).
+### Gmail (automatic, ~3 min)
 
-## Contributing
+1. Open **[script.google.com](https://script.google.com)** → **New project**.
+2. **Services (+) → Gmail API → Add**.
+3. Paste the script from **[`gmail.gs`](gmail.gs)** (or the personalized version from [dontmailme.org/gmail](https://dontmailme.org/gmail)). Add any senders to keep to `ALLOWED_SENDERS`.
+4. Run **`testDryRun`** and check the log — it shows exactly what *would* be unsubscribed. Nothing changes yet.
+5. Run **`installTrigger`** once. Your inbox now cleans itself every 15 minutes.
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+> The entire thing it does to each newsletter is this one authenticated request — no body parsing, no link clicking:
+>
+> ```js
+> // RFC 8058 one-click unsubscribe — only on the DKIM-signed header
+> UrlFetchApp.fetch(postUrl, {
+>   method: 'post',
+>   contentType: 'application/x-www-form-urlencoded',
+>   payload: 'List-Unsubscribe=One-Click'
+> });
+> ```
 
-## License
+### Outlook (Windows) & Apple Mail (macOS)
 
-[MIT](https://choosealicense.com/licenses/mit/)
+Select the newsletters, then run the local script — [`outlook.ps1`](outlook.ps1) (PowerShell) or the AppleScript from [dontmailme.org/outlook](https://dontmailme.org/outlook). Nothing leaves your computer.
+
+## 🤖 For AI agents
+
+AI assistants increasingly handle chores like unsubscribing — today by driving fragile web UIs. DontMailMe gives them the reliable, standards-based path instead:
+
+- **[`AGENTS.md`](AGENTS.md)** — a literal, numbered runbook for the full setup.
+- **[`gmail.gs`](gmail.gs)** · **[`outlook.ps1`](outlook.ps1)** — ready-to-run scripts at stable `text/plain` URLs.
+- **[`llms.txt`](https://dontmailme.org/llms.txt)** / **[`llms-full.txt`](https://dontmailme.org/llms-full.txt)** — a machine-readable index of the whole project.
+
+As far as we know, DontMailMe is the **first consumer unsubscribe tool with a documented agent surface.**
+
+## 🆚 An open-source Unroll.me / Cleanfox alternative
+
+Most unsubscribe tools are free because *you* are the product, or paid because privacy is sold back to you. DontMailMe is neither: free, open-source, and *architecturally unable* to see your data.
+
+| | **DontMailMe** | Unroll.me | Cleanfox | Leave Me Alone | Clean Email | Mailstrom |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Open source (auditable)** | ✅ MIT | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Inbox never leaves your own cloud** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Sells / monetizes inbox data** | ❌ | ⚠️ yes¹ | ⚠️ yes² | ❌ | ❌ | ❌ |
+| **Official RFC 8058 one-click** | ✅ | n/a | n/a | n/a | n/a | n/a |
+| **Available in the EU (GDPR)** | ✅ | ❌³ | ✅ | ✅ | ✅ | ✅ |
+| **Agent / MCP-ready** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Plants trees + shows CO₂** | ✅ | ❌ | ✅ | opt-in | ❌ | ❌ |
+| **Price** | **Free** (PWYW) | Free | Free | Paid | Paid | Paid |
+
+<sub>¹ In 2019 Unroll.me settled U.S. FTC allegations that it deceived users while its parent monetized inbox-derived data (neither admitted nor denied). · ² Cleanfox is operated by Foxintelligence (now part of NielsenIQ), which monetizes anonymized inbox-derived data. · ³ Unroll.me geo-blocks the EU/EEA. Competitor details as publicly reported in 2026; see the full, sourced [comparison](https://dontmailme.org/compare).</sub>
+
+## 🔍 How it works · privacy · FAQ
+
+- **[How it works (RFC 8058)](https://dontmailme.org/how-it-works)** — the standard, why it's safer than clicking, and why agents should use it.
+- **[Privacy](https://dontmailme.org/privacy)** — no cookies, no tracking, zero data access.
+- **[FAQ](https://dontmailme.org/faq)** — is it safe? is it free? can it read my email? (No.)
+- **[Impact & methodology](https://dontmailme.org/impact)** — the honest, sourced version of the CO₂/trees math.
+
+## 🧩 Project layout
+
+| Path | What it is |
+|------|-----------|
+| `index.html`, `gmail.html`, `outlook.html`, … | The static site |
+| `gmail.gs`, `outlook.ps1` | Canonical raw scripts (served to users **and** agents) |
+| `llms.txt`, `llms-full.txt`, `AGENTS.md`, `*.md` | Machine-readable twins for AI agents |
+| `styles.css`, `calculator.js`, `fonts/` | Styles, impact calculator, self-hosted fonts |
+| `docs/STRATEGY.md`, `docs/GROWTH.md` | Product blueprint & growth playbook |
+
+## ⭐ Star history
+
+<a href="https://star-history.com/#sein-io/dontmailme&Date">
+  <img src="https://api.star-history.com/svg?repos=sein-io/dontmailme&type=Date" width="600" alt="Star history">
+</a>
+
+## 🤝 Contributing
+
+PRs welcome — new mail clients (Yahoo, Proton, Fastmail…), fixes, translations, docs. See **[CONTRIBUTING](.github/CONTRIBUTING.md)** and the **[Code of Conduct](CODE_OF_CONDUCT.md)**. For ideas and questions, open a [Discussion](https://github.com/sein-io/dontmailme/discussions).
+
+## 🌳 Support
+
+DontMailMe is free. If it saved you time, you can **[chip in what you want](https://dontmailme.org/impact)** — half plants a tree. Or just **star the repo**; that helps more people find a private way to clean their inbox.
+
+## 📄 License
+
+[MIT](LICENSE) — a SEIN project · [dontmailme.org](https://dontmailme.org)

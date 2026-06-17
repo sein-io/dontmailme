@@ -17,25 +17,9 @@
 @font-face {
     font-family: 'Inter Tight';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 400 700;
     font-display: swap;
-    src: url('/fonts/inter-tight-400.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Inter Tight';
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
-    src: url('/fonts/inter-tight-500.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Inter Tight';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url('/fonts/inter-tight-700.woff2') format('woff2');
+    src: url('/fonts/inter-tight.woff2') format('woff2');
 }
 
 :root {
