@@ -284,6 +284,7 @@ img, svg { display: block; max-width: 100%; }
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .hdr-logo { color: var(--accent); flex: none; }
 .hdr-name { font-weight: 600; font-size: 16px; letter-spacing: -.01em; color: var(--text); }
+.hdr-name .brand-ac { color: var(--accent); }
 .hdr-ver {
     font: 700 10px/1 var(--mono);
     color: var(--text2);
@@ -1044,6 +1045,7 @@ input[type="range"]::-moz-range-thumb {
 @media (max-width: 720px) {
     .lang-menu, .theme-btn { display: none; }   /* utilities move into the drawer on phones */
     .hdr-ver { display: none; }                 /* save header width */
+    .hdr-cta { display: none; }                 /* hero CTA covers the action on phones */
     .ri-langs { display: flex; }
     .ri-theme-drawer { display: flex; }
     .bento { grid-template-columns: 1fr; }

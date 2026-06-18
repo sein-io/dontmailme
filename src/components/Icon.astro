@@ -10,8 +10,8 @@ interface Props {
 const { name, class: cls = 'ic', size }: Props = Astro.props;
 
 const paths: Record<string, string> = {
-  // brand: envelope with a slash = "no mail"
-  brand: '<rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="m3.5 8 8.5 5.5L20.5 8"/><path d="M5.5 18.5 18.5 5.5"/>',
+  // brand: a crossed-out subscribe bell = "unsubscribe"
+  brand: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M4 4 20 20"/>',
   // shield-check — trust / "why us" + "safe by standard"
   shield: '<path d="M12 22s8-4 8-10V5.5l-8-3-8 3V12c0 6 8 10 8 10Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
   // numbered/bulleted list — the three steps
