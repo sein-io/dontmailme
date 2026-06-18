@@ -35,12 +35,12 @@ const navLinks = [
 >
   <!-- ===================== Hero ===================== -->
   <section class="hero">
-    <p class="eyebrow"><span class="dot"></span> Kostenlos · Open Source · Zero-Data</p>
-    <h1>Keine Newsletter mehr.<br /><span class="accent">Bestell die ab, die du nie liest — endgültig.</span></h1>
+    <p class="eyebrow"><span class="dot"></span> Besser als löschen</p>
+    <h1>Bestell ab, <span class="accent">was du nie liest.</span></h1>
     <p class="hero-sub">
-      Einmal einrichten, und die Absender, die du ignorierst, erreichen dich nicht mehr — automatisch, in
-      <strong>deinem eigenen</strong> Gmail- oder Outlook-Konto, über den offiziellen One-Click-Standard
-      (RFC&nbsp;8058). Kostenlos und quelloffen, und nichts von deiner Mail verlässt dein Konto.
+      Jede Woche denselben Newsletter zu löschen, ist eine Aufgabe ohne Ende. DontMailMe stoppt die, die du
+      ignorierst, direkt an der Quelle — in <strong>deinem eigenen</strong> Gmail- oder Outlook-Konto. Was du
+      behalten willst, bleibt.
     </p>
     <div class="hero-cta">
       <a href="#how" class="btn btn-primary btn-lg">Newsletter abbestellen</a>
@@ -57,54 +57,27 @@ const navLinks = [
   <!-- ===================== Warum (Features) ===================== -->
   <section class="sec" id="features">
     <div class="sec-h">
-      <p class="sec-q">WARUM <span class="q">SICHER</span></p>
-      <h2 class="sec-t">Kostenlose Mail-Tools verkaufen meist dein Postfach. Dieses hat nichts zu verkaufen.</h2>
-      <p class="sec-sub">Weil nichts dein Konto verlässt — die Architektur <em>ist</em> der Datenschutz, kein Versprechen. <span class="hint mono">für Details über eine Kachel fahren</span></p>
+      <p class="sec-q">WAS DU <span class="q">BEKOMMST</span></p>
+      <h2 class="sec-t">Ein ruhigeres Postfach, ohne es herzugeben.</h2>
     </div>
     <div class="bento">
-      <article class="bc glass span-2 bc-reveal">
+      <article class="bc glass">
         <span class="bc-badge"><Icon name="lock" /></span>
-        <div class="bc-lbl">Zero-Data per Design</div>
-        <h3 class="bc-t">Es gibt keinen Server. Der Code läuft in deinem Konto.</h3>
-        <div class="bc-body"><div><p class="bc-p">
-          Das Skript lebt in deinem eigenen Google Apps Script oder auf deinem Rechner — es gibt kein
-          DontMailMe-Backend, das deine Mail sehen, speichern oder verkaufen könnte. Keine Datenschutz-<em>Richtlinie</em>;
-          eine <em>Architektur</em>. <a href="/gmail.gs"><code>gmail.gs</code> lesen →</a>
-        </p></div></div>
+        <div class="bc-lbl">Sicher</div>
+        <h3 class="bc-t">Läuft in deinem Konto, nicht unserem.</h3>
+        <p class="bc-p">Kein Server sieht je dein Postfach — der quelloffene Code läuft in deinem eigenen Konto und wirkt nur auf den authentifizierten One-Click-Header, nie auf Links in der Mail. <a href="/gmail.gs"><code>gmail.gs</code> lesen →</a></p>
       </article>
-      <article class="bc glass bc-reveal">
+      <article class="bc glass">
+        <span class="bc-badge"><Icon name="list" /></span>
+        <div class="bc-lbl">Einfach</div>
+        <h3 class="bc-t">In etwa drei Minuten eingerichtet.</h3>
+        <p class="bc-p">Skript kopieren, in dein eigenes Konto einfügen, ausführen. Auf Gmail läuft es von allein weiter; auf Outlook und Apple Mail führst du es aus, wann du willst.</p>
+      </article>
+      <article class="bc glass">
         <span class="bc-badge"><Icon name="book" /></span>
-        <div class="bc-lbl">Open Source · MIT</div>
-        <h3 class="bc-t">~140 Zeilen, die du zuerst lesen kannst.</h3>
-        <div class="bc-body"><div><p class="bc-p">Vertrau uns nicht — prüfe den Code, dann führ ihn aus. <a href={repo}>Auf GitHub →</a></p></div></div>
-      </article>
-      <article class="bc glass bc-reveal">
-        <span class="bc-badge"><Icon name="shield" /></span>
-        <div class="bc-lbl">Sicher per Standard</div>
-        <h3 class="bc-t">Nur der authentifizierte Header.</h3>
-        <div class="bc-body"><div><p class="bc-p">Wirkt auf den RFC&nbsp;8058 <code>List-Unsubscribe-Post</code>-Header — klickt nie Links im Text und kann so nicht auf eine Phishing-Seite gelockt werden.</p></div></div>
-      </article>
-      <article class="bc glass span-2 bc-reveal">
-        <span class="bc-badge"><Icon name="bot" /></span>
-        <div class="bc-lbl">Für Menschen und ihre Agenten</div>
-        <h3 class="bc-t">Kein Vermittler zwischen Agent und Postfach.</h3>
-        <div class="bc-body"><div><p class="bc-p">
-          Ein Single-Purpose-Tool, das ein Assistent <em>in deinem eigenen Konto</em> ausführt — nicht eines,
-          das dein Postfach in fremde Server einloggt. Mit MCP-Server, <code>AGENTS.md</code> und rohen Skripten.
-          <a href="/mcp">Für Entwickler →</a>
-        </p></div></div>
-      </article>
-      <article class="bc glass bc-reveal">
-        <span class="bc-badge"><Icon name="inbox" /></span>
-        <div class="bc-lbl">Viele Anbieter</div>
-        <h3 class="bc-t">Gmail, Outlook, Apple Mail &amp; mehr.</h3>
-        <div class="bc-body"><div><p class="bc-p">Native Wege heute; ein generisches IMAP-Tool für iCloud, Yahoo, GMX und andere ist in Arbeit.</p></div></div>
-      </article>
-      <article class="bc glass bc-reveal">
-        <span class="bc-badge"><Icon name="leaf" /></span>
-        <div class="bc-lbl">Das stille Gute</div>
-        <h3 class="bc-t">Jede Aufräumaktion pflanzt einen Baum.</h3>
-        <div class="bc-body"><div><p class="bc-p">Weniger Mails für immer heißt weniger CO₂. Zahl, was du willst; die Hälfte pflanzt einen Baum. <a href="/impact">Zur Wirkung →</a></p></div></div>
+        <div class="bc-lbl">Kostenlos</div>
+        <h3 class="bc-t">Kostenlos, und offen zum Nachlesen.</h3>
+        <p class="bc-p">MIT-lizenziert und über Pay-what-you-want finanziert — du zahlst nie für die Nutzung. Wenn du etwas gibst, pflanzt die Hälfte Bäume. <a href={repo}>Auf GitHub →</a></p>
       </article>
     </div>
   </section>
@@ -120,21 +93,21 @@ const navLinks = [
       <li>
         <span class="step-n mono">01</span>
         <div>
-          <h3 class="step-t">Skript kopieren</h3>
+          <h3 class="step-t">Kopieren</h3>
           <p class="step-p">Wir erzeugen ein kleines Open-Source-Skript für deinen Anbieter. Du kannst jede Zeile lesen — nichts ist versteckt.</p>
         </div>
       </li>
       <li>
         <span class="step-n mono">02</span>
         <div>
-          <h3 class="step-t">In dein eigenes Konto einfügen</h3>
+          <h3 class="step-t">Einfügen</h3>
           <p class="step-p">Es läuft in Google Apps Script (Gmail) oder auf deinem Rechner (Outlook / Apple Mail). Es lebt in <em>deiner</em> Cloud, nicht unserer.</p>
         </div>
       </li>
       <li>
         <span class="step-n mono">03</span>
         <div>
-          <h3 class="step-t">Zurücklehnen — läuft automatisch</h3>
+          <h3 class="step-t">Fertig</h3>
           <p class="step-p">Das Skript schickt für jeden Newsletter die offizielle One-Click-Abmeldung und räumt dein Postfach auf. Einmal einrichten.</p>
         </div>
       </li>

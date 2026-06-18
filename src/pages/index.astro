@@ -118,12 +118,11 @@ const jsonLd = {
 
   <!-- ===================== Hero ===================== -->
   <section class="hero">
-    <p class="eyebrow"><span class="dot"></span> Free · Open source · Zero-data</p>
-    <h1>No more newsletters.<br /><span class="accent">Unsubscribe from the ones you never read — for good.</span></h1>
+    <p class="eyebrow"><span class="dot"></span> Better than delete</p>
+    <h1>Unsubscribe <span class="accent">what you never read.</span></h1>
     <p class="hero-sub">
-      Set it up once and the senders you ignore stop reaching you — automatically, inside
-      <strong>your own</strong> Gmail or Outlook account, over the official one-click standard (RFC&nbsp;8058).
-      It's free and open-source, and nothing about your mail ever leaves your account.
+      Deleting the same newsletter every week is a chore that never ends. DontMailMe stops the ones you
+      ignore at the source — inside <strong>your own</strong> Gmail or Outlook account. The ones you want stay.
     </p>
     <div class="hero-cta">
       <a href="#how" class="btn btn-primary btn-lg">Unsubscribe newsletters</a>
@@ -137,57 +136,30 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- ===================== Features bento ===================== -->
+  <!-- ===================== Benefits (Safe / Easy / Free) ===================== -->
   <section class="sec" id="features">
     <div class="sec-h">
-      <p class="sec-q">WHY IT'S <span class="q">SAFE</span></p>
-      <h2 class="sec-t">Free email tools usually sell your inbox. This one has nothing to sell.</h2>
-      <p class="sec-sub">Because nothing ever leaves your account — the architecture <em>is</em> the privacy, not a promise. <span class="hint mono">hover a card for the detail</span></p>
+      <p class="sec-q">WHAT YOU <span class="q">GET</span></p>
+      <h2 class="sec-t">A quieter inbox, without giving it away.</h2>
     </div>
     <div class="bento">
-      <article class="bc glass span-2 bc-reveal">
+      <article class="bc glass">
         <span class="bc-badge"><Icon name="lock" /></span>
-        <div class="bc-lbl">Zero-data by design</div>
-        <h3 class="bc-t">There is no server. The code runs in your account.</h3>
-        <div class="bc-body"><div><p class="bc-p">
-          The script lives in your own Google Apps Script or on your desktop — there is no DontMailMe backend
-          that could see, store, or sell your mail. Not a privacy <em>policy</em>; an <em>architecture</em>.
-          <a href="/gmail.gs">Read <code>gmail.gs</code> →</a>
-        </p></div></div>
+        <div class="bc-lbl">Safe</div>
+        <h3 class="bc-t">Runs in your account, not ours.</h3>
+        <p class="bc-p">No server ever sees your inbox — the open-source code runs inside your own account and acts only on the authenticated one-click header, never links in the email. <a href="/gmail.gs">Read <code>gmail.gs</code> →</a></p>
       </article>
-      <article class="bc glass bc-reveal">
+      <article class="bc glass">
+        <span class="bc-badge"><Icon name="list" /></span>
+        <div class="bc-lbl">Easy</div>
+        <h3 class="bc-t">Set up in about three minutes.</h3>
+        <p class="bc-p">Copy a script, paste it into your own account, and run it. On Gmail it keeps going on its own; on Outlook and Apple Mail you run it whenever you like.</p>
+      </article>
+      <article class="bc glass">
         <span class="bc-badge"><Icon name="book" /></span>
-        <div class="bc-lbl">Open source · MIT</div>
-        <h3 class="bc-t">~140 lines you can read first.</h3>
-        <div class="bc-body"><div><p class="bc-p">Don't trust us — verify the code, then run it. <a href={repo}>On GitHub →</a></p></div></div>
-      </article>
-      <article class="bc glass bc-reveal">
-        <span class="bc-badge"><Icon name="shield" /></span>
-        <div class="bc-lbl">Safe by standard</div>
-        <h3 class="bc-t">Only the authenticated header.</h3>
-        <div class="bc-body"><div><p class="bc-p">Acts on the RFC&nbsp;8058 <code>List-Unsubscribe-Post</code> header — never clicks links in the body, so it can't be lured to a phishing page.</p></div></div>
-      </article>
-      <article class="bc glass span-2 bc-reveal">
-        <span class="bc-badge"><Icon name="bot" /></span>
-        <div class="bc-lbl">Built for humans and their agents</div>
-        <h3 class="bc-t">No broker between the agent and your inbox.</h3>
-        <div class="bc-body"><div><p class="bc-p">
-          A single-purpose unsubscribe tool an assistant runs <em>inside your own account</em> — not one that
-          OAuths your mailbox into someone's server. Ships an MCP server, <code>AGENTS.md</code> and raw scripts.
-          <a href="/mcp">For developers →</a>
-        </p></div></div>
-      </article>
-      <article class="bc glass bc-reveal">
-        <span class="bc-badge"><Icon name="inbox" /></span>
-        <div class="bc-lbl">Many providers</div>
-        <h3 class="bc-t">Gmail, Outlook, Apple Mail &amp; more.</h3>
-        <div class="bc-body"><div><p class="bc-p">Native tracks today; a generic IMAP tool for iCloud, Yahoo, GMX and others is on the roadmap.</p></div></div>
-      </article>
-      <article class="bc glass bc-reveal">
-        <span class="bc-badge"><Icon name="leaf" /></span>
-        <div class="bc-lbl">The quiet good</div>
-        <h3 class="bc-t">Every cleanup plants a tree.</h3>
-        <div class="bc-body"><div><p class="bc-p">Fewer emails forever means less carbon. Pay what you want; half plants a tree. <a href="/impact">See the impact →</a></p></div></div>
+        <div class="bc-lbl">Free</div>
+        <h3 class="bc-t">Free, and open to read.</h3>
+        <p class="bc-p">MIT-licensed and funded by pay-what-you-want — you never pay to use it. When you chip in, half plants trees. <a href={repo}>On GitHub →</a></p>
       </article>
     </div>
   </section>
@@ -203,21 +175,21 @@ const jsonLd = {
       <li>
         <span class="step-n mono">01</span>
         <div>
-          <h3 class="step-t">Copy the script</h3>
+          <h3 class="step-t">Copy</h3>
           <p class="step-p">We generate a small open-source script for your mail provider. You can read every line — nothing is hidden.</p>
         </div>
       </li>
       <li>
         <span class="step-n mono">02</span>
         <div>
-          <h3 class="step-t">Paste it into your own account</h3>
+          <h3 class="step-t">Paste</h3>
           <p class="step-p">It runs in Google Apps Script (Gmail) or on your desktop (Outlook / Apple Mail). It lives in <em>your</em> cloud, not ours.</p>
         </div>
       </li>
       <li>
         <span class="step-n mono">03</span>
         <div>
-          <h3 class="step-t">Relax — it runs on autopilot</h3>
+          <h3 class="step-t">Done</h3>
           <p class="step-p">The script sends the official one-click unsubscribe for each junk newsletter and tidies your inbox. Set it once.</p>
         </div>
       </li>
