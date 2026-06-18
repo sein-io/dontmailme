@@ -798,7 +798,9 @@ input[type="range"]::-moz-range-thumb {
 .counter-cap { font-size: clamp(16px, 2.2vw, 19px); color: var(--text2); margin-block-start: 12px; }
 .counter-h { font-size: clamp(28px, 4vw, 40px); font-weight: 700; letter-spacing: -.03em; margin-block-start: 24px; }
 .counter-sub { font-size: 17px; color: var(--text2); max-width: 540px; margin-inline: auto; margin-block-start: 12px; line-height: 1.55; }
-.counter-hero .cta-row { margin-block-start: 32px; }
+.maker-note { font-size: 15px; color: var(--text2); max-width: 600px; margin: 20px auto 0; line-height: 1.65; padding-block-start: 18px; border-block-start: 1px solid var(--border); }
+.counter-hero .cta-row { margin-block-start: 28px; }
+.counter-hero .calc-fine { margin-block-start: 14px; }
 
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
 .stat {

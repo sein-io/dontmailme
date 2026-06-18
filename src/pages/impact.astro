@@ -30,13 +30,24 @@ const stats = [
 
   <section class="counter-hero">
     <p class="counter mono tnum" id="tree-counter" aria-live="polite">…</p>
-    <p class="counter-cap">Trees planted by the DontMailMe community.</p>
-    <h1 class="counter-h">The carbon cost of email</h1>
-    <p class="counter-sub">What the newsletters you never read really cost — and how we measure every cleanup and every tree.</p>
+    <p class="counter-cap" id="tree-cap">Trees planted by the DontMailMe community.</p>
+    <h1 class="counter-h">Keep DontMailMe free and zero-data.</h1>
+    <p class="counter-sub">
+      DontMailMe is free, and it always will be. It runs in your own account, so nothing about your mail
+      reaches our server — no ads, no data deals. A quieter inbox is a little kinder to the planet, too,
+      and half of anything you give plants a tree.
+    </p>
+    <p class="maker-note">
+      I build DontMailMe on the side — one person, no company behind it. If it saved you some inbox noise,
+      you can chip in: half plants a tree through <a href="https://onetreeplanted.org" target="_blank" rel="noopener noreferrer">One Tree Planted</a>,
+      half keeps the project alive and open source. Or just share it — that helps just as much.
+    </p>
     <div class="cta-row">
-      <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Support &amp; plant trees</a>
+      <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Chip in</a>
+      <button type="button" class="btn btn-lg" data-share>Share DontMailMe</button>
       <a href="/gmail" class="btn btn-lg">Unsubscribe newsletters first</a>
     </div>
+    <p class="calc-fine">Pay what you want — about €5 plants a tree. €0 is fine too; the tool is free either way.</p>
   </section>
 
   <section class="sec">
@@ -82,27 +93,11 @@ const stats = [
   </section>
 
   <script is:inline>
-    // Live community tree counter (read-only public stat, 3s timeout → graceful 0).
     (function () {
-    async function fetchImpact() {
-      const counter = document.getElementById('tree-counter');
-      if (!counter) return;
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 3000);
-      try {
-        const response = await fetch('https://dontmailme-api.late-sound-79c8.workers.dev/stats', { signal: controller.signal });
-        clearTimeout(timeoutId);
-        if (response.ok) {
-          const target = parseInt(await response.text(), 10) || 0;
-          animateValue(counter, 0, target, 2000);
-        } else {
-          counter.textContent = '0';
-        }
-      } catch (e) {
-        clearTimeout(timeoutId);
-        counter.textContent = '0';
-      }
-    }
+    // Live community tree counter — hidden entirely while it reads 0 (no counter-of-shame).
+    const counter = document.getElementById('tree-counter');
+    const cap = document.getElementById('tree-cap');
+    function hideCounter() { if (counter) counter.style.display = 'none'; if (cap) cap.style.display = 'none'; }
     function animateValue(obj, start, end, duration) {
       let startTimestamp = null;
       const step = (timestamp) => {
@@ -113,7 +108,31 @@ const stats = [
       };
       window.requestAnimationFrame(step);
     }
+    async function fetchImpact() {
+      if (!counter) return;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+      try {
+        const response = await fetch('https://dontmailme-api.late-sound-79c8.workers.dev/stats', { signal: controller.signal });
+        clearTimeout(timeoutId);
+        const target = response.ok ? (parseInt(await response.text(), 10) || 0) : 0;
+        if (target < 1) hideCounter(); else animateValue(counter, 0, target, 2000);
+      } catch (e) {
+        clearTimeout(timeoutId);
+        hideCounter();
+      }
+    }
     fetchImpact();
+
+    // Share is the free alternative to donating — Web Share API with a clipboard fallback.
+    const sb = document.querySelector('[data-share]');
+    if (sb) sb.addEventListener('click', async () => {
+      const data = { title: 'DontMailMe', text: 'Stop the newsletters you never read — free, open-source, zero-data.', url: 'https://dontmailme.org' };
+      try {
+        if (navigator.share) { await navigator.share(data); }
+        else { await navigator.clipboard.writeText(data.url); sb.textContent = 'Link copied'; setTimeout(() => { sb.textContent = 'Share DontMailMe'; }, 2000); }
+      } catch (e) {}
+    });
     })();
   </script>
 </Base>
