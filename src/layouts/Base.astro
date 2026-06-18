@@ -23,10 +23,9 @@ interface Props {
 // section anchors so the rail doubles as in-page nav + scroll-spy there.
 const SITE_NAV: RailItem[] = [
   { href: '/', name: 'home', label: 'Home' },
-  { href: '/gmail', name: 'mail', label: 'Set up' },
+  { href: '/gmail', name: 'mail', label: 'Setup' },
   { href: '/providers', name: 'inbox', label: 'Providers' },
   { href: '/compare', name: 'scale', label: 'Compare' },
-  { href: '/impact', name: 'leaf', label: 'Impact' },
   { href: '/mcp', name: 'bot', label: 'Developers' },
   { href: '/faq', name: 'help', label: 'FAQ' },
 ];
@@ -54,6 +53,10 @@ const site = 'https://dontmailme.org';
 const canonical = site + (path === '/' ? '/' : path);
 const lang = Astro.currentLocale ?? 'en';
 const curLang = currentLanguage(lang);
+// Rail chrome labels (localised; targets stay on the canonical EN pages — DE is a test locale).
+const ui = lang === 'de'
+  ? { menu: 'Menü', close: 'Schließen', about: 'Über', donate: 'Spenden', theme: 'Thema' }
+  : { menu: 'Menu', close: 'Close', about: 'About', donate: 'Donate', theme: 'Theme' };
 const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${path === '/' ? 'index' : path.replace(/^\//, '')}.astro`;
 ---
 <!doctype html>
@@ -114,11 +117,11 @@ const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${pa
     <>
       <div class="nav-backdrop" data-nav-close aria-hidden="true"></div>
       <aside class="rail" id="rail" aria-label="Navigation">
-        <button class="ri ri-toggle" type="button" data-rail-toggle aria-label="Collapse navigation" aria-expanded="false">
-          <Icon name="chevrons" /><span class="ri-lbl">Collapse</span>
+        <button class="ri ri-toggle" type="button" data-rail-toggle aria-label="Expand sidebar" title="Expand sidebar" aria-expanded="false">
+          <Icon name="menu" /><span class="ri-lbl">{ui.menu}</span>
         </button>
-        <button class="ri ri-close" type="button" data-nav-close aria-label="Close menu">
-          <Icon name="close" /><span class="ri-lbl">Close</span>
+        <button class="ri ri-close" type="button" data-nav-close aria-label={ui.close}>
+          <Icon name="close" /><span class="ri-lbl">{ui.close}</span>
         </button>
         <nav class="ri-nav" aria-label="Site">
           {railItems.map((it) => (
@@ -127,19 +130,26 @@ const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${pa
             </a>
           ))}
         </nav>
-        <div class="ri-spacer"></div>
-        <a class="ri" href="https://github.com/sein-io/dontmailme" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener">
-          <Icon name="github" /><span class="ri-lbl">GitHub</span>
-        </a>
-        <button class="ri ri-theme-drawer" type="button" data-theme-toggle aria-label="Switch colour theme">
-          <span class="ri-ico" data-theme-icon></span><span class="ri-lbl">Theme</span>
-        </button>
-        <div class="ri-langs">
-          {LANGUAGES.map((l) => (
-            <a class:list={['ri', { active: l.code === lang }]} href={l.href} hreflang={l.code} aria-current={l.code === lang ? 'true' : undefined}>
-              <span class="ri-code">{l.short}</span><span class="ri-lbl">{l.label}</span>
-            </a>
-          ))}
+        <div class="ri-foot">
+          <a class="ri" href="/about" title={ui.about} aria-label={ui.about}>
+            <Icon name="info" /><span class="ri-lbl">{ui.about}</span>
+          </a>
+          <a class="ri" href="/impact" title={ui.donate} aria-label={ui.donate}>
+            <Icon name="heart" /><span class="ri-lbl">{ui.donate}</span>
+          </a>
+          <a class="ri" href="https://github.com/sein-io/dontmailme" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener">
+            <Icon name="github" /><span class="ri-lbl">GitHub</span>
+          </a>
+          <button class="ri ri-theme-drawer" type="button" data-theme-toggle aria-label="Switch colour theme">
+            <span class="ri-ico" data-theme-icon></span><span class="ri-lbl">{ui.theme}</span>
+          </button>
+          <div class="ri-langs">
+            {LANGUAGES.map((l) => (
+              <a class:list={['ri', { active: l.code === lang }]} href={l.href} hreflang={l.code} aria-current={l.code === lang ? 'true' : undefined}>
+                <span class="ri-code">{l.short}</span><span class="ri-lbl">{l.label}</span>
+              </a>
+            ))}
+          </div>
         </div>
       </aside>
     </>
@@ -195,6 +205,7 @@ const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${pa
         <a href="/compare">Compare tools</a>
         <a href="/faq">FAQ</a>
         <a href="/impact">Impact &amp; methodology</a>
+        <a href="/about">About</a>
       </div>
       <div class="ft-col">
         <h4>For AI agents</h4>
@@ -267,7 +278,9 @@ const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${pa
       root.classList.toggle('rail-open', open);
       if (railToggle) {
         railToggle.setAttribute('aria-expanded', String(open));
-        railToggle.setAttribute('aria-label', open ? 'Collapse navigation' : 'Expand navigation');
+        const lbl = open ? 'Collapse sidebar' : 'Expand sidebar';
+        railToggle.setAttribute('aria-label', lbl);
+        railToggle.setAttribute('title', lbl);
       }
     }
     applyRail(root.classList.contains('rail-open'));

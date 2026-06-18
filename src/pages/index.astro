@@ -103,14 +103,6 @@ const jsonLd = {
   path="/"
   ctaHref="#how"
   hreflangHome={true}
-  railItems={[
-    { href: '#features', name: 'shield', label: 'Why' },
-    { href: '#how', name: 'list', label: 'How' },
-    { href: '#providers', name: 'mail', label: 'Providers' },
-    { href: '#compare', name: 'scale', label: 'Compare' },
-    { href: '#impact', name: 'leaf', label: 'Impact' },
-    { href: '#developers', name: 'bot', label: 'Agents' },
-  ]}
 >
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
@@ -276,25 +268,8 @@ const jsonLd = {
         <div class="metric"><span class="m-val tnum" id="out-co2">8.3</span><span class="m-lbl">kg CO₂e prevented / year</span></div>
         <div class="metric"><span class="m-val tnum" id="out-car">52</span><span class="m-lbl">km of driving avoided</span></div>
       </output>
-      <hr />
-      <div class="calc-field">
-        <label id="pwyw-label">Chip in what feels right — keeps it free for everyone</label>
-        <div class="pwyw">
-          <div class="pwyw-chips" role="group" aria-labelledby="pwyw-label">
-            <button type="button" data-amt="5">€5</button>
-            <button type="button" data-amt="10" aria-pressed="true">€10</button>
-            <button type="button" data-amt="20">€20</button>
-            <button type="button" data-amt="50">€50</button>
-            <span class="pwyw-custom">€<input type="number" id="price-input" min="0" step="1" inputmode="numeric" aria-label="Custom amount in euros" placeholder="…" /></span>
-          </div>
-        </div>
-      </div>
-      <p class="calc-pledge" id="pledge" aria-live="polite">
-        €10 — half funds the project, half plants 2 trees via One Tree Planted, locking in ~40 kg of CO₂ a year.
-      </p>
-      <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Support &amp; plant trees</a>
-      <p class="calc-fine">Pay what you want — €0 is fine too. The tool is free either way.</p>
     </div>
+    <p class="prov-note"><a href="/impact">See the full impact, the honest methodology — and support it →</a></p>
   </section>
 
   <!-- ===================== Developers ===================== -->
@@ -358,13 +333,11 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
 
   <script is:inline>
     // Impact calculator. Constants MUST match mcp/src/tools.ts and the /impact page.
-    //   104 emails/yr per newsletter · 4 g CO2e/email · 0.16 kg CO2e/car-km · €5 = 1 tree · 20 kg CO2/tree/yr
+    //   104 emails/yr per newsletter · 4 g CO2e/email · 0.16 kg CO2e/car-km
     (function () {
     const EMAILS_PER_NEWSLETTER_YEAR = 104;
     const KG_CO2_PER_EMAIL = 0.004;
     const KG_CO2_PER_CAR_KM = 0.16;
-    const EUR_PER_TREE = 5;
-    const KG_CO2_PER_TREE_YEAR = 20;
 
     const $ = (id) => document.getElementById(id);
     const unsub = $('unsub-slider');
@@ -380,33 +353,6 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
       $('out-car').textContent = String(Math.round(co2 / KG_CO2_PER_CAR_KM));
     }
     if (unsub) { unsub.addEventListener('input', updateUnsub); updateUnsub(); }
-
-    // Pay-what-you-want: preset tiers + custom field (anchored, no nonsensical 0 default).
-    const pledge = $('pledge');
-    const custom = $('price-input');
-    const chips = Array.from(document.querySelectorAll('.pwyw-chips button[data-amt]'));
-
-    function renderDonation(eur) {
-      if (!pledge) return;
-      const trees = Math.floor(eur / EUR_PER_TREE);
-      const co2 = trees * KG_CO2_PER_TREE_YEAR;
-      if (trees < 1) {
-        pledge.textContent = `€${eur} — no problem, the tool is free either way. Every €5 plants your first tree.`;
-      } else {
-        pledge.textContent = `€${eur} — half funds the project, half plants ${trees} tree${trees === 1 ? '' : 's'} via One Tree Planted, locking in ~${co2} kg of CO₂ a year.`;
-      }
-    }
-    chips.forEach((btn) => btn.addEventListener('click', () => {
-      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === btn)));
-      if (custom) custom.value = '';
-      renderDonation(parseInt(btn.dataset.amt, 10));
-    }));
-    if (custom) custom.addEventListener('input', () => {
-      chips.forEach((c) => c.setAttribute('aria-pressed', 'false'));
-      renderDonation(Math.max(0, parseInt(custom.value, 10) || 0));
-    });
-    const def = chips.find((c) => c.getAttribute('aria-pressed') === 'true') || chips[0];
-    if (def) renderDonation(parseInt(def.dataset.amt, 10));
     })();
   </script>
 </Base>

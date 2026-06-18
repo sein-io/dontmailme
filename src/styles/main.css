@@ -201,7 +201,7 @@ img, svg { display: block; max-width: 100%; }
 .ri-toggle .ic { transition: transform var(--t-rail); }
 .ri-close { color: var(--text2); margin-block-end: 6px; }
 .ri-nav { display: flex; flex-direction: column; gap: 4px; }
-.ri-spacer { flex: 1; }
+.ri-foot { margin-block-start: auto; display: flex; flex-direction: column; gap: 4px; padding-block-start: 8px; border-block-start: 1px solid var(--border); }
 .ri-ico { display: inline-flex; flex: none; width: 20px; height: 20px; }
 .ri-lbl { font: 500 14px var(--sans); }
 .ic { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }

@@ -11,11 +11,12 @@ const nativeProviders = ['Gmail', 'Outlook', 'Apple Mail'];
 const tierA = ['iCloud', 'Yahoo', 'Fastmail', 'Proton', 'GMX', 'Web.de', 'Posteo', 'Mailbox.org'];
 
 const railItems = [
-  { href: '#features', name: 'shield', label: 'Warum' },
-  { href: '#how', name: 'list', label: 'Wie' },
-  { href: '#providers', name: 'mail', label: 'Anbieter' },
-  { href: '#impact', name: 'leaf', label: 'Wirkung' },
-  { href: '#developers', name: 'bot', label: 'Agenten' },
+  { href: '/de', name: 'home', label: 'Start' },
+  { href: '/gmail', name: 'mail', label: 'Einrichten' },
+  { href: '/providers', name: 'inbox', label: 'Anbieter' },
+  { href: '/compare', name: 'scale', label: 'Vergleich' },
+  { href: '/mcp', name: 'bot', label: 'Entwickler' },
+  { href: '/faq', name: 'help', label: 'FAQ' },
 ];
 const navLinks = [
   { href: '#how', label: "So geht's" },
@@ -156,25 +157,8 @@ const navLinks = [
         <div class="metric"><span class="m-val tnum" id="out-co2">8,3</span><span class="m-lbl">kg CO₂e vermieden / Jahr</span></div>
         <div class="metric"><span class="m-val tnum" id="out-car">52</span><span class="m-lbl">km Autofahrt gespart</span></div>
       </output>
-      <hr />
-      <div class="calc-field">
-        <label id="pwyw-label">Gib, was sich richtig anfühlt — hält es für alle kostenlos</label>
-        <div class="pwyw">
-          <div class="pwyw-chips" role="group" aria-labelledby="pwyw-label">
-            <button type="button" data-amt="5">5 €</button>
-            <button type="button" data-amt="10" aria-pressed="true">10 €</button>
-            <button type="button" data-amt="20">20 €</button>
-            <button type="button" data-amt="50">50 €</button>
-            <span class="pwyw-custom"><input type="number" id="price-input" min="0" step="1" inputmode="numeric" aria-label="Eigener Betrag in Euro" placeholder="…" /> €</span>
-          </div>
-        </div>
-      </div>
-      <p class="calc-pledge" id="pledge" aria-live="polite">
-        10 € — die Hälfte trägt das Projekt, die Hälfte pflanzt 2 Bäume über One Tree Planted und bindet ~40 kg CO₂ pro Jahr.
-      </p>
-      <a href="https://buy.stripe.com/5kQ14obKu1LTbO95oe24000" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Unterstützen &amp; Bäume pflanzen</a>
-      <p class="calc-fine">Zahl, was du willst — €0 ist auch okay. Das Tool ist so oder so kostenlos.</p>
     </div>
+    <p class="prov-note"><a href="/impact">Die ganze Wirkung, die ehrliche Methodik — und unterstützen →</a></p>
   </section>
 
   <!-- ===================== Für Agenten ===================== -->
@@ -221,8 +205,6 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
     const EMAILS_PER_NEWSLETTER_YEAR = 104;
     const KG_CO2_PER_EMAIL = 0.004;
     const KG_CO2_PER_CAR_KM = 0.16;
-    const EUR_PER_TREE = 5;
-    const KG_CO2_PER_TREE_YEAR = 20;
 
     const $ = (id) => document.getElementById(id);
     const unsub = $('unsub-slider');
@@ -237,31 +219,6 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
       $('out-car').textContent = String(Math.round(co2 / KG_CO2_PER_CAR_KM));
     }
     if (unsub) { unsub.addEventListener('input', updateUnsub); updateUnsub(); }
-
-    const pledge = $('pledge');
-    const custom = $('price-input');
-    const chips = Array.from(document.querySelectorAll('.pwyw-chips button[data-amt]'));
-    function renderDonation(eur) {
-      if (!pledge) return;
-      const trees = Math.floor(eur / EUR_PER_TREE);
-      const co2 = trees * KG_CO2_PER_TREE_YEAR;
-      if (trees < 1) {
-        pledge.textContent = `${eur} € — kein Problem, das Tool ist so oder so kostenlos. Je 5 € pflanzt deinen ersten Baum.`;
-      } else {
-        pledge.textContent = `${eur} € — die Hälfte trägt das Projekt, die Hälfte pflanzt ${trees} ${trees === 1 ? 'Baum' : 'Bäume'} über One Tree Planted und bindet ~${co2} kg CO₂ pro Jahr.`;
-      }
-    }
-    chips.forEach((btn) => btn.addEventListener('click', () => {
-      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === btn)));
-      if (custom) custom.value = '';
-      renderDonation(parseInt(btn.dataset.amt, 10));
-    }));
-    if (custom) custom.addEventListener('input', () => {
-      chips.forEach((c) => c.setAttribute('aria-pressed', 'false'));
-      renderDonation(Math.max(0, parseInt(custom.value, 10) || 0));
-    });
-    const def = chips.find((c) => c.getAttribute('aria-pressed') === 'true') || chips[0];
-    if (def) renderDonation(parseInt(def.dataset.amt, 10));
     })();
   </script>
 </Base>
