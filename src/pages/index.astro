@@ -117,7 +117,7 @@ const jsonLd = {
       ignore at the source — inside <strong>your own</strong> Gmail or Outlook account. The ones you want stay.
     </p>
     <div class="hero-cta">
-      <a href="#how" class="btn btn-primary btn-lg">Unsubscribe newsletters</a>
+      <a href="#choose" class="btn btn-primary btn-lg">Unsubscribe newsletters</a>
       <a href="/gmail.gs" class="btn btn-lg">Read the source <Icon name="arrow" /></a>
     </div>
     <div class="hero-meta">
@@ -126,6 +126,96 @@ const jsonLd = {
       <span><span class="dot"></span> RFC 8058 one-click</span>
       <span><span class="dot"></span> Gmail · Outlook · Apple Mail</span>
     </div>
+  </section>
+
+  <!-- ===================== The fork (security ↔ convenience) ===================== -->
+  <section class="sec" id="choose">
+    <div class="sec-h">
+      <p class="sec-q">YOUR <span class="q">CHOICE</span></p>
+      <h2 class="sec-t">Two ways to stop the mail — you decide who to trust.</h2>
+      <p class="sec-sub">Same result: the newsletters stop. The only difference is how much you hand over. Pick the one that fits you.</p>
+    </div>
+    <div class="fork">
+      <article class="fork-card fork-a">
+        <div class="fork-head">
+          <span class="fork-badge badge-zero"><Icon name="lock" /> Zero-data</span>
+          <span class="fork-tag fork-rec">Recommended</span>
+        </div>
+        <h3 class="fork-t">Run it yourself</h3>
+        <p class="fork-p">Copy a short, open script into your own account and run it. There is no DontMailMe server in the loop — nothing about your mail ever reaches us, and we're not named on any login screen. Maximum privacy.</p>
+        <ul class="fork-list">
+          <li>Reads only the unsubscribe header — never the message</li>
+          <li>Confirms each unsubscribe and retries</li>
+          <li>~120 lines you read before you run</li>
+        </ul>
+        <a href="/gmail" class="btn btn-primary">Set it up — ~3 min</a>
+      </article>
+      <article class="fork-card fork-b">
+        <div class="fork-head">
+          <span class="fork-badge badge-browser"><Icon name="bot" /> Never on our servers</span>
+          <span class="fork-tag fork-soon">In the works</span>
+        </div>
+        <h3 class="fork-t">Connect in one click</h3>
+        <p class="fork-p">Sign in with Google or Microsoft and the whole job runs inside your browser tab, talking straight to your provider. Your login and your mailbox never reach our servers — and you can revoke access anytime. Maximum convenience.</p>
+        <ul class="fork-list">
+          <li>No code to copy or paste</li>
+          <li>Runs in your browser, not ours</li>
+          <li>One-click to revoke, anytime</li>
+        </ul>
+        <a href="#trust" class="btn">See how it'll work <Icon name="arrow" /></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== The proof (honest architecture diagram) ===================== -->
+  <section class="sec" id="trust">
+    <div class="sec-h">
+      <p class="sec-q">SEE IT FOR <span class="q">YOURSELF</span></p>
+      <h2 class="sec-t">Your inbox never passes through us. Follow the path.</h2>
+      <p class="sec-sub">Not a privacy <em>policy</em> — a data <em>path</em>. On both routes, our server sits outside it, crossed out.</p>
+    </div>
+    <div class="dpaths" data-trace>
+      <div class="dpath">
+        <span class="dpath-lbl"><span class="fork-badge badge-zero">Zero-data</span> Run it yourself</span>
+        <div class="dflow">
+          <span class="dnode">You</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode">Your Google / Apple / Microsoft account</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode dnode-end">The sender's unsubscribe endpoint</span>
+        </div>
+        <p class="dserver"><Icon name="close" /> DontMailMe server — never in the loop</p>
+      </div>
+      <div class="dpath">
+        <span class="dpath-lbl"><span class="fork-badge badge-browser">Never on our servers</span> Connect in one click</span>
+        <div class="dflow">
+          <span class="dnode">Your browser</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode">Google / Microsoft</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode dnode-end">The sender's unsubscribe endpoint</span>
+        </div>
+        <p class="dserver"><Icon name="close" /> DontMailMe server — never sees your token or your mail</p>
+      </div>
+    </div>
+    <div class="dcols">
+      <div class="dcol dcol-do">
+        <h3>What it reads</h3>
+        <ul>
+          <li>The <code>List-Unsubscribe</code> header — the unsubscribe link, nothing else</li>
+          <li>A sender's name and how many they sent</li>
+        </ul>
+      </div>
+      <div class="dcol dcol-dont">
+        <h3>What it never touches</h3>
+        <ul>
+          <li>The contents of your emails</li>
+          <li>Your contacts, attachments, or anything you wrote</li>
+          <li>Anything at all, on any server of ours</li>
+        </ul>
+      </div>
+    </div>
+    <p class="dverify"><Icon name="github" /> Don't take our word for it — <a href={repo}>read every line on GitHub</a>. MIT-licensed, no asterisks.</p>
   </section>
 
   <!-- ===================== Benefits (Safe / Easy / Free) ===================== -->
@@ -353,6 +443,17 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
       $('out-car').textContent = String(Math.round(co2 / KG_CO2_PER_CAR_KM));
     }
     if (unsub) { unsub.addEventListener('input', updateUnsub); updateUnsub(); }
+
+    // Proof diagram: reveal the two data paths once on entering the viewport, then rest.
+    // Progressive enhancement — only arms when motion is allowed; otherwise stays fully visible.
+    const trace = document.querySelector('[data-trace]');
+    if (trace && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      trace.classList.add('armed');
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { trace.classList.add('traced'); io.disconnect(); }
+      }, { threshold: 0.35 });
+      io.observe(trace);
+    }
     })();
   </script>
 </Base>
