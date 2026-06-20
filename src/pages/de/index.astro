@@ -44,7 +44,7 @@ const navLinks = [
       behalten willst, bleibt.
     </p>
     <div class="hero-cta">
-      <a href="#how" class="btn btn-primary btn-lg">Newsletter abbestellen</a>
+      <a href="#choose" class="btn btn-primary btn-lg">Newsletter abbestellen</a>
       <a href="/gmail.gs" class="btn btn-lg">Quellcode lesen <Icon name="arrow" /></a>
     </div>
     <div class="hero-meta">
@@ -53,6 +53,96 @@ const navLinks = [
       <span><span class="dot"></span> RFC 8058 One-Click</span>
       <span><span class="dot"></span> Gmail · Outlook · Apple Mail</span>
     </div>
+  </section>
+
+  <!-- ===================== Die Wahl (Sicherheit ↔ Komfort) ===================== -->
+  <section class="sec" id="choose">
+    <div class="sec-h">
+      <p class="sec-q">DEINE <span class="q">WAHL</span></p>
+      <h2 class="sec-t">Zwei Wege, die Mail zu stoppen — du entscheidest, wem du vertraust.</h2>
+      <p class="sec-sub">Gleiches Ergebnis: die Newsletter hören auf. Der einzige Unterschied ist, wie viel du aus der Hand gibst. Nimm den, der zu dir passt.</p>
+    </div>
+    <div class="fork">
+      <article class="fork-card fork-a">
+        <div class="fork-head">
+          <span class="fork-badge badge-zero"><Icon name="lock" /> Zero-Data</span>
+          <span class="fork-tag fork-rec">Empfohlen</span>
+        </div>
+        <h3 class="fork-t">Selbst ausführen</h3>
+        <p class="fork-p">Kopiere ein kurzes, offenes Skript in dein eigenes Konto und führ es aus. Es gibt keinen DontMailMe-Server im Spiel — nichts von deiner Mail erreicht uns je, und wir tauchen auf keinem Login-Screen auf. Maximale Privatsphäre.</p>
+        <ul class="fork-list">
+          <li>Liest nur den Abmelde-Header — nie die Nachricht</li>
+          <li>Bestätigt jede Abmeldung und wiederholt sie</li>
+          <li>~120 Zeilen, die du vor dem Ausführen liest</li>
+        </ul>
+        <a href="/gmail" class="btn btn-primary">Einrichten — ~3 Min</a>
+      </article>
+      <article class="fork-card fork-b">
+        <div class="fork-head">
+          <span class="fork-badge badge-browser"><Icon name="bot" /> Nie auf unseren Servern</span>
+          <span class="fork-tag fork-soon">In Arbeit</span>
+        </div>
+        <h3 class="fork-t">Mit einem Klick verbinden</h3>
+        <p class="fork-p">Melde dich bei Google oder Microsoft an, und der ganze Job läuft in deinem Browser-Tab — direkt mit deinem Anbieter. Dein Login und dein Postfach erreichen nie unsere Server — und du kannst den Zugriff jederzeit widerrufen. Maximaler Komfort.</p>
+        <ul class="fork-list">
+          <li>Kein Code zum Kopieren oder Einfügen</li>
+          <li>Läuft in deinem Browser, nicht unserem</li>
+          <li>Mit einem Klick widerrufbar, jederzeit</li>
+        </ul>
+        <a href="#trust" class="btn">So wird's funktionieren <Icon name="arrow" /></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== Der Beweis (ehrliches Architektur-Diagramm) ===================== -->
+  <section class="sec" id="trust">
+    <div class="sec-h">
+      <p class="sec-q">SIEH ES <span class="q">SELBST</span></p>
+      <h2 class="sec-t">Dein Postfach läuft nie über uns. Folge dem Weg.</h2>
+      <p class="sec-sub">Keine Datenschutz-<em>Richtlinie</em> — ein Daten-<em>Weg</em>. Auf beiden Routen steht unser Server außerhalb, durchgestrichen.</p>
+    </div>
+    <div class="dpaths" data-trace>
+      <div class="dpath">
+        <span class="dpath-lbl"><span class="fork-badge badge-zero">Zero-Data</span> Selbst ausführen</span>
+        <div class="dflow">
+          <span class="dnode">Du</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode">Dein Google- / Apple- / Microsoft-Konto</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode dnode-end">Der Abmelde-Endpunkt des Absenders</span>
+        </div>
+        <p class="dserver"><Icon name="close" /> DontMailMe-Server — nie im Spiel</p>
+      </div>
+      <div class="dpath">
+        <span class="dpath-lbl"><span class="fork-badge badge-browser">Nie auf unseren Servern</span> Mit einem Klick verbinden</span>
+        <div class="dflow">
+          <span class="dnode">Dein Browser</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode">Google / Microsoft</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode dnode-end">Der Abmelde-Endpunkt des Absenders</span>
+        </div>
+        <p class="dserver"><Icon name="close" /> DontMailMe-Server — sieht nie dein Token oder deine Mail</p>
+      </div>
+    </div>
+    <div class="dcols">
+      <div class="dcol dcol-do">
+        <h3>Was es liest</h3>
+        <ul>
+          <li>Den <code>List-Unsubscribe</code>-Header — den Abmelde-Link, sonst nichts</li>
+          <li>Den Namen eines Absenders und wie viele er schickte</li>
+        </ul>
+      </div>
+      <div class="dcol dcol-dont">
+        <h3>Was es nie berührt</h3>
+        <ul>
+          <li>Den Inhalt deiner Mails</li>
+          <li>Deine Kontakte, Anhänge oder was du geschrieben hast</li>
+          <li>Überhaupt nichts, auf keinem Server von uns</li>
+        </ul>
+      </div>
+    </div>
+    <p class="dverify"><Icon name="github" /> Vertrau uns nicht — <a href={repo}>lies jede Zeile auf GitHub</a>. MIT-lizenziert, ohne Sternchen.</p>
   </section>
 
   <!-- ===================== Warum (Features) ===================== -->
@@ -219,6 +309,16 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
       $('out-car').textContent = String(Math.round(co2 / KG_CO2_PER_CAR_KM));
     }
     if (unsub) { unsub.addEventListener('input', updateUnsub); updateUnsub(); }
+
+    // Beweis-Diagramm: die zwei Datenwege einmal beim Eintritt in den Viewport zeigen, dann ruhen.
+    const trace = document.querySelector('[data-trace]');
+    if (trace && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      trace.classList.add('armed');
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { trace.classList.add('traced'); io.disconnect(); }
+      }, { threshold: 0.35 });
+      io.observe(trace);
+    }
     })();
   </script>
 </Base>
