@@ -4,7 +4,7 @@ import Icon from '../../components/Icon.astro';
 
 const title = 'Newsletter automatisch abbestellen — kostenlos, Open Source, Zero-Data | DontMailMe';
 const description =
-  'Erreiche Inbox Zero und halte es. DontMailMe meldet dich automatisch von Newslettern ab — mit einem kostenlosen, quelloffenen Skript, das in deinem eigenen Gmail oder Outlook läuft. Es gibt keinen Server, also verlässt nichts dein Konto. RFC 8058, agenten-bereit, pflanzt Bäume.';
+  'Erreiche Inbox Zero und halte es. DontMailMe meldet dich automatisch von Newslettern ab — dein Postfach läuft nie über unsere Server. Führe das quelloffene Skript selbst aus für echtes Zero-Data, oder verbinde dich mit einem Klick. RFC 8058, agenten-bereit, pflanzt Bäume.';
 
 const repo = 'https://github.com/sein-io/dontmailme';
 const nativeProviders = ['Gmail', 'Outlook', 'Apple Mail'];
@@ -73,7 +73,7 @@ const navLinks = [
         <ul class="fork-list">
           <li>Liest nur den Abmelde-Header — nie die Nachricht</li>
           <li>Bestätigt jede Abmeldung und wiederholt sie</li>
-          <li>~120 Zeilen, die du vor dem Ausführen liest</li>
+          <li>~140 Zeilen, die du vor dem Ausführen liest</li>
         </ul>
         <a href="/gmail" class="btn btn-primary">Einrichten — ~3 Min</a>
       </article>
@@ -87,6 +87,7 @@ const navLinks = [
         <ul class="fork-list">
           <li>Kein Code zum Kopieren oder Einfügen</li>
           <li>Läuft in deinem Browser, nicht unserem</li>
+          <li>Schickt jede Abmeldung — dein Browser kann die Antwort nicht zurücklesen</li>
           <li>Mit einem Klick widerrufbar, jederzeit</li>
         </ul>
         <a href="#trust" class="btn">So wird's funktionieren <Icon name="arrow" /></a>
@@ -138,39 +139,11 @@ const navLinks = [
         <ul>
           <li>Den Inhalt deiner Mails</li>
           <li>Deine Kontakte, Anhänge oder was du geschrieben hast</li>
-          <li>Überhaupt nichts, auf keinem Server von uns</li>
+          <li>Dein Postfach oder Token, auf keinem Server von uns</li>
         </ul>
       </div>
     </div>
     <p class="dverify"><Icon name="github" /> Vertrau uns nicht — <a href={repo}>lies jede Zeile auf GitHub</a>. MIT-lizenziert, ohne Sternchen.</p>
-  </section>
-
-  <!-- ===================== Warum (Features) ===================== -->
-  <section class="sec" id="features">
-    <div class="sec-h">
-      <p class="sec-q">WAS DU <span class="q">BEKOMMST</span></p>
-      <h2 class="sec-t">Ein ruhigeres Postfach, ohne es herzugeben.</h2>
-    </div>
-    <div class="bento">
-      <article class="bc glass">
-        <span class="bc-badge"><Icon name="lock" /></span>
-        <div class="bc-lbl">Sicher</div>
-        <h3 class="bc-t">Läuft in deinem Konto, nicht unserem.</h3>
-        <p class="bc-p">Kein Server sieht je dein Postfach — der quelloffene Code läuft in deinem eigenen Konto und wirkt nur auf den authentifizierten One-Click-Header, nie auf Links in der Mail. <a href="/gmail.gs"><code>gmail.gs</code> lesen →</a></p>
-      </article>
-      <article class="bc glass">
-        <span class="bc-badge"><Icon name="list" /></span>
-        <div class="bc-lbl">Einfach</div>
-        <h3 class="bc-t">In etwa drei Minuten eingerichtet.</h3>
-        <p class="bc-p">Skript kopieren, in dein eigenes Konto einfügen, ausführen. Auf Gmail läuft es von allein weiter; auf Outlook und Apple Mail führst du es aus, wann du willst.</p>
-      </article>
-      <article class="bc glass">
-        <span class="bc-badge"><Icon name="book" /></span>
-        <div class="bc-lbl">Kostenlos</div>
-        <h3 class="bc-t">Kostenlos, und offen zum Nachlesen.</h3>
-        <p class="bc-p">MIT-lizenziert und über Pay-what-you-want finanziert — du zahlst nie für die Nutzung. Wenn du etwas gibst, pflanzt die Hälfte Bäume. <a href={repo}>Auf GitHub →</a></p>
-      </article>
-    </div>
   </section>
 
   <!-- ===================== Wie ===================== -->
@@ -185,14 +158,14 @@ const navLinks = [
         <span class="step-n mono">01</span>
         <div>
           <h3 class="step-t">Kopieren</h3>
-          <p class="step-p">Wir erzeugen ein kleines Open-Source-Skript für deinen Anbieter. Du kannst jede Zeile lesen — nichts ist versteckt.</p>
+          <p class="step-p">Wir erzeugen ein kleines Skript für deinen Anbieter — fertig zum Einfügen, samt der Absender, die du behalten willst.</p>
         </div>
       </li>
       <li>
         <span class="step-n mono">02</span>
         <div>
           <h3 class="step-t">Einfügen</h3>
-          <p class="step-p">Es läuft in Google Apps Script (Gmail) oder auf deinem Rechner (Outlook / Apple Mail). Es lebt in <em>deiner</em> Cloud, nicht unserer.</p>
+          <p class="step-p">Es läuft in Google Apps Script (Gmail) oder auf deinem Rechner (Outlook / Apple Mail). Einfügen, dann einmal den Testlauf starten, um zu sehen, was es täte.</p>
         </div>
       </li>
       <li>
@@ -281,7 +254,7 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
   <!-- ===================== CTA ===================== -->
   <section class="cta">
     <h2>Stopp den Zustrom an der Quelle.</h2>
-    <p>Kostenlos, quelloffen und architektonisch unfähig, deine Daten zu sehen. Einmal einrichten — dein Postfach bleibt sauber.</p>
+    <p>Kostenlos, quelloffen, und dein Postfach läuft nie über unsere Server. Einmal einrichten — dein Postfach bleibt sauber.</p>
     <div class="cta-row">
       <a href="/gmail" class="btn btn-primary btn-lg">Gmail einrichten — ~3 Min</a>
       <a href="/gmail.gs" class="btn btn-lg">Quellcode lesen <Icon name="arrow" /></a>

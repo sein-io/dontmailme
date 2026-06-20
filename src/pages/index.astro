@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 
 const title = 'Auto-Unsubscribe From All Newsletters — Free, Open-Source, Zero-Data | DontMailMe';
 const description =
-  'Reach inbox zero and keep it there. DontMailMe auto-unsubscribes you from newsletters you never read with a free, open-source script that runs inside your own Gmail or Outlook — there is no server, so nothing ever leaves your account. RFC 8058, agent-ready, plants trees.';
+  'Reach inbox zero and keep it there. DontMailMe auto-unsubscribes you from newsletters you never read — your inbox never passes through our servers. Run the open-source script yourself for true zero-data, or connect in one click. RFC 8058, agent-ready, plants trees.';
 
 // Native setup tracks + Tier-A providers (honest status). Full directory: roadmap.
 const nativeProviders = ['Gmail', 'Outlook', 'Apple Mail'];
@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: 'Can DontMailMe read my emails?',
-    a: 'No. There is no server in the loop — the script runs entirely inside your own account, so your email and login never reach us. The code is open source, so you can verify it. We call this <strong>zero-data by design</strong>.',
+    a: 'No. On the <strong>run-it-yourself</strong> path there is no server in the loop at all — the script runs entirely inside your own account, so your email and login never reach us (we call this <strong>zero-data by design</strong>). On the <strong>one-click</strong> path the work runs in your browser, so your mailbox and token still never reach our servers. The code is open source either way — verify it yourself.',
   },
   {
     q: 'Is it free?',
@@ -146,7 +146,7 @@ const jsonLd = {
         <ul class="fork-list">
           <li>Reads only the unsubscribe header — never the message</li>
           <li>Confirms each unsubscribe and retries</li>
-          <li>~120 lines you read before you run</li>
+          <li>~140 lines you read before you run</li>
         </ul>
         <a href="/gmail" class="btn btn-primary">Set it up — ~3 min</a>
       </article>
@@ -160,6 +160,7 @@ const jsonLd = {
         <ul class="fork-list">
           <li>No code to copy or paste</li>
           <li>Runs in your browser, not ours</li>
+          <li>Sends each unsubscribe — your browser can't read the reply back</li>
           <li>One-click to revoke, anytime</li>
         </ul>
         <a href="#trust" class="btn">See how it'll work <Icon name="arrow" /></a>
@@ -211,39 +212,11 @@ const jsonLd = {
         <ul>
           <li>The contents of your emails</li>
           <li>Your contacts, attachments, or anything you wrote</li>
-          <li>Anything at all, on any server of ours</li>
+          <li>Your mailbox or token, on any server of ours</li>
         </ul>
       </div>
     </div>
     <p class="dverify"><Icon name="github" /> Don't take our word for it — <a href={repo}>read every line on GitHub</a>. MIT-licensed, no asterisks.</p>
-  </section>
-
-  <!-- ===================== Benefits (Safe / Easy / Free) ===================== -->
-  <section class="sec" id="features">
-    <div class="sec-h">
-      <p class="sec-q">WHAT YOU <span class="q">GET</span></p>
-      <h2 class="sec-t">A quieter inbox, without giving it away.</h2>
-    </div>
-    <div class="bento">
-      <article class="bc glass">
-        <span class="bc-badge"><Icon name="lock" /></span>
-        <div class="bc-lbl">Safe</div>
-        <h3 class="bc-t">Runs in your account, not ours.</h3>
-        <p class="bc-p">No server ever sees your inbox — the open-source code runs inside your own account and acts only on the authenticated one-click header, never links in the email. <a href="/gmail.gs">Read <code>gmail.gs</code> →</a></p>
-      </article>
-      <article class="bc glass">
-        <span class="bc-badge"><Icon name="list" /></span>
-        <div class="bc-lbl">Easy</div>
-        <h3 class="bc-t">Set up in about three minutes.</h3>
-        <p class="bc-p">Copy a script, paste it into your own account, and run it. On Gmail it keeps going on its own; on Outlook and Apple Mail you run it whenever you like.</p>
-      </article>
-      <article class="bc glass">
-        <span class="bc-badge"><Icon name="book" /></span>
-        <div class="bc-lbl">Free</div>
-        <h3 class="bc-t">Free, and open to read.</h3>
-        <p class="bc-p">MIT-licensed and funded by pay-what-you-want — you never pay to use it. When you chip in, half plants trees. <a href={repo}>On GitHub →</a></p>
-      </article>
-    </div>
   </section>
 
   <!-- ===================== How it works ===================== -->
@@ -258,14 +231,14 @@ const jsonLd = {
         <span class="step-n mono">01</span>
         <div>
           <h3 class="step-t">Copy</h3>
-          <p class="step-p">We generate a small open-source script for your mail provider. You can read every line — nothing is hidden.</p>
+          <p class="step-p">We generate a small script for your mail provider — ready to paste, with any senders you want to keep.</p>
         </div>
       </li>
       <li>
         <span class="step-n mono">02</span>
         <div>
           <h3 class="step-t">Paste</h3>
-          <p class="step-p">It runs in Google Apps Script (Gmail) or on your desktop (Outlook / Apple Mail). It lives in <em>your</em> cloud, not ours.</p>
+          <p class="step-p">It runs in Google Apps Script (Gmail) or on your desktop (Outlook / Apple Mail). Paste, then run the test once to see what it would do.</p>
         </div>
       </li>
       <li>
@@ -409,7 +382,7 @@ UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
   <!-- ===================== CTA + contribute ===================== -->
   <section class="cta">
     <h2>Stop the inflow at the source.</h2>
-    <p>Free, open-source, and architecturally unable to see your data. Set it once — your inbox stays clean.</p>
+    <p>Free, open-source, and your inbox never passes through our servers. Set it once — your inbox stays clean.</p>
     <div class="cta-row">
       <a href="/gmail" class="btn btn-primary btn-lg">Set up Gmail — ~3 min</a>
       <a href="/gmail.gs" class="btn btn-lg">Read the source <Icon name="arrow" /></a>
