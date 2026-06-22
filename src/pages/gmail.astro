@@ -1,0 +1,207 @@
+---
+import Base from '../layouts/Base.astro';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+// Render the CANONICAL gmail.gs (the same file the MCP serves) as the default script.
+// The island below uses this exact text as its template and injects ALLOWED_SENDERS /
+// CUSTOM_QUERY the same way the MCP does — so gmail.gs is the single source of truth and
+// no-JS visitors still get a valid script. (cwd = project root during dev and build.)
+const gmailGs = readFileSync(join(process.cwd(), 'static/gmail.gs'), 'utf8');
+
+const title = 'How to Auto-Unsubscribe From Newsletters in Gmail (Free Script) | DontMailMe';
+const description =
+  'Set up automatic newsletter unsubscribing in Gmail in about 3 minutes with a free, open-source Google Apps Script. It runs inside your own account using the RFC 8058 standard — we never see your email.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'HowTo',
+      name: 'How to auto-unsubscribe from newsletters in Gmail',
+      description:
+        'Set up a free, open-source Google Apps Script that automatically unsubscribes you from newsletters inside your own Gmail account using the RFC 8058 one-click standard.',
+      totalTime: 'PT3M',
+      estimatedCost: { '@type': 'MonetaryAmount', currency: 'EUR', value: '0' },
+      tool: [
+        { '@type': 'HowToTool', name: 'A Gmail / Google account' },
+        { '@type': 'HowToTool', name: 'Google Apps Script (script.google.com)' },
+      ],
+      step: [
+        { '@type': 'HowToStep', position: 1, name: 'Create a new script', text: 'Go to script.google.com and click New Project.', url: 'https://dontmailme.org/gmail#step1' },
+        { '@type': 'HowToStep', position: 2, name: 'Enable the Gmail API', text: 'Click the Services (+) icon, select Gmail API and click Add.', url: 'https://dontmailme.org/gmail#step2' },
+        { '@type': 'HowToStep', position: 3, name: 'Personalize and copy the code', text: 'Add any senders you want to keep to the safe-senders list, then copy the generated script into the editor.', url: 'https://dontmailme.org/gmail#step3' },
+        { '@type': 'HowToStep', position: 4, name: 'Test safely', text: 'Select the testDryRun function and click Run. Check the logs to see what would be unsubscribed — nothing is changed yet.', url: 'https://dontmailme.org/gmail#step4' },
+        { '@type': 'HowToStep', position: 5, name: 'Activate', text: 'Select the installTrigger function and click Run. Your inbox now cleans itself every 15 minutes.', url: 'https://dontmailme.org/gmail#step5' },
+      ],
+    },
+    {
+      '@type': 'SoftwareSourceCode',
+      name: 'DontMailMe Gmail auto-unsubscribe script',
+      programmingLanguage: 'Google Apps Script',
+      codeRepository: 'https://github.com/sein-io/dontmailme',
+      license: 'https://opensource.org/licenses/MIT',
+      codeSampleType: 'full (solution)',
+      targetProduct: { '@type': 'SoftwareApplication', name: 'Google Apps Script', applicationCategory: 'DeveloperApplication' },
+      url: 'https://dontmailme.org/gmail.gs',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dontmailme.org/' },
+        { '@type': 'ListItem', position: 2, name: 'Gmail setup', item: 'https://dontmailme.org/gmail' },
+      ],
+    },
+  ],
+};
+---
+<Base title={title} description={description} path="/gmail">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span>Gmail setup</nav>
+
+  <article class="page">
+    <div class="page-head">
+      <h1>How to auto-unsubscribe from newsletters in Gmail</h1>
+      <p class="lead">A free, open-source Google Apps Script that runs entirely inside your own Google account. It uses the official one-click unsubscribe standard (RFC&nbsp;8058) — we never see your email. Setup takes about 3 minutes.</p>
+      <p><a href="/gmail.gs">For AI agents &amp; power users: get the raw script (text/plain) →</a></p>
+    </div>
+
+    <div class="prose">
+      <h2 id="step1">1. Create a new Script</h2>
+      <p>Go to <a href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a> and click <strong>New Project</strong>.</p>
+
+      <h2 id="step2">2. Enable Gmail API</h2>
+      <p>Click the <strong>Services (+)</strong> icon. Select <strong>Gmail API</strong> and click <strong>Add</strong>.</p>
+
+      <h2 id="step3">3. Personalize &amp; copy the code</h2>
+      <p>Add the email addresses you want to <strong>keep</strong> (they will never be unsubscribed):</p>
+    </div>
+
+    <div class="wl">
+      <label for="email-input">Safe senders list</label>
+      <div class="wl-row">
+        <input type="email" id="email-input" placeholder="newsletter@favorite.com" autocomplete="off" />
+        <button id="add-email-btn" type="button" class="btn">Add</button>
+      </div>
+      <div class="chips" id="chip-container"></div>
+    </div>
+
+    <div class="wl">
+      <label for="query-input">Custom search query <span style="color: var(--text2); font-weight: 400;">(optional)</span></label>
+      <div class="wl-row">
+        <input type="text" id="query-input" placeholder="e.g. label:newsletters is:unread" autocomplete="off" />
+      </div>
+      <p class="wl-hint">Leave empty for the sensible default. Override only if your newsletters live in a specific label or folder.</p>
+    </div>
+
+    <div class="copy-banner">
+      <label>Your custom script</label>
+      <button id="copy-btn" type="button" class="btn">Copy code</button>
+    </div>
+    <pre class="codeblock"><code id="script-block">{gmailGs}</code></pre>
+
+    <div class="prose">
+      <h2 id="step4">4. Test safely</h2>
+      <p>Select <strong>testDryRun</strong> and click <strong>Run</strong>. Check the logs to see what would happen — nothing is changed yet.</p>
+
+      <h2 id="step5">5. Activate</h2>
+      <p>Select <strong>installTrigger</strong> and click <strong>Run</strong>.</p>
+      <p style="color: var(--accent); font-weight: 600;">Done. Your inbox cleans itself every 15 minutes.</p>
+    </div>
+
+    <section class="info" style="margin-block-start: 40px;">
+      <h2>Related guides</h2>
+      <p>
+        <a href="/free-gmail-storage">Free up Gmail storage without paying for Google One</a><br />
+        <a href="/gmail-manage-subscriptions">Gmail's "Manage subscriptions" vs. automatic unsubscribing</a><br />
+        <a href="/how-it-works">Why this is safer than clicking unsubscribe</a><br />
+        <a href="/teams">Rolling this out for a team or business</a>
+      </p>
+    </section>
+  </article>
+
+  <script is:inline>
+    // Safe-sender generator. Uses the rendered canonical gmail.gs as the template and injects
+    // ALLOWED_SENDERS / CUSTOM_QUERY exactly like mcp/src/tools.ts — single source of truth.
+    (function () {
+    const emailInput = document.getElementById('email-input');
+    const addBtn = document.getElementById('add-email-btn');
+    const chipContainer = document.getElementById('chip-container');
+    const scriptBlock = document.getElementById('script-block');
+    const copyBtn = document.getElementById('copy-btn');
+    const queryInput = document.getElementById('query-input');
+
+    if (scriptBlock && copyBtn) {
+      const TEMPLATE = scriptBlock.textContent;
+      let whitelist = [];
+
+      const esc = (s) => s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+      function updateScript() {
+        const emails = whitelist.map((e) => "'" + esc(e) + "'").join(', ');
+        const q = esc(queryInput.value.trim());
+        scriptBlock.textContent = TEMPLATE
+          .replace('const ALLOWED_SENDERS = [];', 'const ALLOWED_SENDERS = [' + emails + '];')
+          .replace("const CUSTOM_QUERY = '';", "const CUSTOM_QUERY = '" + q + "';");
+      }
+
+      function renderChips() {
+        chipContainer.innerHTML = '';
+        whitelist.forEach((email, index) => {
+          const chip = document.createElement('div');
+          chip.className = 'chip';
+          const span = document.createElement('span');
+          span.textContent = email;
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.textContent = '×';
+          remove.setAttribute('aria-label', 'Remove ' + email);
+          remove.addEventListener('click', () => {
+            whitelist.splice(index, 1);
+            renderChips();
+          });
+          chip.appendChild(span);
+          chip.appendChild(remove);
+          chipContainer.appendChild(chip);
+        });
+        updateScript();
+      }
+
+      queryInput.addEventListener('input', updateScript);
+
+      addBtn.addEventListener('click', () => {
+        const email = emailInput.value.trim().toLowerCase();
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email) return;
+        if (!re.test(email)) {
+          emailInput.setCustomValidity('Enter a valid email address');
+          emailInput.reportValidity();
+          return;
+        }
+        emailInput.setCustomValidity('');
+        if (!whitelist.includes(email)) {
+          whitelist.push(email);
+          emailInput.value = '';
+          renderChips();
+        }
+      });
+      emailInput.addEventListener('input', () => emailInput.setCustomValidity(''));
+      emailInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); addBtn.click(); } });
+
+      copyBtn.addEventListener('click', () => {
+        if (!navigator.clipboard) { copyBtn.textContent = 'Copy failed'; return; }
+        navigator.clipboard.writeText(scriptBlock.textContent).then(() => {
+          const original = copyBtn.textContent;
+          copyBtn.textContent = 'Copied';
+          setTimeout(() => { copyBtn.textContent = original; }, 2000);
+        });
+      });
+
+      renderChips();
+    }
+    })();
+  </script>
+</Base>

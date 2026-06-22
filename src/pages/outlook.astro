@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+// Render the canonical outlook.ps1 (the file the MCP serves) + the macOS AppleScript from a
+// build-time source. Astro auto-escapes the rendered text, so the copy buttons hand over the
+// exact script and no-JS visitors still see it. (cwd = project root during dev and build.)
+const root = process.cwd();
+const outlookPs1 = readFileSync(join(root, 'static/outlook.ps1'), 'utf8');
+const appleScript = readFileSync(join(root, 'src/_scripts/applemail.applescript'), 'utf8');
+
+const title = 'Bulk Unsubscribe From Newsletters in Outlook & Apple Mail (Free) | DontMailMe';
+const description =
+  'Free, open-source scripts to bulk-unsubscribe from newsletters in Outlook (Windows) and Apple Mail (macOS). They run locally on your computer — zero data leaves your device. No subscription, RFC 8058.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'HowTo',
+      name: 'How to bulk-unsubscribe from newsletters in Outlook and Apple Mail',
+      description:
+        'Use a free, open-source local script to unsubscribe from the newsletters you select in Outlook (Windows) or Apple Mail (macOS). Nothing leaves your computer.',
+      estimatedCost: { '@type': 'MonetaryAmount', currency: 'EUR', value: '0' },
+      step: [
+        { '@type': 'HowToStep', position: 1, name: 'Select the newsletters', text: 'Open Outlook (Windows) or Apple Mail (macOS) and select the newsletter emails you want to unsubscribe from.' },
+        { '@type': 'HowToStep', position: 2, name: 'Run the script', text: "Paste the PowerShell script (Windows) or AppleScript (macOS) and run it. It reads each message's List-Unsubscribe header and sends the one-click unsubscribe request." },
+        { '@type': 'HowToStep', position: 3, name: 'Done', text: 'Unsubscribed messages are moved to your Deleted Items. Nothing was sent to any third-party server.' },
+      ],
+    },
+    {
+      '@type': 'SoftwareSourceCode',
+      name: 'DontMailMe Outlook unsubscribe script (Windows)',
+      programmingLanguage: 'PowerShell',
+      codeRepository: 'https://github.com/sein-io/dontmailme',
+      license: 'https://opensource.org/licenses/MIT',
+      url: 'https://dontmailme.org/outlook.ps1',
+    },
+    {
+      '@type': 'SoftwareSourceCode',
+      name: 'DontMailMe Apple Mail unsubscribe script (macOS)',
+      programmingLanguage: 'AppleScript',
+      codeRepository: 'https://github.com/sein-io/dontmailme',
+      license: 'https://opensource.org/licenses/MIT',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dontmailme.org/' },
+        { '@type': 'ListItem', position: 2, name: 'Outlook & Apple Mail setup', item: 'https://dontmailme.org/outlook' },
+      ],
+    },
+  ],
+};
+---
+<Base title={title} description={description} path="/outlook">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span>Outlook &amp; Apple Mail setup</nav>
+
+  <article class="page">
+    <div class="page-head">
+      <h1>Bulk-unsubscribe from newsletters in Outlook &amp; Apple Mail</h1>
+      <p class="lead">Free, open-source scripts that run locally on your own computer. You select the newsletters; the script sends the official one-click unsubscribe (RFC&nbsp;8058) and tidies them away. Nothing leaves your device. <span style="font-size: 1rem;">(Microsoft charges ~$15/month for the cloud automation Gmail gives you for free, so we built the local desktop path instead.)</span></p>
+      <p><a href="/outlook.ps1">For AI agents &amp; power users: get the raw PowerShell script (text/plain) →</a></p>
+    </div>
+
+    <section class="info">
+      <h2>You are in full control</h2>
+      <p>Unlike our automated Gmail tool, these desktop scripts only process the emails you <strong>manually select</strong> in your mail app. This gives you 100% control over what gets deleted — no safe-senders list needed. Zero data leaves your computer.</p>
+    </section>
+
+    <section style="margin-block: 48px 56px;">
+      <div class="os-badge">Windows</div>
+      <h2 class="sec-t" style="font-size: 26px;">Outlook desktop app</h2>
+      <p class="sec-sub" style="margin-block: 8px 0;">Open Outlook, select the newsletters you want to unsubscribe from, and run this PowerShell script.</p>
+      <div class="copy-banner">
+        <label>PowerShell script</label>
+        <button id="copy-win" type="button" class="btn">Copy code</button>
+      </div>
+      <pre class="codeblock"><code id="script-win">{outlookPs1}</code></pre>
+    </section>
+
+    <section id="apple-mail">
+      <div class="os-badge">macOS</div>
+      <h2 class="sec-t" style="font-size: 26px;">Apple Mail</h2>
+      <p class="sec-sub" style="margin-block: 8px 0;">Add your account to the native Apple Mail app, select the newsletters, open the <strong>Script Editor</strong> app, paste this code, and click Run.</p>
+      <div class="copy-banner">
+        <label>AppleScript</label>
+        <button id="copy-mac" type="button" class="btn">Copy code</button>
+      </div>
+      <pre class="codeblock"><code id="script-mac">{appleScript}</code></pre>
+    </section>
+  </article>
+
+  <script is:inline>
+    (function () {
+    function setupCopy(btnId, codeId) {
+      const btn = document.getElementById(btnId);
+      const code = document.getElementById(codeId);
+      if (!btn || !code) return;
+      btn.addEventListener('click', () => {
+        if (!navigator.clipboard) { btn.textContent = 'Copy failed'; return; }
+        navigator.clipboard.writeText(code.textContent).then(() => {
+          const original = btn.textContent;
+          btn.textContent = 'Copied';
+          setTimeout(() => { btn.textContent = original; }, 2000);
+        });
+      });
+    }
+    setupCopy('copy-win', 'script-win');
+    setupCopy('copy-mac', 'script-mac');
+    })();
+  </script>
+</Base>

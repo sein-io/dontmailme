@@ -1,0 +1,52 @@
+---
+// Clean, recognizable stroke icons (Lucide-style): viewBox 0 0 24 24, currentColor,
+// round caps/joins, no fill. One source for rail + bento + inline use. Each icon is chosen
+// so the glyph reads the same as its label.
+interface Props {
+  name: string;
+  class?: string;
+  size?: number;
+}
+const { name, class: cls = 'ic', size }: Props = Astro.props;
+
+const paths: Record<string, string> = {
+  // brand: a crossed-out subscribe bell = "unsubscribe"
+  brand: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M4 4 20 20"/>',
+  // shield-check — trust / "why us" + "safe by standard"
+  shield: '<path d="M12 22s8-4 8-10V5.5l-8-3-8 3V12c0 6 8 10 8 10Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+  // numbered/bulleted list — the three steps
+  list: '<path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3.5 6h.01"/><path d="M3.5 12h.01"/><path d="M3.5 18h.01"/>',
+  // envelope — providers / setup
+  mail: '<rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3.5 7.5 8.5 5.5 8.5-5.5"/>',
+  // inbox — providers (alt)
+  inbox: '<path d="M22 12h-5.5l-1.5 2.5h-6L7.5 12H2"/><path d="M5.5 5.5h13a2 2 0 0 1 1.86 1.27l1.5 4.2a2 2 0 0 1 .14.74V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6.29a2 2 0 0 1 .14-.74l1.5-4.2A2 2 0 0 1 5.5 5.5Z"/>',
+  // balance scale — compare / "which one"
+  scale: '<path d="M12 3.5v17"/><path d="M9 20.5h6"/><path d="M5 7.5h14"/><path d="M5 7.5 2.5 13.5a3 3 0 0 0 5 0Z"/><path d="M19 7.5l-2.5 6a3 3 0 0 0 5 0Z"/>',
+  // leaf — impact / eco
+  leaf: '<path d="M11 20.5A7.5 7.5 0 0 1 4 13c0-5.5 4.5-8.5 13.5-9.5 0 9.5-3 13.5-9 14Z"/><path d="M8.5 17.5c1.5-4.5 4.5-7 8-8"/>',
+  // bot — AI agents
+  bot: '<rect x="3.5" y="10" width="17" height="10.5" rx="3"/><path d="M12 6.5v3.5"/><circle cx="12" cy="5" r="1.6"/><path d="M8.7 15.5h.01"/><path d="M15.3 15.5h.01"/><path d="M2.5 14v2.5"/><path d="M21.5 14v2.5"/>',
+  // code brackets — developer snippet
+  code: '<path d="m16 18 5-6-5-6"/><path d="m8 6-5 6 5 6"/>',
+  // padlock — zero-data
+  lock: '<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/><path d="M12 14.5v2"/>',
+  // book — open source
+  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2.5H20v19H6.5A2.5 2.5 0 0 1 4 19V5A2.5 2.5 0 0 1 6.5 2.5Z"/>',
+  github: '<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>',
+  arrow: '<path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>',
+  home: '<path d="m3 10.5 9-7 9 7"/><path d="M5 9.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9.5"/><path d="M9.5 21v-6h5v6"/>',
+  chevrons: '<path d="m13 17 5-5-5-5"/><path d="m6 17 5-5-5-5"/>',
+  close: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  menu: '<path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>',
+  globe: '<circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5a14 14 0 0 1 0 19 14 14 0 0 1 0-19Z"/>',
+  chevronDown: '<path d="m6 9 6 6 6-6"/>',
+  help: '<circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a3 3 0 0 1 5.6 1.2c0 1.9-2.8 2.5-2.8 2.5"/><path d="M12 17h.01"/>',
+  // info — About
+  info: '<circle cx="12" cy="12" r="9.5"/><path d="M12 16.5v-5"/><path d="M12 7.5h.01"/>',
+  // heart — Donate / support
+  heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>',
+};
+const body = paths[name] ?? '';
+const w = size ?? (cls.includes('ic-brand') ? 24 : 20);
+---
+<svg viewBox="0 0 24 24" class={cls} width={w} height={w} aria-hidden="true" set:html={body}></svg>

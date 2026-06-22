@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'DontMailMe MCP Server — Unsubscribe for AI Agents | DontMailMe';
+const description =
+  'A zero-data Model Context Protocol (MCP) server so AI assistants like Claude and ChatGPT can set up newsletter auto-unsubscribing for you. Open-source, RFC 8058, never touches your inbox.';
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dontmailme.org/' },
+    { '@type': 'ListItem', position: 2, name: 'MCP server', item: 'https://dontmailme.org/mcp' },
+  ],
+};
+---
+<Base title={title} description={description} path="/mcp">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} />
+  </Fragment>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span>MCP server</nav>
+
+  <article class="page">
+    <div class="page-head">
+      <h1>DontMailMe for AI agents — the MCP server</h1>
+      <p class="lead">Tell your assistant "unsubscribe me from newsletters" and let it do the setup. DontMailMe ships a Model Context Protocol server — and it's still zero-data.</p>
+    </div>
+
+    <section class="info">
+      <h2>Zero-data, even for agents</h2>
+      <p>Because the unsubscribe script runs inside <em>your own</em> account (<a href="/how-it-works">RFC 8058</a>), the MCP server never touches an inbox. It's a stateless <strong>advisor</strong>: it hands the assistant the ready-to-run script, the setup steps, and the explanations. There's nothing for it to leak, sell, or store.</p>
+    </section>
+
+    <div class="prose">
+      <h2>The tools it exposes</h2>
+      <ul>
+        <li><code>get_unsubscribe_script</code> — the canonical Gmail or Outlook script (with an optional Gmail safe-senders allow-list).</li>
+        <li><code>get_setup_instructions</code> — step-by-step setup for Gmail, Outlook, or Apple Mail.</li>
+        <li><code>explain_rfc8058</code> — how the one-click standard works and why it's safe.</li>
+        <li><code>estimate_impact</code> — emails avoided, CO₂e saved, and trees a donation funds.</li>
+        <li><code>compare_tools</code> — DontMailMe vs. Unroll.me, Cleanfox, Clean Email and others.</li>
+      </ul>
+
+      <h2>Add it to your assistant</h2>
+      <p><strong>Claude Desktop / any stdio MCP client</strong> — add to your config:</p>
+      <pre><code>&#123;
+  "mcpServers": &#123;
+    "dontmailme": &#123; "command": "npx", "args": ["-y", "@sein-io/dontmailme-mcp"] &#125;
+  &#125;
+&#125;</code></pre>
+      <p><strong>Remote (Claude/ChatGPT custom connector)</strong> — add the hosted URL, no authentication:</p>
+      <pre><code>https://mcp.dontmailme.org/mcp</code></pre>
+      <p class="source">The remote endpoint is authless and zero-data. Source &amp; docs: <a href="https://github.com/sein-io/dontmailme/tree/main/mcp">github.com/sein-io/dontmailme/mcp</a>.</p>
+    </div>
+
+    <div class="cta-row" style="margin-block-start: 40px; justify-content: flex-start;">
+      <a href="https://github.com/sein-io/dontmailme/tree/main/mcp" class="btn btn-primary">View the MCP server</a>
+      <a href="/how-it-works" class="btn">How the unsubscribe works</a>
+    </div>
+  </article>
+</Base>

@@ -1,0 +1,26 @@
+# Security headers — all routes
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://dontmailme-api.late-sound-79c8.workers.dev; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'
+
+# Build assets — content-hashed by Astro, safe to cache forever
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Static assets
+/og-image.jpg
+  Cache-Control: public, max-age=2592000
+/favicon.svg
+  Cache-Control: public, max-age=2592000
+
+# HTML & generated text — revalidate so updates ship instantly
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/*.md
+  Cache-Control: public, max-age=0, must-revalidate
+/*.txt
+  Cache-Control: public, max-age=0, must-revalidate

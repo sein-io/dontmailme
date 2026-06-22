@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Privacy Policy — Zero Data Access | DontMailMe';
+const description =
+  "DontMailMe's privacy policy: no cookies, no tracking, no analytics. Our unsubscribe scripts run inside your own cloud, so we never receive your emails, credentials or data. Zero-data by design.";
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dontmailme.org/' },
+    { '@type': 'ListItem', position: 2, name: 'Privacy', item: 'https://dontmailme.org/privacy' },
+  ],
+};
+---
+<Base title={title} description={description} path="/privacy">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} />
+  </Fragment>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span>Privacy</nav>
+
+  <article class="page">
+    <div class="page-head">
+      <h1>Privacy Policy</h1>
+      <p class="lead">Zero data access. We mean it.</p>
+    </div>
+
+    <div class="stack">
+      <section class="info">
+        <h2>1. Responsible Person &amp; Contact</h2>
+        <p>The responsible controller for data processing on this website according to Art. 4 No. 7 GDPR is:<br />
+          <strong>Sedat Gergin</strong><br />
+          Please refer to our <a href="/imprint">Imprint</a> for full address details.<br />
+          Email: hi@dontmailme.org</p>
+      </section>
+
+      <section class="info">
+        <h2>2. No Cookies, No Tracking, No Analytics</h2>
+        <p>We believe in absolute data minimization. This website does not set any cookies on your device. We do not use Google Analytics, Facebook Pixels, or any other tracking tools to monitor your behavior.</p>
+      </section>
+
+      <section class="info">
+        <h2>3. Hosting &amp; Infrastructure (Cloudflare)</h2>
+        <p>We host our website securely with Cloudflare (Cloudflare Inc., 101 Townsend St, San Francisco, CA 94107, USA). Cloudflare acts as our data processor to provide Content Delivery Network (CDN) and DNS services. When you visit our site, Cloudflare temporarily processes technical connection data (such as your IP address) in server log files to protect against DDoS attacks and ensure stability.</p>
+        <p>The legal basis for this is our legitimate interest (Art. 6 Para. 1 lit. f GDPR) in providing a secure and functional website.</p>
+      </section>
+
+      <section class="info">
+        <h2>4. Local Fonts</h2>
+        <p>To protect your privacy, we self-host all web fonts locally on our own server. No connection is made to Google servers, meaning your IP address is not transmitted to Google for font rendering.</p>
+      </section>
+
+      <section class="info">
+        <h2>5. Script Security (Zero Data Access)</h2>
+        <p>The DontMailMe automation tools (Google Apps Script, PowerShell, AppleScript) execute entirely locally on your machine or within your personal cloud environment. We never receive, process, or store your emails, login credentials, OAuth tokens, or any other personal inbox data.</p>
+      </section>
+
+      <section class="info">
+        <h2>6. Your Rights under the GDPR</h2>
+        <p>You have the right to request information about your stored personal data (Art. 15 GDPR), request correction (Art. 16 GDPR), request deletion (Art. 17 GDPR), or restrict processing (Art. 18 GDPR). You also have the right to data portability (Art. 20 GDPR) and the right to object to processing (Art. 21 GDPR).</p>
+        <p><strong>Right to complain:</strong> If you believe that the processing of your data violates data protection laws, you have the right to lodge a complaint with a supervisory authority (Art. 77 GDPR).</p>
+      </section>
+    </div>
+  </article>
+</Base>

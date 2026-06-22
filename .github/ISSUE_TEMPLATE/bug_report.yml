@@ -14,6 +14,11 @@ body:
         - Agent-facing files (llms.txt, AGENTS.md, raw scripts)
     validations:
       required: true
+  - type: input
+    id: url
+    attributes:
+      label: Page or URL where it happened
+      placeholder: e.g. https://dontmailme.org/gmail
   - type: textarea
     id: what-happened
     attributes:

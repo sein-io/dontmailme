@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Imprint — DontMailMe';
+const description =
+  'Legal imprint and contact information for DontMailMe, a free open-source auto-unsubscribe project by Sedat Gergin, Frankfurt am Main, Germany.';
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dontmailme.org/' },
+    { '@type': 'ListItem', position: 2, name: 'Imprint', item: 'https://dontmailme.org/imprint' },
+  ],
+};
+---
+<Base title={title} description={description} path="/imprint" noindex={true}>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumb)} />
+  </Fragment>
+
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span>Imprint</nav>
+
+  <article class="page">
+    <div class="page-head">
+      <h1>Imprint</h1>
+    </div>
+
+    <div class="stack">
+      <section class="info">
+        <h2>Information according to § 5 TMG</h2>
+        <p><strong>DontMailMe is a project by:</strong><br />
+          Sedat Gergin<br />
+          Mörfelder Landstr. 181<br />
+          60598 Frankfurt am Main<br />
+          Germany</p>
+        <p><strong>Contact:</strong><br />
+          Email: hi@dontmailme.org<br />
+          Website: <a href="https://dontmailme.org">dontmailme.org</a></p>
+      </section>
+
+      <section class="info">
+        <h2>Disclaimer</h2>
+        <p><strong>Liability for links:</strong> Our website contains links to external websites. We have no influence on the content of these sites and cannot assume any liability for them. The respective provider or operator of the pages is always responsible for the content of the linked pages.</p>
+      </section>
+    </div>
+  </article>
+</Base>

@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'About DontMailMe — who makes it, and how it stays zero-data';
+const description =
+  'DontMailMe is a free, open-source tool that stops unwanted mail inside your own account — no server ever sees your inbox. Built on the side by one person. Read what it is, how it stays private, and who is behind it.';
+
+const repo = 'https://github.com/sein-io/dontmailme';
+---
+<Base title={title} description={description} path="/about">
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span>About</nav>
+
+  <section class="sec">
+    <div class="prose">
+      <h1>About DontMailMe</h1>
+      <p>DontMailMe stops mail you never asked for — right inside your own account. It's free, open-source, and built so your inbox never has to leave your control. The core job is small and it stays small: read each newsletter's official unsubscribe header, send the one-click request, done.</p>
+
+      <h2>You choose how it runs</h2>
+      <p>Most clean-up tools make you pick between privacy and convenience. DontMailMe lets <em>you</em> choose — and never routes your inbox through a server of ours either way.</p>
+      <ul>
+        <li><strong>Run it yourself.</strong> Copy a small open-source script into your own Gmail, Outlook or Apple Mail. There is no DontMailMe server in the loop, so nothing about your mail ever leaves your account. Maximum privacy.</li>
+        <li><strong>Let your browser run it</strong> <em>(planned)</em>. Sign in with Google or Microsoft and the whole job happens inside your browser tab, talking straight to your provider. Your login and your mail never reach our server. Maximum convenience, same open standard.</li>
+      </ul>
+      <p>What we will never do is run a hosted service that reads your inbox on our servers the way some clean-up tools do. That's the one line we don't cross — it's the whole point.</p>
+
+      <h2>Zero-data, as specifics — not slogans</h2>
+      <ul>
+        <li>It acts only on the authenticated <a href="https://www.rfc-editor.org/rfc/rfc8058.html" target="_blank" rel="noopener noreferrer">RFC&nbsp;8058</a> <code>List-Unsubscribe-Post</code> header — never links in the message body, so it can't be lured to a tracking or phishing page.</li>
+        <li>The self-run path has no backend at all. The planned browser path keeps your token and your inbox inside the tab.</li>
+        <li>It's open source under MIT — read every line before you run it. <a href={repo}>See the code on GitHub →</a></li>
+        <li>No cookies, no analytics, no trackers on this site. <a href="/privacy">Read the privacy page →</a></li>
+      </ul>
+
+      <h2>Who builds it</h2>
+      <p>One person, on the side — no company behind it, no investors, no ads, no data deals. That shapes everything: support is best-effort, not a guaranteed service, and there's no SLA. The best way to get help or flag a bug is a <a href={`${repo}/issues/new/choose`} target="_blank" rel="noopener noreferrer">GitHub issue</a>; security reports have their own <a href={`${repo}/security/policy`} target="_blank" rel="noopener noreferrer">policy</a>. If DontMailMe is useful to you, you can <a href="/impact">chip in or just share it</a> — both keep it alive and open.</p>
+
+      <h2>Credits</h2>
+      <p>Built on the open <a href="https://www.rfc-editor.org/rfc/rfc8058.html" target="_blank" rel="noopener noreferrer">RFC&nbsp;8058</a> one-click standard; trees planted through <a href="https://onetreeplanted.org" target="_blank" rel="noopener noreferrer">One Tree Planted</a>; the site is open source, built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>. Thanks to everyone who files a provider, a fix, or a translation.</p>
+
+      <p class="source">A SEIN project · <a href={repo}>open source</a> · <a href="/imprint">Imprint</a> · <a href="/privacy">Privacy</a></p>
+    </div>
+  </section>
+</Base>

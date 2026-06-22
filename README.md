@@ -100,16 +100,40 @@ Most unsubscribe tools are free because *you* are the product, or paid because p
 - **[FAQ](https://dontmailme.org/faq)** — is it safe? is it free? can it read my email? (No.)
 - **[Impact & methodology](https://dontmailme.org/impact)** — the honest, sourced version of the CO₂/trees math.
 
+## 🛠 Build &amp; deploy
+
+The site is built with [Astro](https://astro.build) (static output). Page source lives in `src/`;
+everything in `static/` is copied to the output **verbatim**. The build writes the complete,
+ready-to-host site into **`public/`** — that's the folder you upload.
+
+```bash
+npm install      # once
+npm run dev      # dev server with hot reload            → http://localhost:4321
+npm run build    # generate the production site into     → public/
+npm run preview  # serve the built public/ exactly as it goes live → http://localhost:4321
+```
+
+**Deploy:** run `npm run build`, then upload the **contents of `public/`** (the files inside it) to
+the web root, so `public/index.html` is served at `https://dontmailme.org/`. `public/` already
+contains the whole agent layer (`gmail.gs`, `outlook.ps1`, `*.md`, `llms.txt`, `AGENTS.md`,
+`_headers`, `_redirects`, `fonts/`, …) at the same paths as before — nothing else to upload.
+
+> ⚠️ Don't open `public/index.html` by double-clicking. Like every website, it loads its CSS from a
+> root-absolute path (`/_astro/…`), which the browser can only resolve when the files are **served**
+> (over HTTP), not opened as a `file://`. Run `npm run preview` to check the build locally.
+
 ## 🧩 Project layout
 
 | Path | What it is |
 |------|-----------|
-| `index.html`, `gmail.html`, `outlook.html`, … | The static site |
-| `gmail.gs`, `outlook.ps1` | Canonical raw scripts (served to users **and** agents) |
-| `llms.txt`, `llms-full.txt`, `AGENTS.md`, `*.md` | Machine-readable twins for AI agents |
+| `src/pages/`, `src/layouts/`, `src/components/`, `src/styles/` | Astro page source |
+| `src/data/providers.yaml` | The provider directory — drives `/providers` and `/api/providers.json` |
+| `static/` | Copied verbatim into the build: the agent layer, fonts, images |
+| `static/gmail.gs`, `static/outlook.ps1` | Canonical raw scripts (served to users **and** agents) |
+| `static/llms.txt`, `static/AGENTS.md`, `static/*.md` | Machine-readable twins for AI agents |
+| `public/` | **Build output — this is what you upload** (git-ignored; run `npm run build`) |
 | `mcp/` | MCP server (`@sein-io/dontmailme-mcp`) — stdio + Cloudflare Worker |
-| `styles.css`, `calculator.js`, `fonts/` | Styles, impact calculator, self-hosted fonts |
-| `docs/STRATEGY.md`, `docs/GROWTH.md` | Product blueprint & growth playbook |
+| `docs/STRATEGY.md`, `docs/GROWTH.md`, `docs/REDESIGN-PLAN.md`, `docs/DESIGN-RULES.md` | Blueprint, growth, redesign &amp; design rules |
 
 ## ⭐ Star history
 
@@ -119,7 +143,12 @@ Most unsubscribe tools are free because *you* are the product, or paid because p
 
 ## 🤝 Contributing
 
-PRs welcome — new mail clients (Yahoo, Proton, Fastmail…), fixes, translations, docs. See **[CONTRIBUTING](.github/CONTRIBUTING.md)** and the **[Code of Conduct](CODE_OF_CONDUCT.md)**. For ideas and questions, open a [Discussion](https://github.com/sein-io/dontmailme/discussions).
+**Most useful right now** — these are where help goes furthest:
+
+- 📬 **Add a mail provider.** The directory is one file, [`src/data/providers.yaml`](src/data/providers.yaml). Don't know the code? File an [**Add a provider**](https://github.com/sein-io/dontmailme/issues/new?template=add_provider.yml) issue with what you know. (Most of the 19 listed providers are `planned` — an obvious, concrete backlog.)
+- 🐛 **Report or fix a bug** in the Gmail / Outlook / Apple Mail scripts or the site — [**Report a bug**](https://github.com/sein-io/dontmailme/issues/new?template=bug_report.yml), or fix it and open a PR.
+
+Also welcome: translations (a new language ≈ one file), copy, docs. See **[CONTRIBUTING](.github/CONTRIBUTING.md)** and the **[Code of Conduct](CODE_OF_CONDUCT.md)**; for ideas and questions, open a [Discussion](https://github.com/sein-io/dontmailme/discussions).
 
 ## 🌳 Support
 

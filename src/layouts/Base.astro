@@ -1,0 +1,347 @@
+---
+import '../styles/main.css';
+import Icon from '../components/Icon.astro';
+import { LANGUAGES, currentLanguage } from '../i18n/config';
+
+interface RailItem { href: string; name: string; label: string; }
+interface NavLink { href: string; label: string; }
+interface Props {
+  title: string;
+  description: string;
+  path?: string;          // canonical path, e.g. "/" or "/compare"
+  ogImage?: string;
+  showRail?: boolean;     // left rail (default on)
+  railItems?: RailItem[]; // override the rail nav (homepage uses section anchors)
+  navLinks?: NavLink[];   // header nav (localised by passing a translated list)
+  ctaHref?: string;       // header CTA target
+  ctaLabel?: string;
+  noindex?: boolean;
+  hreflangHome?: boolean; // emit en/de hreflang alternates (homepage variants only)
+}
+
+// Default rail = consistent site nav (every inner page). The homepage passes its own
+// section anchors so the rail doubles as in-page nav + scroll-spy there.
+const SITE_NAV: RailItem[] = [
+  { href: '/', name: 'home', label: 'Home' },
+  { href: '/gmail', name: 'mail', label: 'Setup' },
+  { href: '/providers', name: 'inbox', label: 'Providers' },
+  { href: '/compare', name: 'scale', label: 'Compare' },
+  { href: '/mcp', name: 'bot', label: 'Developers' },
+  { href: '/faq', name: 'help', label: 'FAQ' },
+];
+const NAV_LINKS: NavLink[] = [
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/compare', label: 'Compare' },
+  { href: '/mcp', label: 'Developers' },
+];
+
+const {
+  title,
+  description,
+  path = '/',
+  ogImage = '/og-image.jpg',
+  showRail = true,
+  railItems = SITE_NAV,
+  navLinks = NAV_LINKS,
+  ctaHref = '/gmail',
+  ctaLabel = 'Unsubscribe newsletters',
+  noindex = false,
+  hreflangHome = false,
+} = Astro.props;
+
+const site = 'https://dontmailme.org';
+const canonical = site + (path === '/' ? '/' : path);
+const lang = Astro.currentLocale ?? 'en';
+const curLang = currentLanguage(lang);
+// Rail chrome labels (localised; targets stay on the canonical EN pages — DE is a test locale).
+const ui = lang === 'de'
+  ? { menu: 'Menü', close: 'Schließen', about: 'Über', donate: 'Spenden', theme: 'Thema' }
+  : { menu: 'Menu', close: 'Close', about: 'About', donate: 'Donate', theme: 'Theme' };
+const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${path === '/' ? 'index' : path.replace(/^\//, '')}.astro`;
+---
+<!doctype html>
+<html lang={lang} data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f1117" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f7" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" type="text/markdown" href={path === '/' ? '/index.md' : path + '.md'} />
+  {hreflangHome && (
+    <>
+      <link rel="alternate" hreflang="en" href="https://dontmailme.org/" />
+      <link rel="alternate" hreflang="de" href="https://dontmailme.org/de" />
+      <link rel="alternate" hreflang="x-default" href="https://dontmailme.org/" />
+    </>
+  )}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={site + ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={site + ogImage} />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- No-flash: apply saved theme + rail state before first paint. -->
+  <script is:inline>
+    (function () {
+      try {
+        document.documentElement.setAttribute('data-theme', localStorage.getItem('sui_theme') || 'system');
+        if (localStorage.getItem('sui_rail') === 'open') document.documentElement.classList.add('rail-open');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'system');
+      }
+    })();
+  </script>
+
+  <slot name="head" />
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
+
+  {showRail && (
+    <>
+      <div class="nav-backdrop" data-nav-close aria-hidden="true"></div>
+      <aside class="rail" id="rail" aria-label="Navigation">
+        <button class="ri ri-toggle" type="button" data-rail-toggle aria-label="Expand sidebar" title="Expand sidebar" aria-expanded="false">
+          <Icon name="menu" /><span class="ri-lbl">{ui.menu}</span>
+        </button>
+        <button class="ri ri-close" type="button" data-nav-close aria-label={ui.close}>
+          <Icon name="close" /><span class="ri-lbl">{ui.close}</span>
+        </button>
+        <nav class="ri-nav" aria-label="Site">
+          {railItems.map((it) => (
+            <a class="ri" href={it.href} title={it.label} aria-label={it.label}>
+              <Icon name={it.name} /><span class="ri-lbl">{it.label}</span>
+            </a>
+          ))}
+        </nav>
+        <div class="ri-foot">
+          <a class="ri" href="/about" title={ui.about} aria-label={ui.about}>
+            <Icon name="info" /><span class="ri-lbl">{ui.about}</span>
+          </a>
+          <a class="ri" href="/impact" title={ui.donate} aria-label={ui.donate}>
+            <Icon name="heart" /><span class="ri-lbl">{ui.donate}</span>
+          </a>
+          <a class="ri" href="https://github.com/sein-io/dontmailme" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener">
+            <Icon name="github" /><span class="ri-lbl">GitHub</span>
+          </a>
+          <button class="ri ri-theme-drawer" type="button" data-theme-toggle aria-label="Switch colour theme">
+            <span class="ri-ico" data-theme-icon></span><span class="ri-lbl">{ui.theme}</span>
+          </button>
+          <div class="ri-langs">
+            {LANGUAGES.map((l) => (
+              <a class:list={['ri', { active: l.code === lang }]} href={l.href} hreflang={l.code} aria-current={l.code === lang ? 'true' : undefined}>
+                <span class="ri-code">{l.short}</span><span class="ri-lbl">{l.label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </>
+  )}
+
+  <div class="shell">
+    <header class="hdr" id="top">
+      <div class="hdr-wrap">
+        <div class="hdr-l">
+          {showRail && (
+            <button class="burger" type="button" data-nav-toggle aria-label="Open menu" aria-expanded="false" aria-controls="rail">
+              <Icon name="menu" />
+            </button>
+          )}
+          <a class="brand" href="/" aria-label="DontMailMe home">
+            <svg class="hdr-logo" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="21" rx="6" fill="#10b981"/><path d="M3 5 L12 13 L21 5" fill="none" stroke="#08120d" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><g fill="#08120d"><rect x="6" y="11" width="12" height="9" rx="4.5"/><rect x="7" y="5.5" width="2.5" height="7.5" rx="1.25"/><rect x="9.7" y="3.8" width="2.5" height="9.2" rx="1.25"/><rect x="12.4" y="4.3" width="2.5" height="8.7" rx="1.25"/><rect x="15.1" y="5.8" width="2.5" height="7.2" rx="1.25"/><rect x="4.2" y="11.2" width="2.4" height="5.8" rx="1.2" transform="rotate(-32 5.4 14)"/></g></svg>
+            <span class="hdr-name">Dont<span class="brand-ac">Mail</span>Me</span>
+            <span class="hdr-ver mono">v2.0</span>
+          </a>
+        </div>
+        <div class="hdr-r">
+          <details class="lang-menu">
+            <summary aria-label="Language">
+              <Icon name="globe" class="ic ic-sm" /><span class="lang-cur mono">{curLang.short}</span><Icon name="chevronDown" class="ic ic-xs" />
+            </summary>
+            <ul class="menu-list">
+              {LANGUAGES.map((l) => (
+                <li><a href={l.href} hreflang={l.code} aria-current={l.code === lang ? 'true' : undefined}>{l.label}</a></li>
+              ))}
+            </ul>
+          </details>
+          <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch colour theme"><span class="ri-ico" data-theme-icon></span></button>
+          <a href={ctaHref} class="btn btn-primary hdr-cta">{ctaLabel}</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="ft">
+      <div class="ft-col">
+        <h4>Set up</h4>
+        <a href="/gmail">Gmail</a>
+        <a href="/outlook">Outlook (Windows)</a>
+        <a href="/outlook#apple-mail">Apple Mail (macOS)</a>
+        <a href="/providers">All providers</a>
+      </div>
+      <div class="ft-col">
+        <h4>Learn</h4>
+        <a href="/how-it-works">How it works</a>
+        <a href="/compare">Compare tools</a>
+        <a href="/faq">FAQ</a>
+        <a href="/impact">Impact &amp; methodology</a>
+        <a href="/about">About</a>
+      </div>
+      <div class="ft-col">
+        <h4>For AI agents</h4>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/AGENTS.md">AGENTS.md</a>
+        <a href="/mcp">MCP server</a>
+        <a href="/gmail.gs">Raw Gmail script</a>
+      </div>
+      <div class="ft-col">
+        <h4>Project</h4>
+        <a href="https://github.com/sein-io/dontmailme" target="_blank" rel="noopener">GitHub (source)</a>
+        <a href="https://github.com/sein-io/dontmailme/issues/new/choose" target="_blank" rel="noopener">Report a bug</a>
+        <a href={editHref} target="_blank" rel="noopener">Improve this page</a>
+        <a href="https://github.com/sein-io/dontmailme/security/policy" target="_blank" rel="noopener">Security</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/imprint">Imprint</a>
+      </div>
+      <p class="ft-note">
+        <span>A SEIN initiative · open source, zero data access.</span>
+        <span class="mono">MIT · RFC&nbsp;8058</span>
+      </p>
+    </footer>
+  </div>
+
+  <script is:inline>
+    // Theme cycle + rail expand/collapse + scroll-spy + progress bar. No deps.
+    // is:inline + IIFE so it runs even when opened from file:// (ES modules are blocked there).
+    (function () {
+    const root = document.documentElement;
+
+    // ---- 3-state theme (system → light → dark) -------------------------------
+    const KEY = 'sui_theme';
+    const ORDER = ['system', 'light', 'dark'];
+    const ICONS = {
+      system: '<svg viewBox="0 0 24 24" class="ic"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+      light: '<svg viewBox="0 0 24 24" class="ic"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+      dark: '<svg viewBox="0 0 24 24" class="ic"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>',
+    };
+    const tLabels = {
+      system: 'Theme: system. Switch to light.',
+      light: 'Theme: light. Switch to dark.',
+      dark: 'Theme: dark. Switch to system.',
+    };
+    const toggles = Array.from(document.querySelectorAll('[data-theme-toggle]'));
+    function readTheme() {
+      try { const v = localStorage.getItem(KEY); return ORDER.includes(v) ? v : 'system'; } catch { return 'system'; }
+    }
+    function applyTheme(mode) {
+      root.setAttribute('data-theme', mode);
+      for (const btn of toggles) {
+        const ico = btn.querySelector('[data-theme-icon]');
+        if (ico) ico.innerHTML = ICONS[mode];
+        btn.setAttribute('aria-label', tLabels[mode]);
+        btn.setAttribute('title', tLabels[mode]);
+      }
+    }
+    let mode = readTheme();
+    applyTheme(mode);
+    for (const btn of toggles) {
+      btn.addEventListener('click', () => {
+        mode = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length];
+        try { localStorage.setItem(KEY, mode); } catch {}
+        applyTheme(mode);
+      });
+    }
+
+    // ---- Rail expand / collapse ---------------------------------------------
+    const railToggle = document.querySelector('[data-rail-toggle]');
+    function applyRail(open) {
+      root.classList.toggle('rail-open', open);
+      if (railToggle) {
+        railToggle.setAttribute('aria-expanded', String(open));
+        const lbl = open ? 'Collapse sidebar' : 'Expand sidebar';
+        railToggle.setAttribute('aria-label', lbl);
+        railToggle.setAttribute('title', lbl);
+      }
+    }
+    applyRail(root.classList.contains('rail-open'));
+    if (railToggle) {
+      railToggle.addEventListener('click', () => {
+        const open = !root.classList.contains('rail-open');
+        try { localStorage.setItem('sui_rail', open ? 'open' : 'closed'); } catch {}
+        applyRail(open);
+      });
+    }
+
+    // ---- Mobile nav drawer (burger toggles the rail as an overlay) ----------
+    function setNav(open) {
+      root.classList.toggle('nav-open', open);
+      const burger = document.querySelector('[data-nav-toggle]');
+      if (burger) burger.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    document.querySelectorAll('[data-nav-toggle]').forEach((b) =>
+      b.addEventListener('click', () => setNav(!root.classList.contains('nav-open'))));
+    document.querySelectorAll('[data-nav-close]').forEach((b) =>
+      b.addEventListener('click', () => setNav(false)));
+    document.querySelectorAll('.rail .ri-nav a').forEach((a) =>
+      a.addEventListener('click', () => setNav(false)));
+
+    // ---- Language menu: close on outside click / Escape ---------------------
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('.lang-menu[open]').forEach((m) => {
+        if (!m.contains(e.target)) m.removeAttribute('open');
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        setNav(false);
+        document.querySelectorAll('.lang-menu[open]').forEach((m) => m.removeAttribute('open'));
+      }
+    });
+
+    // ---- Scroll-spy (anchor rails only) -------------------------------------
+    const spies = Array.from(document.querySelectorAll('.rail .ri[href^="#"]'))
+      .map((a) => ({ a, el: document.querySelector(a.getAttribute('href') || '') }))
+      .filter((s) => s.el);
+
+    // ---- Progress bar -------------------------------------------------------
+    const bar = document.getElementById('progress');
+    function onScroll() {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      if (bar) bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+      if (spies.length) {
+        const y = window.scrollY + window.innerHeight * 0.35;
+        let active = null;
+        for (const s of spies) if (s.el && s.el.offsetTop <= y) active = s;
+        for (const s of spies) s.a.classList.toggle('active', s === active);
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+    // Motion policy (v2.5): interaction + one-shot load only. No scroll-triggered reveals.
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,432 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+
+const title = 'Auto-Unsubscribe From All Newsletters — Free, Open-Source, Zero-Data | DontMailMe';
+const description =
+  'Reach inbox zero and keep it there. DontMailMe auto-unsubscribes you from newsletters you never read — your inbox never passes through our servers. Run the open-source script yourself for true zero-data, or connect in one click. RFC 8058, agent-ready, plants trees.';
+
+// Native setup tracks + Tier-A providers (honest status). Full directory: roadmap.
+const nativeProviders = ['Gmail', 'Outlook', 'Apple Mail'];
+const tierA = ['iCloud', 'Yahoo', 'Fastmail', 'Proton', 'GMX', 'Web.de', 'Posteo', 'Mailbox.org'];
+
+const faqs = [
+  {
+    q: 'How do I unsubscribe from all newsletters at once?',
+    a: 'Instead of clicking unsubscribe on every email, DontMailMe generates a script that runs inside your own Gmail or Outlook. It reads each newsletter\'s official <code class="inline-code">List-Unsubscribe</code> header and sends the one-click request for you, automatically. Setup takes about three minutes.',
+  },
+  {
+    q: 'Can DontMailMe read my emails?',
+    a: 'No. On the <strong>run-it-yourself</strong> path there is no server in the loop at all — the script runs entirely inside your own account, so your email and login never reach us (we call this <strong>zero-data by design</strong>). On the <strong>one-click</strong> path the work runs in your browser, so your mailbox and token still never reach our servers. The code is open source either way — verify it yourself.',
+  },
+  {
+    q: 'Is it free?',
+    a: 'Completely. DontMailMe is open source (MIT) and funded by pay-what-you-want donations. Half of every donation plants trees through One Tree Planted. You never have to pay to use it.',
+  },
+  {
+    q: 'Is it safe to unsubscribe this way?',
+    a: 'Yes — safer than clicking. The script only uses the authenticated RFC 8058 <code class="inline-code">List-Unsubscribe-Post</code> header; it never clicks links in the email body, so it can\'t be lured to a tracking or phishing page. <a href="/how-it-works">See how it works</a>.',
+  },
+  {
+    q: 'Is Unroll.me safe? Is there a private alternative?',
+    a: 'Unroll.me settled FTC allegations that it misled users about sharing data derived from their inboxes, and it geo-blocks the EU. DontMailMe is the private, open-source alternative: it runs in your own cloud and never sees your data. <a href="/compare">Compare them side by side</a>.',
+  },
+  {
+    q: 'Can an AI assistant set this up for me?',
+    a: 'Yes. The scripts are exposed as plain-text endpoints (<a href="/gmail.gs"><code class="inline-code">/gmail.gs</code></a>, <a href="/outlook.ps1"><code class="inline-code">/outlook.ps1</code></a>) and there is an agent runbook at <a href="/AGENTS.md"><code class="inline-code">/AGENTS.md</code></a>, plus a real MCP server, so an agent can fetch and run the script directly.',
+  },
+];
+
+const repo = 'https://github.com/sein-io/dontmailme';
+const contribute = {
+  provider: `${repo}/issues/new?template=add_provider.yml`,
+  translation: `${repo}/issues/new?template=feature_request.yml`,
+  edit: `${repo}/edit/main/src/pages/index.astro`,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://dontmailme.org/#org',
+      name: 'DontMailMe',
+      url: 'https://dontmailme.org/',
+      logo: 'https://dontmailme.org/favicon.svg',
+      description:
+        'Free, open-source tool that auto-unsubscribes you from newsletters using the RFC 8058 standard, running entirely inside your own cloud.',
+      sameAs: ['https://github.com/sein-io/dontmailme'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://dontmailme.org/#website',
+      name: 'DontMailMe',
+      url: 'https://dontmailme.org/',
+      publisher: { '@id': 'https://dontmailme.org/#org' },
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'DontMailMe',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web-based (Gmail, Outlook, Apple Mail)',
+      url: 'https://dontmailme.org/',
+      description:
+        'Auto-unsubscribe from newsletters you never read. A free, open-source script that runs inside your own Google or Microsoft account using the RFC 8058 one-click unsubscribe standard — our servers never see your email.',
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+      featureList: [
+        'Automatic one-click unsubscribe (RFC 8058)',
+        'Runs in your own cloud — zero data access',
+        'Open source and auditable',
+        'Works with Gmail, Outlook and Apple Mail',
+        'Agent-ready: MCP server, AGENTS.md, raw scripts',
+        'Plants trees and tracks CO2 saved',
+      ],
+      license: 'https://opensource.org/licenses/MIT',
+      publisher: { '@id': 'https://dontmailme.org/#org' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, '') },
+      })),
+    },
+  ],
+};
+---
+<Base
+  title={title}
+  description={description}
+  path="/"
+  ctaHref="#how"
+  hreflangHome={true}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <!-- ===================== Hero ===================== -->
+  <section class="hero">
+    <p class="eyebrow"><span class="dot"></span> Better than delete</p>
+    <h1>Unsubscribe <span class="accent">what you never read.</span></h1>
+    <p class="hero-sub">
+      Deleting the same newsletter every week is a chore that never ends. DontMailMe stops the ones you
+      ignore at the source — inside <strong>your own</strong> Gmail or Outlook account. The ones you want stay.
+    </p>
+    <div class="hero-cta">
+      <a href="#choose" class="btn btn-primary btn-lg">Unsubscribe newsletters</a>
+      <a href="/gmail.gs" class="btn btn-lg">Read the source <Icon name="arrow" /></a>
+    </div>
+    <div class="hero-meta">
+      <span><span class="dot"></span> No account, no card</span>
+      <span><span class="dot"></span> Open-source &amp; auditable</span>
+      <span><span class="dot"></span> RFC 8058 one-click</span>
+      <span><span class="dot"></span> Gmail · Outlook · Apple Mail</span>
+    </div>
+  </section>
+
+  <!-- ===================== The fork (security ↔ convenience) ===================== -->
+  <section class="sec" id="choose">
+    <div class="sec-h">
+      <p class="sec-q">YOUR <span class="q">CHOICE</span></p>
+      <h2 class="sec-t">Two ways to stop the mail — you decide who to trust.</h2>
+      <p class="sec-sub">Same result: the newsletters stop. The only difference is how much you hand over. Pick the one that fits you.</p>
+    </div>
+    <div class="fork">
+      <article class="fork-card fork-a">
+        <div class="fork-head">
+          <span class="fork-badge badge-zero"><Icon name="lock" /> Zero-data</span>
+          <span class="fork-tag fork-rec">Recommended</span>
+        </div>
+        <h3 class="fork-t">Run it yourself</h3>
+        <p class="fork-p">Copy a short, open script into your own account and run it. There is no DontMailMe server in the loop — nothing about your mail ever reaches us, and we're not named on any login screen. Maximum privacy.</p>
+        <ul class="fork-list">
+          <li>Reads only the unsubscribe header — never the message</li>
+          <li>Confirms each unsubscribe and retries</li>
+          <li>~140 lines you read before you run</li>
+        </ul>
+        <a href="/gmail" class="btn btn-primary">Set it up — ~3 min</a>
+      </article>
+      <article class="fork-card fork-b">
+        <div class="fork-head">
+          <span class="fork-badge badge-browser"><Icon name="bot" /> Never on our servers</span>
+          <span class="fork-tag fork-soon">In the works</span>
+        </div>
+        <h3 class="fork-t">Connect in one click</h3>
+        <p class="fork-p">Sign in with Google or Microsoft and the whole job runs inside your browser tab, talking straight to your provider. Your login and your mailbox never reach our servers — and you can revoke access anytime. Maximum convenience.</p>
+        <ul class="fork-list">
+          <li>No code to copy or paste</li>
+          <li>Runs in your browser, not ours</li>
+          <li>Sends each unsubscribe — your browser can't read the reply back</li>
+          <li>One-click to revoke, anytime</li>
+        </ul>
+        <a href="#trust" class="btn">See how it'll work <Icon name="arrow" /></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== The proof (honest architecture diagram) ===================== -->
+  <section class="sec" id="trust">
+    <div class="sec-h">
+      <p class="sec-q">SEE IT FOR <span class="q">YOURSELF</span></p>
+      <h2 class="sec-t">Your inbox never passes through us. Follow the path.</h2>
+      <p class="sec-sub">Not a privacy <em>policy</em> — a data <em>path</em>. On both routes, our server sits outside it, crossed out.</p>
+    </div>
+    <div class="dpaths" data-trace>
+      <div class="dpath">
+        <span class="dpath-lbl"><span class="fork-badge badge-zero">Zero-data</span> Run it yourself</span>
+        <div class="dflow">
+          <span class="dnode">You</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode">Your Google / Apple / Microsoft account</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode dnode-end">The sender's unsubscribe endpoint</span>
+        </div>
+        <p class="dserver"><Icon name="close" /> DontMailMe server — never in the loop</p>
+      </div>
+      <div class="dpath">
+        <span class="dpath-lbl"><span class="fork-badge badge-browser">Never on our servers</span> Connect in one click</span>
+        <div class="dflow">
+          <span class="dnode">Your browser</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode">Google / Microsoft</span>
+          <span class="dconn" aria-hidden="true"></span>
+          <span class="dnode dnode-end">The sender's unsubscribe endpoint</span>
+        </div>
+        <p class="dserver"><Icon name="close" /> DontMailMe server — never sees your token or your mail</p>
+      </div>
+    </div>
+    <div class="dcols">
+      <div class="dcol dcol-do">
+        <h3>What it reads</h3>
+        <ul>
+          <li>The <code>List-Unsubscribe</code> header — the unsubscribe link, nothing else</li>
+          <li>A sender's name and how many they sent</li>
+        </ul>
+      </div>
+      <div class="dcol dcol-dont">
+        <h3>What it never touches</h3>
+        <ul>
+          <li>The contents of your emails</li>
+          <li>Your contacts, attachments, or anything you wrote</li>
+          <li>Your mailbox or token, on any server of ours</li>
+        </ul>
+      </div>
+    </div>
+    <p class="dverify"><Icon name="github" /> Don't take our word for it — <a href={repo}>read every line on GitHub</a>. MIT-licensed, no asterisks.</p>
+  </section>
+
+  <!-- ===================== How it works ===================== -->
+  <section class="sec" id="how">
+    <div class="sec-h">
+      <p class="sec-q">HOW IT <span class="q">WORKS</span></p>
+      <h2 class="sec-t">Three steps, then it runs itself.</h2>
+      <p class="sec-sub">No app to install, no account to create, no inbox access to grant a stranger.</p>
+    </div>
+    <ol class="steps">
+      <li>
+        <span class="step-n mono">01</span>
+        <div>
+          <h3 class="step-t">Copy</h3>
+          <p class="step-p">We generate a small script for your mail provider — ready to paste, with any senders you want to keep.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-n mono">02</span>
+        <div>
+          <h3 class="step-t">Paste</h3>
+          <p class="step-p">It runs in Google Apps Script (Gmail) or on your desktop (Outlook / Apple Mail). Paste, then run the test once to see what it would do.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-n mono">03</span>
+        <div>
+          <h3 class="step-t">Done</h3>
+          <p class="step-p">The script sends the official one-click unsubscribe for each junk newsletter and tidies your inbox. Set it once.</p>
+        </div>
+      </li>
+    </ol>
+    <div class="hero-cta" style="margin-block-start: 24px;">
+      <a href="/gmail" class="btn btn-primary">Set up Gmail</a>
+      <a href="/outlook" class="btn">Outlook &amp; Apple Mail</a>
+    </div>
+  </section>
+
+  <!-- ===================== Providers ===================== -->
+  <section class="sec" id="providers">
+    <div class="sec-h">
+      <p class="sec-q">YOUR <span class="q">PROVIDER</span></p>
+      <h2 class="sec-t">Works with the mail you already use.</h2>
+      <p class="sec-sub">Native setup tracks today; honest status badges as coverage grows.</p>
+    </div>
+    <div class="providers">
+      {nativeProviders.map((p) => (
+        <span class="prov"><Icon name="inbox" /> {p} <span class="tier">NATIVE</span></span>
+      ))}
+      {tierA.map((p) => (
+        <span class="prov">{p} <span class="tier b">IMAP · soon</span></span>
+      ))}
+    </div>
+    <p class="prov-note">
+      A single open-source IMAP tool (zero-data, runs on your machine) will add iCloud, Yahoo, GMX, Web.de,
+      Posteo, Mailbox.org and more. <a href="/providers">See all providers &amp; status →</a>
+    </p>
+  </section>
+
+  <!-- ===================== Compare ===================== -->
+  <section class="sec" id="compare">
+    <div class="sec-h">
+      <p class="sec-q">THE <span class="q">ALTERNATIVE</span></p>
+      <h2 class="sec-t">The open, private alternative to Unroll.me &amp; Cleanfox.</h2>
+      <p class="sec-sub">Most unsubscribe tools are free because you are the product, or paid because privacy is sold back to you. DontMailMe is neither.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="compare">
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">Capability</span></th>
+            <th scope="col" class="us">DontMailMe</th>
+            <th scope="col">Unroll.me</th>
+            <th scope="col">Cleanfox</th>
+            <th scope="col">Leave Me Alone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Open source (auditable)</th><td class="us yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row">Inbox never leaves your own cloud</th><td class="us yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row">Sells / monetizes inbox data</th><td class="us yes">No</td><td>Yes¹</td><td>Yes²</td><td class="no">No</td></tr>
+          <tr><th scope="row">Official RFC 8058 one-click</th><td class="us yes">Yes</td><td class="no">n/a</td><td class="no">n/a</td><td class="no">n/a</td></tr>
+          <tr><th scope="row">Agent / MCP-ready</th><td class="us yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row">Available in the EU</th><td class="us yes">Yes</td><td class="no">No³</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th scope="row">Price</th><td class="us yes">Free (PWYW)</td><td>Free</td><td>Free</td><td>Paid</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="compare-foot">
+      ¹ In 2019 Unroll.me settled U.S. FTC allegations that it deceived users while its parent monetized
+      inbox-derived data (neither admitted nor denied). ² Cleanfox is operated by Foxintelligence (now part of
+      NielsenIQ), which monetizes anonymized inbox-derived data. ³ Unroll.me geo-blocks the EU/EEA.
+      <a href="/compare">Full, sourced comparison →</a>
+    </p>
+  </section>
+
+  <!-- ===================== Impact ===================== -->
+  <section class="sec" id="impact">
+    <div class="sec-h">
+      <p class="sec-q">THE <span class="q">BONUS</span></p>
+      <h2 class="sec-t">See what one cleanup keeps saving.</h2>
+      <p class="sec-sub">Transparent assumptions, sourced on the <a href="/impact">methodology page</a>. The good part rides along for free.</p>
+    </div>
+    <div class="calc">
+      <div class="calc-field">
+        <label for="unsub-slider">Newsletters you unsubscribe from: <span class="val" id="unsub-val">20</span></label>
+        <input type="range" id="unsub-slider" min="1" max="100" value="20" step="1"
+          aria-describedby="calc-metrics" />
+      </div>
+      <output id="calc-metrics" class="calc-metrics" aria-live="polite">
+        <div class="metric"><span class="m-val tnum" id="out-emails">2,080</span><span class="m-lbl">emails you never receive / year</span></div>
+        <div class="metric"><span class="m-val tnum" id="out-co2">8.3</span><span class="m-lbl">kg CO₂e prevented / year</span></div>
+        <div class="metric"><span class="m-val tnum" id="out-car">52</span><span class="m-lbl">km of driving avoided</span></div>
+      </output>
+    </div>
+    <p class="prov-note"><a href="/impact">See the full impact, the honest methodology — and support it →</a></p>
+  </section>
+
+  <!-- ===================== Developers ===================== -->
+  <section class="sec" id="developers">
+    <div class="sec-h">
+      <p class="sec-q">FOR YOUR <span class="q">AI</span></p>
+      <h2 class="sec-t">Your AI assistant can set it up, too.</h2>
+      <p class="sec-sub">A reliable, standards-based path for agents — not fragile web UIs. The whole job is one authenticated request: no body parsing, no link clicking.</p>
+    </div>
+    <div class="dev-grid">
+      <div class="code-card" aria-hidden="false">
+        <div class="code-head mono"><span class="d"></span><span class="d"></span><span class="d"></span> gmail.gs</div>
+        <pre class="code-body"><code><span class="c">// RFC 8058 one-click — only on the DKIM-signed header</span>
+UrlFetchApp.<span class="k">fetch</span>(postUrl, &#123;
+  method: <span class="k">'post'</span>,
+  contentType: <span class="k">'application/x-www-form-urlencoded'</span>,
+  payload: <span class="k">'List-Unsubscribe=One-Click'</span>
+&#125;);</code></pre>
+      </div>
+      <ul class="dev-links">
+        <li><Icon name="code" /> <a href="/gmail.gs"><code>/gmail.gs</code></a> · <a href="/outlook.ps1"><code>/outlook.ps1</code></a></li>
+        <li><Icon name="book" /> <a href="/AGENTS.md"><code>AGENTS.md</code></a> — a numbered runbook</li>
+        <li><Icon name="list" /> <a href="/llms.txt"><code>llms.txt</code></a> — machine index</li>
+        <li><Icon name="bot" /> <a href="/mcp"><code>MCP server</code></a> — call it as a tool</li>
+        <li><span class="inline-code">npx -y @sein-io/dontmailme-mcp</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="sec" id="faq">
+    <div class="sec-h">
+      <div class="sec-lbl mono">07 · FAQ</div>
+      <h2 class="sec-t">The things people ask before trusting a tool with their inbox.</h2>
+    </div>
+    <div class="faq">
+      {faqs.map((f) => (
+        <details class="faq-item">
+          <summary>{f.q}</summary>
+          <div class="answer" set:html={f.a}></div>
+        </details>
+      ))}
+    </div>
+    <p class="prov-note"><a href="/faq">Read all FAQs →</a></p>
+  </section>
+
+  <!-- ===================== CTA + contribute ===================== -->
+  <section class="cta">
+    <h2>Stop the inflow at the source.</h2>
+    <p>Free, open-source, and your inbox never passes through our servers. Set it once — your inbox stays clean.</p>
+    <div class="cta-row">
+      <a href="/gmail" class="btn btn-primary btn-lg">Set up Gmail — ~3 min</a>
+      <a href="/gmail.gs" class="btn btn-lg">Read the source <Icon name="arrow" /></a>
+    </div>
+    <div class="cta-row" style="margin-block-start: 20px;">
+      <a href={contribute.provider} class="btn" target="_blank" rel="noopener">Add a provider</a>
+      <a href={contribute.translation} class="btn" target="_blank" rel="noopener">Add a translation</a>
+      <a href={contribute.edit} class="btn" target="_blank" rel="noopener">Improve this page</a>
+    </div>
+  </section>
+
+  <script is:inline>
+    // Impact calculator. Constants MUST match mcp/src/tools.ts and the /impact page.
+    //   104 emails/yr per newsletter · 4 g CO2e/email · 0.16 kg CO2e/car-km
+    (function () {
+    const EMAILS_PER_NEWSLETTER_YEAR = 104;
+    const KG_CO2_PER_EMAIL = 0.004;
+    const KG_CO2_PER_CAR_KM = 0.16;
+
+    const $ = (id) => document.getElementById(id);
+    const unsub = $('unsub-slider');
+
+    function updateUnsub() {
+      if (!unsub) return;
+      const n = parseInt(unsub.value, 10);
+      const emails = n * EMAILS_PER_NEWSLETTER_YEAR;
+      const co2 = emails * KG_CO2_PER_EMAIL;
+      $('unsub-val').textContent = String(n);
+      $('out-emails').textContent = emails.toLocaleString('en-US');
+      $('out-co2').textContent = co2.toFixed(1);
+      $('out-car').textContent = String(Math.round(co2 / KG_CO2_PER_CAR_KM));
+    }
+    if (unsub) { unsub.addEventListener('input', updateUnsub); updateUnsub(); }
+
+    // Proof diagram: reveal the two data paths once on entering the viewport, then rest.
+    // Progressive enhancement — only arms when motion is allowed; otherwise stays fully visible.
+    const trace = document.querySelector('[data-trace]');
+    if (trace && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      trace.classList.add('armed');
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { trace.classList.add('traced'); io.disconnect(); }
+      }, { threshold: 0.35 });
+      io.observe(trace);
+    }
+    })();
+  </script>
+</Base>
