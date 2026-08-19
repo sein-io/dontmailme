@@ -10,7 +10,8 @@ const SETUP_URL = {
   "apple-mail": `${SITE}/outlook.md`, // macOS AppleScript lives in the Outlook page
 } as const;
 
-// Impact constants — MUST match dontmailme.org/calculator.js
+// Impact constants — MUST match the calculator in src/pages/index.astro and the
+// methodology prose in src/pages/impact.astro.
 const EMAILS_PER_NEWSLETTER_YEAR = 104;
 const KG_CO2_PER_EMAIL = 0.004;
 const KG_CO2_PER_CAR_KM = 0.16;

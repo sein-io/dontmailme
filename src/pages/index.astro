@@ -1,14 +1,19 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import { providers } from '../data/providers';
 
 const title = 'Auto-Unsubscribe From All Newsletters — Free, Open-Source, Zero-Data | DontMailMe';
 const description =
   'Reach inbox zero and keep it there. DontMailMe auto-unsubscribes you from newsletters you never read — your inbox never passes through our servers. Run the open-source script yourself for true zero-data, or connect in one click. RFC 8058, agent-ready, plants trees.';
 
 // Native setup tracks + Tier-A providers (honest status). Full directory: roadmap.
+// Tier A is derived from providers.yaml so the chips can't drift from the source of truth —
+// they all share one badge, so only providers on the same plain app-password path belong here.
 const nativeProviders = ['Gmail', 'Outlook', 'Apple Mail'];
-const tierA = ['iCloud', 'Yahoo', 'Fastmail', 'Proton', 'GMX', 'Web.de', 'Posteo', 'Mailbox.org'];
+const tierA = providers
+  .filter((p) => p.tier === 'A' && p.status === 'planned')
+  .map((p) => p.name.replace(/ Mail$/, ''));
 
 const faqs = [
   {

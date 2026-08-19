@@ -17,7 +17,7 @@ Most unsubscribe tools are free because *you* are the product, or paid because p
 ## The honest version
 
 - **Unroll.me and Cleanfox** are free because their parent businesses (Slice/Rakuten Intelligence and Foxintelligence, both now part of NielsenIQ since 2021) have monetized anonymized data derived from users' inboxes. In 2019 Unroll.me settled U.S. FTC allegations that it deceived users about sharing inbox-derived data (it neither admitted nor denied the allegations), and Unroll.me now geo-blocks the EU/EEA rather than comply with GDPR.
-- **Leave Me Alone and Clean Email** are genuinely privacy-minded paid options — but still closed-source services that process your inbox on their servers, for $19–$100/year. DontMailMe gives the same privacy goal as an architecture, not a promise.
+- **Leave Me Alone and Clean Email** are genuinely privacy-minded paid options — but still closed-source services that process your inbox on their servers, for a recurring subscription fee. DontMailMe gives the same privacy goal as an architecture, not a promise.
 - **Mailstrom** is a capable paid bulk manager with its own AI features, but offers no interface for the AI agents that increasingly do this work.
 - **Gmail's built-in "Manage subscriptions"** (July 2025) is manual, one sender at a time, Gmail-only, and Google sees everything. DontMailMe is set-and-forget, cross-client, and keeps your data out of anyone's hands.
 
