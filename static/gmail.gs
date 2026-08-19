@@ -2,6 +2,9 @@
  * DontMailMe — Gmail auto-unsubscribe script (https://dontmailme.org/gmail)
  * Free & open source (MIT). Runs entirely inside YOUR Google account.
  * Method: RFC 8058 one-click unsubscribe. We never see your data.
+ * Senders that offer one-click are unsubscribed and their mail is deleted. Authenticated
+ * senders without one-click only get a plain request — that cannot be confirmed, so their
+ * mail is kept and marked read instead of deleted.
  *
  * SETUP (humans: https://dontmailme.org/gmail · agents: https://dontmailme.org/AGENTS.md)
  *   1. Open https://script.google.com and click "New project".
@@ -42,8 +45,10 @@ function processEmails(isDryRun) {
     const defaultQuery = 'is:unread (category:promotions OR list:unsubscribe)';
     const query = CUSTOM_QUERY || defaultQuery;
     const threads = GmailApp.search(query, 0, 50);
-    let processedCount = 0;
-    const processedSenders = [];
+    let confirmedCount = 0;
+    let requestedCount = 0;
+    const confirmedSenders = [];
+    const attemptedSenders = [];
 
     for (let i = 0; i < threads.length; i++) {
         const messages = threads[i].getMessages();
@@ -59,9 +64,17 @@ function processEmails(isDryRun) {
             const isWhitelisted = ALLOWED_SENDERS.some(function(s) { return email === s.toLowerCase(); });
             if (isWhitelisted) continue;
 
-            if (processedSenders.indexOf(email) !== -1) {
+            // Same sender, later message: only clear it out once the unsubscribe was confirmed.
+            if (confirmedSenders.indexOf(email) !== -1) {
                 if (!isDryRun) {
                     try { Gmail.Users.Messages.trash('me', id); } catch (e) {}
+                }
+                continue;
+            }
+
+            if (attemptedSenders.indexOf(email) !== -1) {
+                if (!isDryRun) {
+                    try { message.markRead(); } catch (e) {}
                 }
                 continue;
             }
@@ -97,16 +110,21 @@ function processEmails(isDryRun) {
                 if (!supportsOneClick && !isAuthenticated) continue;
 
                 if (isDryRun) {
-                    const method = supportsOneClick ? 'POST' : 'GET';
-                    Logger.log('WILL UNSUBSCRIBE [' + method + ']: ' + email);
-                    processedSenders.push(email);
-                    processedCount++;
+                    if (supportsOneClick) {
+                        Logger.log('WILL UNSUBSCRIBE + DELETE [one-click]: ' + email);
+                        confirmedSenders.push(email);
+                        confirmedCount++;
+                    } else {
+                        Logger.log('WILL REQUEST, KEEP MAIL [legacy, unconfirmable]: ' + email);
+                        attemptedSenders.push(email);
+                        requestedCount++;
+                    }
                     continue;
                 }
 
-                let success = false;
-
                 if (supportsOneClick) {
+                    // RFC 8058: the sender's endpoint answers the POST itself, so a 2xx/3xx
+                    // really means "unsubscribed". Only then is deleting the mail safe.
                     const response = UrlFetchApp.fetch(postUrl, {
                         method: 'post',
                         contentType: 'application/x-www-form-urlencoded',
@@ -115,25 +133,30 @@ function processEmails(isDryRun) {
                         followRedirects: true
                     });
                     const code = response.getResponseCode();
-                    if (code >= 200 && code < 400) success = true;
+                    if (code >= 200 && code < 400) {
+                        Gmail.Users.Messages.trash('me', id);
+                        confirmedSenders.push(email);
+                        confirmedCount++;
+                    }
                 } else {
-                    const response = UrlFetchApp.fetch(postUrl, {
+                    // Legacy sender without one-click: a GET can only *request* removal. A 200 here
+                    // means "here is a page" — usually one with a confirm button — never "you are
+                    // unsubscribed". Deleting on that signal would bin the mail while the
+                    // subscription lives on, so the message is kept and just marked read.
+                    UrlFetchApp.fetch(postUrl, {
                         method: 'get',
                         muteHttpExceptions: true,
                         followRedirects: true
                     });
-                    const code = response.getResponseCode();
-                    if (code >= 200 && code < 400) success = true;
-                }
-
-                if (success) {
-                    Gmail.Users.Messages.trash('me', id);
-                    processedSenders.push(email);
-                    processedCount++;
+                    message.markRead();
+                    attemptedSenders.push(email);
+                    requestedCount++;
+                    Logger.log('Requested (unconfirmed, mail kept): ' + email + ' → ' + postUrl);
                 }
             } catch (e) {}
         }
     }
 
-    Logger.log('Processed unique senders: ' + processedCount);
+    Logger.log('Unsubscribed and deleted (confirmed): ' + confirmedCount);
+    Logger.log('Requested but unconfirmed (mail kept, marked read): ' + requestedCount);
 }

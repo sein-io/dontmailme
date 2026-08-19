@@ -15,3 +15,6 @@ dist/
 
 # Astro build output (the deployable site — run `npm run build` to regenerate, then upload it)
 public/
+
+# Playwright MCP scratch output
+.playwright-mcp/

@@ -26,8 +26,8 @@
 ## ✨ Why DontMailMe
 
 - 🔒 **Zero-data by design** — there's no server in the loop, so we *can't* see, store, or sell your email. Not a privacy *policy* — an *architecture*.
-- 📖 **Open source (MIT)** — it's ~120 lines you can read before you run them. Don't trust us; verify the code.
-- ✅ **Safe by standard** — uses the authenticated RFC 8058 `List-Unsubscribe-Post` header. It never clicks links in the email body, so it can't be lured to a tracking or phishing page.
+- 📖 **Open source (MIT)** — it's ~160 lines you can read before you run them. Don't trust us; verify the code.
+- ✅ **Safe by standard** — it only contacts the unsubscribe address the sender published in the message header, using the authenticated RFC 8058 `List-Unsubscribe-Post` request where one-click is supported. It never clicks links in the email body, so it can't be lured to a tracking or phishing page. Mail is deleted only after a *confirmed* unsubscribe.
 - 🤖 **Built for humans *and* their AI agents** — ships machine-readable scripts so an assistant can set it up for you instead of fumbling through a web UI.
 - 🆓 **Free, pay-what-you-want** — half of any donation plants a tree via One Tree Planted. The tool is 100% free either way.
 - 🇪🇺 **Works everywhere, including the EU** — no GDPR geo-block.
@@ -44,7 +44,7 @@ Pick your mail client — full visual guides on **[dontmailme.org](https://dontm
 4. Run **`testDryRun`** and check the log — it shows exactly what *would* be unsubscribed. Nothing changes yet.
 5. Run **`installTrigger`** once. Your inbox now cleans itself every 15 minutes.
 
-> The entire thing it does to each newsletter is this one authenticated request — no body parsing, no link clicking:
+> For a one-click sender, this single authenticated request is the whole job — no body parsing, no link clicking. (An authenticated sender that offers no one-click gets a plain request to the same header address instead; that can't be confirmed, so its mail is kept rather than deleted.)
 >
 > ```js
 > // RFC 8058 one-click unsubscribe — only on the DKIM-signed header

@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     q: 'Is it safe to unsubscribe this way?',
-    a: 'Yes — safer than clicking. The script only uses the authenticated RFC 8058 <code class="inline-code">List-Unsubscribe-Post</code> header; it never clicks links in the email body, so it can\'t be lured to a tracking or phishing page. <a href="/how-it-works">See how it works</a>.',
+    a: 'Yes — safer than clicking. The script only ever contacts the unsubscribe address the sender published in the message header, never a link from the email body, so it can\'t be lured to a tracking or phishing page. Senders that support RFC 8058 one-click are confirmed and their mail is deleted; the rest only get a plain request and their mail is kept. <a href="/how-it-works">See how it works</a>.',
   },
   {
     q: 'Is Unroll.me safe? Is there a private alternative?',
@@ -101,7 +101,7 @@ const jsonLd = {
   title={title}
   description={description}
   path="/"
-  ctaHref="#how"
+  ctaHref="#choose"
   hreflangHome={true}
 >
   <Fragment slot="head">
@@ -145,8 +145,8 @@ const jsonLd = {
         <p class="fork-p">Copy a short, open script into your own account and run it. There is no DontMailMe server in the loop — nothing about your mail ever reaches us, and we're not named on any login screen. Maximum privacy.</p>
         <ul class="fork-list">
           <li>Reads only the unsubscribe header — never the message</li>
-          <li>Confirms each unsubscribe and retries</li>
-          <li>~140 lines you read before you run</li>
+          <li>Deletes a mail only once the unsubscribe is confirmed</li>
+          <li>~160 lines you read before you run</li>
         </ul>
         <a href="/gmail" class="btn btn-primary">Set it up — ~3 min</a>
       </article>

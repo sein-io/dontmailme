@@ -25,7 +25,7 @@ const repo = 'https://github.com/sein-io/dontmailme';
 
       <h2>Zero-data, as specifics — not slogans</h2>
       <ul>
-        <li>It acts only on the authenticated <a href="https://www.rfc-editor.org/rfc/rfc8058.html" target="_blank" rel="noopener noreferrer">RFC&nbsp;8058</a> <code>List-Unsubscribe-Post</code> header — never links in the message body, so it can't be lured to a tracking or phishing page.</li>
+        <li>It acts only on the unsubscribe address a sender published in the message header — using the authenticated <a href="https://www.rfc-editor.org/rfc/rfc8058.html" target="_blank" rel="noopener noreferrer">RFC&nbsp;8058</a> <code>List-Unsubscribe-Post</code> request where one-click is offered — never links in the message body, so it can't be lured to a tracking or phishing page.</li>
         <li>The self-run path has no backend at all. The planned browser path keeps your token and your inbox inside the tab.</li>
         <li>It's open source under MIT — read every line before you run it. <a href={repo}>See the code on GitHub →</a></li>
         <li>No cookies, no analytics, no trackers on this site. <a href="/privacy">Read the privacy page →</a></li>

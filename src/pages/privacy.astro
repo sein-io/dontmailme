@@ -48,8 +48,8 @@ const breadcrumb = {
       </section>
 
       <section class="info">
-        <h2>4. Local Fonts</h2>
-        <p>To protect your privacy, we self-host all web fonts locally on our own server. No connection is made to Google servers, meaning your IP address is not transmitted to Google for font rendering.</p>
+        <h2>4. Fonts</h2>
+        <p>This site uses the fonts already installed on your device (system fonts). No web fonts are downloaded, so no request is made to Google Fonts or any other font provider, and your IP address is never transmitted for font rendering.</p>
       </section>
 
       <section class="info">
@@ -58,7 +58,17 @@ const breadcrumb = {
       </section>
 
       <section class="info">
-        <h2>6. Your Rights under the GDPR</h2>
+        <h2>6. Donations (Stripe)</h2>
+        <p>Donating is entirely optional and the tool is free without it. If you choose to donate, the “Chip in” button sends you to a payment page hosted by Stripe (Stripe Payments Europe, Ltd., 1 Grand Canal Street Lower, Dublin, Ireland). The entire payment happens on Stripe's own site: we never see, collect, or store your card details, and we receive no payment data beyond what we need to know that a donation arrived. Stripe processes your data under its own <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>. Legal basis: Art. 6 (1) (b) GDPR (performance of a contract).</p>
+      </section>
+
+      <section class="info">
+        <h2>7. Live Tree Counter (Cloudflare Worker)</h2>
+        <p>The <a href="/impact">Impact page</a> — and only that page — fetches a single number (the total count of trees planted so far) from a Cloudflare Worker we operate at <code>dontmailme-api.late-sound-79c8.workers.dev</code>. The request is read-only and anonymous: it carries no identifier, no cookie, and nothing about you or your mail. As with any HTTP request, Cloudflare processes technical connection data such as your IP address to deliver the response; we do not store it or build profiles from it. Legal basis: our legitimate interest (Art. 6 (1) (f) GDPR) in showing an honest, live impact figure.</p>
+      </section>
+
+      <section class="info">
+        <h2>8. Your Rights under the GDPR</h2>
         <p>You have the right to request information about your stored personal data (Art. 15 GDPR), request correction (Art. 16 GDPR), request deletion (Art. 17 GDPR), or restrict processing (Art. 18 GDPR). You also have the right to data portability (Art. 20 GDPR) and the right to object to processing (Art. 21 GDPR).</p>
         <p><strong>Right to complain:</strong> If you believe that the processing of your data violates data protection laws, you have the right to lodge a complaint with a supervisory authority (Art. 77 GDPR).</p>
       </section>

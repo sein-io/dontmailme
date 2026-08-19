@@ -1,5 +1,7 @@
 ---
 import '../styles/main.css';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import Icon from '../components/Icon.astro';
 import { LANGUAGES, currentLanguage } from '../i18n/config';
 
@@ -58,6 +60,10 @@ const ui = lang === 'de'
   ? { menu: 'Menü', close: 'Schließen', about: 'Über', donate: 'Spenden', theme: 'Thema' }
   : { menu: 'Menu', close: 'Close', about: 'About', donate: 'Donate', theme: 'Theme' };
 const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${path === '/' ? 'index' : path.replace(/^\//, '')}.astro`;
+// Only advertise the markdown twin when it actually exists in static/ — otherwise agents
+// follow the alternate link into a 404. Checked at build time, so it can never drift.
+const mdHref = path === '/' ? '/index.md' : `${path}.md`;
+const hasMarkdown = existsSync(join(process.cwd(), 'static', mdHref));
 ---
 <!doctype html>
 <html lang={lang} data-theme="dark">
@@ -72,7 +78,7 @@ const editHref = `https://github.com/sein-io/dontmailme/edit/main/src/pages/${pa
   <meta name="description" content={description} />
   {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="canonical" href={canonical} />
-  <link rel="alternate" type="text/markdown" href={path === '/' ? '/index.md' : path + '.md'} />
+  {hasMarkdown && <link rel="alternate" type="text/markdown" href={mdHref} />}
   {hreflangHome && (
     <>
       <link rel="alternate" hreflang="en" href="https://dontmailme.org/" />

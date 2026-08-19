@@ -14,7 +14,8 @@ To unsubscribe, a client sends an HTTPS `POST` to that address with the body `Li
 ## Why this is safer than clicking "unsubscribe"
 
 - Clicking the link in an email body can confirm your address to spammers (more spam), or lead to a tracking/phishing page.
-- DontMailMe never reads or follows links in the body. It only acts on the authenticated `List-Unsubscribe-Post` header — a tiny, intentional POST to an address the sender published and signed.
+- DontMailMe never reads or follows links in the body. It only contacts the unsubscribe address the sender published and signed in the header — a tiny, intentional POST where one-click is offered, a plain request otherwise.
+- Only a one-click unsubscribe can be confirmed, so only then is the mail deleted. A plain request is unconfirmable (the reply is usually just a confirm-button page), so that mail is kept and only marked as read.
 
 ## Why it runs in your own cloud — "zero-data by design"
 

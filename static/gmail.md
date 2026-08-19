@@ -24,7 +24,8 @@ const ALLOWED_SENDERS = ['news@mycompany.com', 'team@substack.com'];
 ## Notes
 
 - It only acts on senders that support the RFC 8058 standard or are authenticated (SPF/DKIM pass).
-- It never reads or clicks links in the email body — only the signed `List-Unsubscribe-Post` header.
+- It never reads or clicks links in the email body — only the unsubscribe address published in the message header.
+- Mail is deleted only after a confirmed one-click unsubscribe. For authenticated senders without one-click the request cannot be confirmed, so the mail is kept and marked read.
 - A dry-run mode lets you preview before anything changes.
 - To stop it later, delete the project's time-based trigger.
 

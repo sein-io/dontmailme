@@ -64,6 +64,10 @@ RFC 8058 one-click unsubscribe:
   `List-Unsubscribe=One-Click` and Content-Type `application/x-www-form-urlencoded`.
 - Never click links inside the email body — that risks tracking/phishing. Only act on the
   authenticated header. This is why the standards path is more reliable than browser-driving.
+- A one-click POST is answered by the sender's endpoint, so a 2xx/3xx genuinely means
+  "unsubscribed" — only then may you delete the message. If a sender offers no one-click, a
+  plain GET to the List-Unsubscribe URL only *requests* removal: a 200 usually means a
+  confirm-button page, not success. Never delete a message on that signal.
 
 ## Donation (optional)
 
