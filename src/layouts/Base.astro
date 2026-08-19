@@ -304,6 +304,17 @@ const hasMarkdown = existsSync(join(process.cwd(), 'static', mdHref));
       const burger = document.querySelector('[data-nav-toggle]');
       if (burger) burger.setAttribute('aria-expanded', String(open));
       document.body.style.overflow = open ? 'hidden' : '';
+      // The drawer covers the page, so keep focus inside it. `inert` is the native way —
+      // without it, Tab walks through the content hidden behind the overlay.
+      // The rail sits outside .shell, so making the shell inert never traps the drawer itself.
+      const shell = document.querySelector('.shell');
+      if (shell) shell.toggleAttribute('inert', open);
+      if (open) {
+        const close = document.querySelector('.rail [data-nav-close]');
+        if (close) close.focus();
+      } else if (burger) {
+        burger.focus();
+      }
     }
     document.querySelectorAll('[data-nav-toggle]').forEach((b) =>
       b.addEventListener('click', () => setNav(!root.classList.contains('nav-open'))));

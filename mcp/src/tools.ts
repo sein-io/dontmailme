@@ -50,11 +50,14 @@ export function registerDontMailMeTools(server: McpServer): void {
         let note = "";
         if (allowedSenders?.length) {
           if (client === "gmail") {
-            const list = allowedSenders.map((s) => `'${s.replace(/'/g, "")}'`).join(", ");
-            // gmail.gs line 19 is exactly: const ALLOWED_SENDERS = [];
+            // Drop quotes and backslashes: either one would break out of the single-quoted
+            // string literal we inject into.
+            const list = allowedSenders.map((s) => `'${s.replace(/['\\]/g, "")}'`).join(", ");
+            // Replace via a function — a sender containing '$&' would otherwise be expanded
+            // by String.replace and corrupt the generated script.
             const replaced = script.replace(
               /const ALLOWED_SENDERS = \[\];/,
-              `const ALLOWED_SENDERS = [${list}];`,
+              () => `const ALLOWED_SENDERS = [${list}];`,
             );
             if (replaced === script) {
               note =

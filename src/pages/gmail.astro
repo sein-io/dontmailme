@@ -143,9 +143,11 @@ const jsonLd = {
       function updateScript() {
         const emails = whitelist.map((e) => "'" + esc(e) + "'").join(', ');
         const q = esc(queryInput.value.trim());
+        // Replacement *functions*, not strings: a '$&' or "$'" typed into the inputs would
+        // otherwise be expanded by String.replace and corrupt the generated script.
         scriptBlock.textContent = TEMPLATE
-          .replace('const ALLOWED_SENDERS = [];', 'const ALLOWED_SENDERS = [' + emails + '];')
-          .replace("const CUSTOM_QUERY = '';", "const CUSTOM_QUERY = '" + q + "';");
+          .replace('const ALLOWED_SENDERS = [];', () => 'const ALLOWED_SENDERS = [' + emails + '];')
+          .replace("const CUSTOM_QUERY = '';", () => "const CUSTOM_QUERY = '" + q + "';");
       }
 
       function renderChips() {
