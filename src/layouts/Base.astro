@@ -300,6 +300,9 @@ const hasMarkdown = existsSync(join(process.cwd(), 'static', mdHref));
 
     // ---- Mobile nav drawer (burger toggles the rail as an overlay) ----------
     function setNav(open) {
+      // Escape fires this on every keypress anywhere; without this guard, closing an
+      // already-closed drawer would yank focus to the burger.
+      if (root.classList.contains('nav-open') === open) return;
       root.classList.toggle('nav-open', open);
       const burger = document.querySelector('[data-nav-toggle]');
       if (burger) burger.setAttribute('aria-expanded', String(open));
